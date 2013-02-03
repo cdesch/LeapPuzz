@@ -18,13 +18,19 @@
 	CCTexture2D *spriteTexture_;	// weak ref
 	b2World* world;					// strong ref
 	GLESDebugDraw *m_debugDraw;		// strong ref
+    
+    CCSprite* targetSprite;
 }
 @end
 
 
-@interface PhysicsSprite : CCSprite
-{
+@interface PhysicsSprite : CCSprite <CCTouchEventDelegate,CCMouseEventDelegate>
+{	CGPoint target;
+	uint ticker;
+    bool hasTarget;
 	b2Body *body_;	// strong ref
 }
 -(void) setPhysicsBody:(b2Body*)body;
+-(void) setTarget:(CGPoint)p;
+-(void) delTarget;
 @end

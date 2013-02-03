@@ -25,6 +25,10 @@ enum {
 
 -(void) setPhysicsBody:(b2Body *)body
 {
+    //[[CCEventDispatcher sharedDispatcher] addMouseDelegate:self priority:0];
+    [[[CCDirector sharedDirector] eventDispatcher] addMouseDelegate:self priority:-1];
+    hasTarget = NO;
+    //[[CCTouchDispatcher sharedDispatcher] addTargetedDelegate:self priority:50 swallowsTouches:YES];
 	body_ = body;
 }
 
@@ -34,6 +38,104 @@ enum {
 -(BOOL) dirty
 {
 	return YES;
+}
+
+-(void) setTarget:(CGPoint)p
+{
+    hasTarget = YES;
+    target = p;
+}
+
+-(void) delTarget
+{
+    hasTarget = NO;
+}
+
+
+- (BOOL)ccTouchesMovedWithEvent:(NSEvent *)event{
+    
+    NSLog(@"Sprite Moved!!");
+    CGPoint point = [[CCDirector sharedDirector] convertEventToGL:event];
+    CGPoint mouseLocation = [self convertToNodeSpace:point];
+    CGPoint translation = (mouseLocation);
+
+    
+    return YES;
+    
+}
+
+- (BOOL)ccMouseDragged:(NSEvent *)event{
+    
+    //NSLog(@"Mouse dragged in Sprite");
+    if (hasTarget){
+        NSLog(@"Mouse dragged in Sprite");
+        CGPoint point = [[CCDirector sharedDirector] convertEventToGL:event];
+        //CGPoint mouseLocation = [self convertToNodeSpace:point];
+        CGPoint translation = (point);
+        
+        //NSLog(@"Dragged %0.0f , %0.0f ", translation.x, translation.y);
+            //self.position = translation;
+        //body_->Get
+        self.position = ccp(translation.x, translation.y);
+    }
+    
+    return YES;
+    
+}
+
+- (BOOL)ccMouseDown:(NSEvent *)event{
+    
+    //NSLog(@"Mouse Down");
+    
+    
+    CGPoint point = [[CCDirector sharedDirector] convertEventToGL:event];
+    //CGPoint mouseLocation = [self convertToNodeSpace:point];
+    CGPoint translation = (point);
+    //NSLog(@"Dragged %0.0f , %0.0f ", translation.x, translation.y);
+    //NSLog(@"Bouding Box %0.0f %0.0f %0.0f %0.0f", self.boundingBox.origin.x, self.boundingBox.origin.y, self.boundingBox.size.height,self.boundingBox.size.width );
+    
+    if (CGRectContainsPoint([self boundingBox], translation)){
+        NSLog(@"Sprite inside Touched");
+        [self setTarget:translation];
+        return YES;
+        
+    }
+    /*
+    CCNode *parent = [self getChildByTag:kTagParentNode];
+    for (PhysicsSprite *sprite in parent.children){
+        
+        
+        if (CGRectContainsPoint([sprite boundingBox], translation)){
+            NSLog(@"Sprite Touched");
+            
+            [self setTarget:translation ];
+            
+            //Move Sprite with
+        
+            //sprite.position = translation;
+            
+        }
+        
+    }
+     */
+    
+    return NO;
+}
+
+- (BOOL)ccMouseMoved:(NSEvent *)event{
+    
+    
+    NSLog(@"Mouse Moved in Sprite");
+    
+    return YES;
+}
+
+- (BOOL)ccMouseUp:(NSEvent *)event{
+    
+    [self delTarget];
+    
+    return YES;
+    
 }
 
 // returns the transform matrix according the Chipmunk Body values
@@ -165,8 +267,9 @@ enum {
 	
 	CGSize s = [[CCDirector sharedDirector] winSize];
 	
+    //Gravity
 	b2Vec2 gravity;
-	gravity.Set(0.0f, -10.0f);
+	gravity.Set(0.0f, 0.0f);
 	world = new b2World(gravity);
 	
 	
@@ -254,6 +357,7 @@ enum {
 	b2BodyDef bodyDef;
 	bodyDef.type = b2_dynamicBody;
 	bodyDef.position.Set(p.x/PTM_RATIO, p.y/PTM_RATIO);
+    bodyDef.userData  = sprite;
 	b2Body *body = world->CreateBody(&bodyDef);
 	
 	// Define another box shape for our dynamic body.
@@ -263,6 +367,41 @@ enum {
 	// Define the dynamic body fixture.
 	b2FixtureDef fixtureDef;
 	fixtureDef.shape = &dynamicBox;	
+	fixtureDef.density = 1.0f;
+	fixtureDef.friction = 0.3f;
+	body->CreateFixture(&fixtureDef);
+	
+	[sprite setPhysicsBody:body];
+}
+
+-(void) addPieceAtPosition:(CGPoint)p
+{
+	CCLOG(@"Add sprite %0.2f x %02.f",p.x,p.y);
+	CCNode *parent = [self getChildByTag:kTagParentNode];
+	
+	//We have a 64x64 sprite sheet with 4 different 32x32 images.  The following code is
+	//just randomly picking one of the images
+	int idx = (CCRANDOM_0_1() > .5 ? 0:1);
+	int idy = (CCRANDOM_0_1() > .5 ? 0:1);
+	PhysicsSprite *sprite = [PhysicsSprite spriteWithTexture:spriteTexture_ rect:CGRectMake(32 * idx,32 * idy,32,32)];
+	[parent addChild:sprite];
+	
+	sprite.position = ccp( p.x, p.y);
+	
+	// Define the dynamic body.
+	//Set up a 1m squared box in the physics world
+	b2BodyDef bodyDef;
+	bodyDef.type = b2_dynamicBody;
+	bodyDef.position.Set(p.x/PTM_RATIO, p.y/PTM_RATIO);
+	b2Body *body = world->CreateBody(&bodyDef);
+	
+	// Define another box shape for our dynamic body.
+	b2PolygonShape dynamicBox;
+	dynamicBox.SetAsBox(.5f, .5f);//These are mid points for our 1m box
+	
+	// Define the dynamic body fixture.
+	b2FixtureDef fixtureDef;
+	fixtureDef.shape = &dynamicBox;
 	fixtureDef.density = 1.0f;
 	fixtureDef.friction = 0.3f;
 	body->CreateFixture(&fixtureDef);
@@ -296,17 +435,91 @@ enum {
 		location = [[CCDirector sharedDirector] convertToGL: location];
 		
 		[self addNewSpriteAtPosition: location];
+        
+        
 	}
 }
 
 #elif defined(__MAC_OS_X_VERSION_MAX_ALLOWED)
+/*
+- (BOOL)ccTouchBegan:(UITouch *)touch withEvent:(UIEvent *)event {
+    CGPoint touchLocation = [self convertTouchToNodeSpace:touch];
+    [self selectSpriteForTouch:touchLocation];
+    return TRUE;
+}
+ */
+
+
+
+- (BOOL)ccMouseDragged:(NSEvent *)event {
+    
+    
+    
+    //NSLog(@"Mouse Dragged");
+
+    
+    //[self panForTranslation:translation];
+    
+    if (targetSprite != nil){
+        CGPoint point = [[CCDirector sharedDirector] convertEventToGL:event];
+        CGPoint mouseLocation = [self convertToNodeSpace:point];
+        CGPoint translation = (mouseLocation);
+
+        targetSprite.position = translation;
+        
+    }
+    
+    return YES;
+}
+
 
 - (BOOL) ccMouseDown:(NSEvent *)event
 {
-	CGPoint location = [(CCDirectorMac*)[CCDirector sharedDirector] convertEventToGL:event];
-	[self addNewSpriteAtPosition: location];
+    /*
+    NSLog(@"Mouse Down");
+    
+    //Cycle through each child and see if it is selected
 	
+    CGPoint point = [[CCDirector sharedDirector] convertEventToGL:event];
+    CGPoint mouseLocation = [self convertToNodeSpace:point];
+    CGPoint translation = (mouseLocation);
+    
+    CCNode *parent = [self getChildByTag:kTagParentNode];
+    for (PhysicsSprite *sprite in parent.children){
+        
+        
+        if (CGRectContainsPoint([sprite boundingBox], translation)){
+            NSLog(@"Sprite Touched");
+            
+            targetSprite = sprite;
+            
+            //Move Sprite with
+            
+            [sprite setPosition:translation];
+            //sprite.position = translation;
+            
+        }
+     
+    }*/
+    
 	return YES;
+}
+
+
+
+- (BOOL)ccMouseUp:(NSEvent *)event{
+    
+    //Create a new one if there is no target
+    if (targetSprite == nil){
+        CGPoint location = [(CCDirectorMac*)[CCDirector sharedDirector] convertEventToGL:event];
+        [self addNewSpriteAtPosition: location];
+    }
+    
+    //Reset the target
+    targetSprite = nil;
+
+    
+    return YES;
 }
 #endif
 
