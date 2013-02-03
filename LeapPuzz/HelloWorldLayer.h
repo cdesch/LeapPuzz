@@ -20,6 +20,9 @@
 	GLESDebugDraw *m_debugDraw;		// strong ref
     
     CCSprite* targetSprite;
+    b2MouseJoint *_mouseJoint;
+    b2World* _world;
+    b2Body *_groundBody;
 }
 @end
 

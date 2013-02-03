@@ -26,7 +26,7 @@ enum {
 -(void) setPhysicsBody:(b2Body *)body
 {
     //[[CCEventDispatcher sharedDispatcher] addMouseDelegate:self priority:0];
-    [[[CCDirector sharedDirector] eventDispatcher] addMouseDelegate:self priority:-1];
+    //[[[CCDirector sharedDirector] eventDispatcher] addMouseDelegate:self priority:-1];
     hasTarget = NO;
     //[[CCTouchDispatcher sharedDispatcher] addTargetedDelegate:self priority:50 swallowsTouches:YES];
 	body_ = body;
@@ -223,7 +223,7 @@ enum {
 		
 		[self addNewSpriteAtPosition:ccp(s.width/2, s.height/2)];
 		
-		CCLabelTTF *label = [CCLabelTTF labelWithString:@"Tap screen" fontName:@"Marker Felt" fontSize:32];
+		CCLabelTTF *label = [CCLabelTTF labelWithString:@"LeapPuzz" fontName:@"Marker Felt" fontSize:32];
 		[self addChild:label z:0];
 		[label setColor:ccc3(0,0,255)];
 		label.position = ccp( s.width/2, s.height-50);
@@ -280,6 +280,8 @@ enum {
 	
 	m_debugDraw = new GLESDebugDraw( PTM_RATIO );
 	world->SetDebugDraw(m_debugDraw);
+    
+    _world = world;
 	
 	uint32 flags = 0;
 	flags += b2Draw::e_shapeBit;
@@ -318,6 +320,8 @@ enum {
 	// right
 	groundBox.Set(b2Vec2(s.width/PTM_RATIO,s.height/PTM_RATIO), b2Vec2(s.width/PTM_RATIO,0));
 	groundBody->CreateFixture(&groundBox,0);
+    
+    _groundBody = groundBody;
 }
 
 -(void) draw
@@ -451,76 +455,109 @@ enum {
 
 
 
-- (BOOL)ccMouseDragged:(NSEvent *)event {
-    
-    
-    
-    //NSLog(@"Mouse Dragged");
 
-    
-    //[self panForTranslation:translation];
-    
-    if (targetSprite != nil){
-        CGPoint point = [[CCDirector sharedDirector] convertEventToGL:event];
-        CGPoint mouseLocation = [self convertToNodeSpace:point];
-        CGPoint translation = (mouseLocation);
+#pragma mark - Touch Handling
 
-        targetSprite.position = translation;
-        
-    }
+- (BOOL) ccMouseDown:(NSEvent *)event{
     
-    return YES;
-}
-
-
-- (BOOL) ccMouseDown:(NSEvent *)event
-{
-    /*
-    NSLog(@"Mouse Down");
+    if (_mouseJoint != NULL) return NO;
     
-    //Cycle through each child and see if it is selected
-	
+
     CGPoint point = [[CCDirector sharedDirector] convertEventToGL:event];
     CGPoint mouseLocation = [self convertToNodeSpace:point];
     CGPoint translation = (mouseLocation);
+    CGPoint location = translation;
+    //location = [[CCDirector sharedDirector] convertToGL:location];
+    b2Vec2 locationWorld = b2Vec2(location.x/PTM_RATIO, location.y/PTM_RATIO);
     
-    CCNode *parent = [self getChildByTag:kTagParentNode];
-    for (PhysicsSprite *sprite in parent.children){
+    
+    // Loop through all of the Box2D bodies in our Box2D world..
+    for(b2Body *b = _world->GetBodyList(); b; b=b->GetNext()) {
         
         
-        if (CGRectContainsPoint([sprite boundingBox], translation)){
-            NSLog(@"Sprite Touched");
+        // See if there's any user data attached to the Box2D body
+        // There should be, since we set it in addBoxBodyForSprite
+        
+        if (b->GetUserData() != NULL) {
+            // We know that the user data is a sprite since we set
+            // it that way, so cast it...
             
-            targetSprite = sprite;
+            PhysicsSprite *sprite = (PhysicsSprite *)b->GetUserData();
             
-            //Move Sprite with
             
-            [sprite setPosition:translation];
-            //sprite.position = translation;
-            
+            for(b2Fixture *fixture = b->GetFixtureList(); fixture; fixture=fixture->GetNext()) {
+                
+                if(fixture->TestPoint(locationWorld)){
+                    //NSLog(@"Touched itemType %d", sprite.itemType);
+                    b2MouseJointDef md;
+                    md.bodyA = _groundBody;
+                    md.bodyB = b;
+                    md.target = locationWorld;
+                    md.collideConnected = true;
+                    md.maxForce = 1000.0f * b->GetMass();
+                    
+                    _mouseJoint = (b2MouseJoint *)_world->CreateJoint(&md);
+                    b->SetAwake(true);
+                }else{
+                    //NSLog(@"NOT TOUCHED");
+                }
+            }
         }
-     
-    }*/
-    
-	return YES;
-}
-
-
-
-- (BOOL)ccMouseUp:(NSEvent *)event{
-    
-    //Create a new one if there is no target
-    if (targetSprite == nil){
-        CGPoint location = [(CCDirectorMac*)[CCDirector sharedDirector] convertEventToGL:event];
-        [self addNewSpriteAtPosition: location];
     }
-    
-    //Reset the target
-    targetSprite = nil;
-
-    
     return YES;
 }
+
+- (BOOL)ccMouseDragged:(NSEvent *)event {
+    
+    if (_mouseJoint == NULL) return NO;
+    
+
+    CGPoint point = [[CCDirector sharedDirector] convertEventToGL:event];
+    CGPoint mouseLocation = [self convertToNodeSpace:point];
+    CGPoint translation = (mouseLocation);
+    CGPoint location = translation;
+    //location = [[CCDirector sharedDirector] convertToGL:location];
+    b2Vec2 locationWorld = b2Vec2(location.x/PTM_RATIO, location.y/PTM_RATIO);
+    
+    _mouseJoint->SetTarget(locationWorld);
+    
+    return YES;
+    
+}
+
+- (BOOL)ccMouseUp:(NSEvent *)event{
+    if (_mouseJoint) {
+        _world->DestroyJoint(_mouseJoint);
+        _mouseJoint = NULL;
+        
+        //Check for any dangling mouse joints
+        if(_world->GetJointCount() > 0){
+            //NSLog(@"Found %d Extra Joints", _world->GetJointCount() );
+            for(b2Joint *b = _world->GetJointList(); b; b=b->GetNext()) {
+                //NSLog(@"Destproying the Dangling Joint");
+                //Should check type first
+                if(b){
+                    _world->DestroyJoint(b);
+                    b = NULL;
+                    return YES;
+                }
+            }
+        }
+    }else{
+        
+        
+        CGPoint point = [[CCDirector sharedDirector] convertEventToGL:event];
+        CGPoint mouseLocation = [self convertToNodeSpace:point];
+        CGPoint translation = (mouseLocation);
+        CGPoint location = translation;
+    
+		
+		[self addNewSpriteAtPosition: location];
+        
+    }
+    return YES;
+}
+
 #endif
 
 @end
