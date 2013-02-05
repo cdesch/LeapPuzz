@@ -171,10 +171,10 @@
 		23DD600416BEEEBE00315D0A /* GLES-Render.mm in Sources */ = {isa = PBXBuildFile; fileRef = 23DD600316BEEEBE00315D0A /* GLES-Render.mm */; };
 		23DD600616BEEEBE00315D0A /* blocks.png in Resources */ = {isa = PBXBuildFile; fileRef = 23DD600516BEEEBE00315D0A /* blocks.png */; };
 		23DD600E16BEEFD800315D0A /* Piece.mm in Sources */ = {isa = PBXBuildFile; fileRef = 23DD600D16BEEFD800315D0A /* Piece.mm */; };
+		23E113B416C1A48E00D26FF6 /* libLeap.dylib in Resources */ = {isa = PBXBuildFile; fileRef = 23FE2E8616C0AA4C0070A25D /* libLeap.dylib */; };
 		23FE2E1416C0A6140070A25D /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 23FE2E1316C0A6140070A25D /* Cocoa.framework */; };
 		23FE2E8716C0AA4C0070A25D /* libLeap.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 23FE2E8616C0AA4C0070A25D /* libLeap.dylib */; };
 		23FE2E8C16C0AB300070A25D /* libLeap.dylib in CopyFiles */ = {isa = PBXBuildFile; fileRef = 23FE2E8616C0AA4C0070A25D /* libLeap.dylib */; };
-		23FE2E9516C0AD270070A25D /* libLeap.dylib in Resources */ = {isa = PBXBuildFile; fileRef = 23FE2E8616C0AA4C0070A25D /* libLeap.dylib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -1211,7 +1211,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				23FE2E9516C0AD270070A25D /* libLeap.dylib in Resources */,
+				23E113B416C1A48E00D26FF6 /* libLeap.dylib in Resources */,
 				23DD5DFC16BEEEB900315D0A /* InfoPlist.strings in Resources */,
 				23DD5DFF16BEEEB900315D0A /* MainMenu.xib in Resources */,
 				23DD5E0116BEEEB900315D0A /* fps_images.png in Resources */,
@@ -1464,8 +1464,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = YES;
-				CLANG_CXX_LANGUAGE_STANDARD = "compiler-default";
-				CLANG_CXX_LIBRARY = "compiler-default";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libstdc++";
 				COPY_PHASE_STRIP = NO;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
@@ -1492,8 +1492,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = YES;
-				CLANG_CXX_LANGUAGE_STANDARD = "compiler-default";
-				CLANG_CXX_LIBRARY = "compiler-default";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libstdc++";
 				COPY_PHASE_STRIP = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
