@@ -171,7 +171,24 @@
 		23DD600416BEEEBE00315D0A /* GLES-Render.mm in Sources */ = {isa = PBXBuildFile; fileRef = 23DD600316BEEEBE00315D0A /* GLES-Render.mm */; };
 		23DD600616BEEEBE00315D0A /* blocks.png in Resources */ = {isa = PBXBuildFile; fileRef = 23DD600516BEEEBE00315D0A /* blocks.png */; };
 		23DD600E16BEEFD800315D0A /* Piece.mm in Sources */ = {isa = PBXBuildFile; fileRef = 23DD600D16BEEFD800315D0A /* Piece.mm */; };
+		23FE2E1416C0A6140070A25D /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 23FE2E1316C0A6140070A25D /* Cocoa.framework */; };
+		23FE2E8716C0AA4C0070A25D /* libLeap.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 23FE2E8616C0AA4C0070A25D /* libLeap.dylib */; };
+		23FE2E8C16C0AB300070A25D /* libLeap.dylib in CopyFiles */ = {isa = PBXBuildFile; fileRef = 23FE2E8616C0AA4C0070A25D /* libLeap.dylib */; };
+		23FE2E9516C0AD270070A25D /* libLeap.dylib in Resources */ = {isa = PBXBuildFile; fileRef = 23FE2E8616C0AA4C0070A25D /* libLeap.dylib */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		23FE2E1616C0A8590070A25D /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 6;
+			files = (
+				23FE2E8C16C0AB300070A25D /* libLeap.dylib in CopyFiles */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		23DD5DE816BEEEB900315D0A /* LeapPuzz.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LeapPuzz.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -526,6 +543,12 @@
 		23DD600516BEEEBE00315D0A /* blocks.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = blocks.png; path = Resources/blocks.png; sourceTree = "<group>"; };
 		23DD600C16BEEFD800315D0A /* Piece.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Piece.h; sourceTree = "<group>"; };
 		23DD600D16BEEFD800315D0A /* Piece.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = Piece.mm; sourceTree = "<group>"; };
+		23FE2E1316C0A6140070A25D /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
+		23FE2E8616C0AA4C0070A25D /* libLeap.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; path = libLeap.dylib; sourceTree = "<group>"; };
+		23FE2E8816C0AA5E0070A25D /* Leap.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Leap.h; sourceTree = "<group>"; };
+		23FE2E8916C0AA5E0070A25D /* LeapMath.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LeapMath.h; sourceTree = "<group>"; };
+		23FE2E8A16C0AA5E0070A25D /* LeapObjectiveC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LeapObjectiveC.h; sourceTree = "<group>"; };
+		23FE2E8B16C0AA5E0070A25D /* LeapObjectiveC.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = LeapObjectiveC.mm; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -533,12 +556,14 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				23FE2E1416C0A6140070A25D /* Cocoa.framework in Frameworks */,
 				23DD5DEC16BEEEB900315D0A /* QuartzCore.framework in Frameworks */,
 				23DD5DEE16BEEEB900315D0A /* OpenGL.framework in Frameworks */,
 				23DD5DF016BEEEB900315D0A /* OpenAL.framework in Frameworks */,
 				23DD5DF216BEEEB900315D0A /* AudioToolbox.framework in Frameworks */,
 				23DD5DF416BEEEB900315D0A /* AppKit.framework in Frameworks */,
 				23DD5DF616BEEEB900315D0A /* Foundation.framework in Frameworks */,
+				23FE2E8716C0AA4C0070A25D /* libLeap.dylib in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -565,6 +590,8 @@
 		23DD5DEA16BEEEB900315D0A /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				23FE2E8616C0AA4C0070A25D /* libLeap.dylib */,
+				23FE2E1316C0A6140070A25D /* Cocoa.framework */,
 				23DD5DEB16BEEEB900315D0A /* QuartzCore.framework */,
 				23DD5DED16BEEEB900315D0A /* OpenGL.framework */,
 				23DD5DEF16BEEEB900315D0A /* OpenAL.framework */,
@@ -578,6 +605,10 @@
 		23DD5DF716BEEEB900315D0A /* LeapPuzz */ = {
 			isa = PBXGroup;
 			children = (
+				23FE2E8816C0AA5E0070A25D /* Leap.h */,
+				23FE2E8916C0AA5E0070A25D /* LeapMath.h */,
+				23FE2E8A16C0AA5E0070A25D /* LeapObjectiveC.h */,
+				23FE2E8B16C0AA5E0070A25D /* LeapObjectiveC.mm */,
 				23DD5FFC16BEEEBE00315D0A /* AppDelegate.h */,
 				23DD5FFD16BEEEBE00315D0A /* AppDelegate.mm */,
 				23DD5FFF16BEEEBE00315D0A /* HelloWorldLayer.h */,
@@ -1137,6 +1168,8 @@
 				23DD5DE416BEEEB900315D0A /* Sources */,
 				23DD5DE516BEEEB900315D0A /* Frameworks */,
 				23DD5DE616BEEEB900315D0A /* Resources */,
+				23FE2E1616C0A8590070A25D /* CopyFiles */,
+				23FE2E9616C0AF3A0070A25D /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -1178,6 +1211,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				23FE2E9516C0AD270070A25D /* libLeap.dylib in Resources */,
 				23DD5DFC16BEEEB900315D0A /* InfoPlist.strings in Resources */,
 				23DD5DFF16BEEEB900315D0A /* MainMenu.xib in Resources */,
 				23DD5E0116BEEEB900315D0A /* fps_images.png in Resources */,
@@ -1188,6 +1222,22 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		23FE2E9616C0AF3A0070A25D /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# print some debug information\necho TARGET_BUILD_DIR=${TARGET_BUILD_DIR}\necho TARGET_NAME=${TARGET_NAME}\ncd ${TARGET_BUILD_DIR}/${TARGET_NAME}.app/Contents/MacOS\nls -la\n# then remap the loader path\ninstall_name_tool -change @loader_path/libLeap.dylib @executable_path/../Resources/libLeap.dylib ${TARGET_NAME}";
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		23DD5DE416BEEEB900315D0A /* Sources */ = {
@@ -1414,6 +1464,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "compiler-default";
+				CLANG_CXX_LIBRARY = "compiler-default";
 				COPY_PHASE_STRIP = NO;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
@@ -1421,6 +1473,10 @@
 				GCC_PREFIX_HEADER = LeapPuzz/Prefix.pch;
 				HEADER_SEARCH_PATHS = "\"LeapPuzz/libs/kazmath/include\"";
 				INFOPLIST_FILE = LeapPuzz/Resources/Info.plist;
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)\"",
+				);
 				MACOSX_DEPLOYMENT_TARGET = 10.7;
 				OTHER_LDFLAGS = (
 					"-lz",
@@ -1436,6 +1492,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "compiler-default";
+				CLANG_CXX_LIBRARY = "compiler-default";
 				COPY_PHASE_STRIP = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
@@ -1443,6 +1501,10 @@
 				GCC_PREFIX_HEADER = LeapPuzz/Prefix.pch;
 				HEADER_SEARCH_PATHS = "\"LeapPuzz/libs/kazmath/include\"";
 				INFOPLIST_FILE = LeapPuzz/Resources/Info.plist;
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)\"",
+				);
 				MACOSX_DEPLOYMENT_TARGET = 10.7;
 				OTHER_LDFLAGS = (
 					"-lz",
@@ -1473,6 +1535,7 @@
 				23DD600B16BEEEBE00315D0A /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
