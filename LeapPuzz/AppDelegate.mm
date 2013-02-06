@@ -45,12 +45,6 @@
 	return YES;
 }
 
-- (void)dealloc
-{
-	[[CCDirector sharedDirector] end];
-	[window_ release];
-	[super dealloc];
-}
 
 #pragma mark AppDelegate - IBActions
 

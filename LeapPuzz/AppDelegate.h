@@ -14,8 +14,8 @@
 	CCGLView	*glView_;
 }
 
-@property (assign) IBOutlet NSWindow	*window;
-@property (assign) IBOutlet CCGLView	*glView;
+@property (strong) IBOutlet NSWindow	*window;
+@property (strong) IBOutlet CCGLView	*glView;
 
 - (IBAction)toggleFullScreen:(id)sender;
 

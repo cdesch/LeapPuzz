@@ -169,11 +169,6 @@ enum {
 	return transform_;
 }
 
--(void) dealloc
-{
-	// 
-	[super dealloc];
-}
 
 @end
 
@@ -310,17 +305,6 @@ enum {
 
 #pragma mark - 
 
-- (void) dealloc
-{
-	delete world;
-	world = NULL;
-	
-	delete m_debugDraw;
-	m_debugDraw = NULL;
-	
-	[super dealloc];
-}	
-
 -(void) createResetButton
 {
 	CCMenuItemLabel *reset = [CCMenuItemFont itemWithString:@"Reset" block:^(id sender){
@@ -438,7 +422,9 @@ enum {
 	b2BodyDef bodyDef;
 	bodyDef.type = b2_dynamicBody;
 	bodyDef.position.Set(p.x/PTM_RATIO, p.y/PTM_RATIO);
-    bodyDef.userData  = sprite;
+
+    //bodyDef.userData  = (void *) CFBridgingRetain(sprite);
+    bodyDef.userData  = (__bridge void *)sprite;
 	b2Body *body = world->CreateBody(&bodyDef);
 	
 	// Define another box shape for our dynamic body.
@@ -559,7 +545,7 @@ enum {
             // We know that the user data is a sprite since we set
             // it that way, so cast it...
             
-            PhysicsSprite *sprite = (PhysicsSprite *)b->GetUserData();
+            //PhysicsSprite *sprite = (PhysicsSprite *)CFBridgingRelease(b->GetUserData());
             
             
             for(b2Fixture *fixture = b->GetFixtureList(); fixture; fixture=fixture->GetNext()) {
