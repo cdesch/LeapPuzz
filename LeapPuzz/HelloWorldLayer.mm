@@ -52,17 +52,7 @@ enum {
 }
 
 
-- (BOOL)ccTouchesMovedWithEvent:(NSEvent *)event{
-    
-    NSLog(@"Sprite Moved!!");
-    CGPoint point = [[CCDirector sharedDirector] convertEventToGL:event];
-    CGPoint mouseLocation = [self convertToNodeSpace:point];
-    CGPoint translation = (mouseLocation);
 
-    
-    return YES;
-    
-}
 
 - (BOOL)ccMouseDragged:(NSEvent *)event{
     
@@ -225,6 +215,10 @@ enum {
 		
 		[self scheduleUpdate];
         
+        trackableList = [[NSMutableDictionary alloc] init];
+        
+        [self run];
+        
 
 	}
 	return self;
@@ -263,10 +257,12 @@ enum {
 {
     // Get the most recent frame and report some basic information
     LeapFrame *frame = [aController frame:0];
+    /*
     NSLog(@"Frame id: %lld, timestamp: %lld, hands: %ld, fingers: %ld, tools: %ld",
           [frame id], [frame timestamp], [[frame hands] count],
           [[frame fingers] count], [[frame tools] count]);
     
+     */
     if ([[frame hands] count] != 0) {
         // Get the first hand
         LeapHand *hand = [[frame hands] objectAtIndex:0];
@@ -279,31 +275,70 @@ enum {
             for (int i = 0; i < [fingers count]; i++) {
                 LeapFinger *finger = [fingers objectAtIndex:i];
                 avgPos = [avgPos plus:[finger tipPosition]];
+                
+                NSString* fingerID = [NSString stringWithFormat:@"%d", finger.id];
+                
+                //Check if the Finger ID exists in the list already
+                if ([trackableList objectForKey:fingerID]) {
+                    
+                    //If it does exist update the position on the screen
+                    CCSprite* sprite = [trackableList objectForKey:fingerID];
+                    sprite.position = CGPointMake(finger.tipPosition.x, finger.tipPosition.y);
+                    
+                }else{
+                    
+                    
+                    NSLog(@"x %0.0f y %0.0f z %0.0f", finger.tipPosition.x, finger.tipPosition.y, finger.tipPosition.z);
+                   // CGPoint point = [[CCDirector sharedDirector] convertEventToGL:event];
+                    //CGPoint mouseLocation = [self convertToNodeSpace:point];
+                
+                    //Add it to the dictionary
+                    RedDot* redDot = [self addRedDot: CGPointMake(finger.tipPosition.x, finger.tipPosition.y)];
+                    [trackableList setObject:redDot forKey:fingerID];
+                    NSLog(@"here");
+                }
+                
             }
+            
             avgPos = [avgPos divide:[fingers count]];
-            NSLog(@"Hand has %ld fingers, average finger tip position %@",
-                  [fingers count], avgPos);
+            
+            
+            //NSLog(@"Hand has %ld fingers, average finger tip position %@", [fingers count], avgPos);
+            for (LeapFinger* finger in fingers){
+                
+                //NSLog(@"Finger ID %d %ld", finger.id, (unsigned long)[finger hash]);
+            }
+            
         }
         
         // Get the hand's sphere radius and palm position
+        /*
         NSLog(@"Hand sphere radius: %f mm, palm position: %@",
               [hand sphereRadius], [hand palmPosition]);
-        
+        */
         // Get the hand's normal vector and direction
         const LeapVector *normal = [hand palmNormal];
         const LeapVector *direction = [hand direction];
         
+        /*
         // Calculate the hand's pitch, roll, and yaw angles
         NSLog(@"Hand pitch: %f degrees, roll: %f degrees, yaw: %f degrees\n",
               [direction pitch] * LEAP_RAD_TO_DEG,
               [normal roll] * LEAP_RAD_TO_DEG,
               [direction yaw] * LEAP_RAD_TO_DEG);
+         */
     }
 }
 
 
+- (void)moveRedDot{
+    
+ 
+    
+}
 
-#pragma mark - 
+
+#pragma mark -
 
 -(void) createResetButton
 {
@@ -401,6 +436,20 @@ enum {
 	world->DrawDebugData();	
 	
 	kmGLPopMatrix();
+}
+
+- (RedDot*)addRedDot:(CGPoint)p{
+    CCNode *parent = [self getChildByTag:kTagParentNode];
+    int idx = (CCRANDOM_0_1() > .5 ? 0:1);
+	int idy = (CCRANDOM_0_1() > .5 ? 0:1);
+    
+	//RedDot *sprite = [RedDot spriteWithFile:@"redcrosshair.png"];
+    RedDot *sprite = [RedDot spriteWithTexture:spriteTexture_ rect:CGRectMake(32 * idx,32 * idy,32,32)];		
+	[parent addChild:sprite];
+
+    sprite.position = ccp( p.x, p.y);
+    
+    return sprite;
 }
 
 -(void) addNewSpriteAtPosition:(CGPoint)p

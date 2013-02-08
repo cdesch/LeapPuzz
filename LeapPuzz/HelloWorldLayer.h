@@ -12,7 +12,7 @@
 #import "Box2D.h"
 #import "GLES-Render.h"
 #import "LeapObjectiveC.h"
-
+#import "RedDot.h"
 
 // HelloWorldLayer
 @interface HelloWorldLayer : CCLayer <LeapDelegate>
@@ -28,11 +28,15 @@
     b2MouseJoint *_mouseJoint;
     b2World* _world;
     b2Body *_groundBody;
+    
+       
+    NSMutableDictionary* trackableList;
+    
 }
 @end
 
 
-@interface PhysicsSprite : CCSprite <CCTouchEventDelegate,CCMouseEventDelegate>
+@interface PhysicsSprite : CCSprite <CCMouseEventDelegate>
 {	CGPoint target;
 	uint ticker;
     bool hasTarget;

@@ -8,6 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		2391954A16C2228200706CBF /* LeapObjectiveC.mm in Sources */ = {isa = PBXBuildFile; fileRef = 23FE2E8B16C0AA5E0070A25D /* LeapObjectiveC.mm */; };
+		23BEA7A216C48FC200B7A4EE /* darkreddot.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 23BEA79F16C48FC200B7A4EE /* darkreddot.jpg */; };
+		23BEA7A316C48FC200B7A4EE /* reddot.png in Resources */ = {isa = PBXBuildFile; fileRef = 23BEA7A016C48FC200B7A4EE /* reddot.png */; };
+		23BEA7A416C48FC200B7A4EE /* redcrosshair.png in Resources */ = {isa = PBXBuildFile; fileRef = 23BEA7A116C48FC200B7A4EE /* redcrosshair.png */; };
 		23DD5DEC16BEEEB900315D0A /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 23DD5DEB16BEEEB900315D0A /* QuartzCore.framework */; };
 		23DD5DEE16BEEEB900315D0A /* OpenGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 23DD5DED16BEEEB900315D0A /* OpenGL.framework */; };
 		23DD5DF016BEEEB900315D0A /* OpenAL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 23DD5DEF16BEEEB900315D0A /* OpenAL.framework */; };
@@ -172,6 +175,7 @@
 		23DD600416BEEEBE00315D0A /* GLES-Render.mm in Sources */ = {isa = PBXBuildFile; fileRef = 23DD600316BEEEBE00315D0A /* GLES-Render.mm */; };
 		23DD600616BEEEBE00315D0A /* blocks.png in Resources */ = {isa = PBXBuildFile; fileRef = 23DD600516BEEEBE00315D0A /* blocks.png */; };
 		23DD600E16BEEFD800315D0A /* Piece.mm in Sources */ = {isa = PBXBuildFile; fileRef = 23DD600D16BEEFD800315D0A /* Piece.mm */; };
+		23DF4E9416C457BE00D70A21 /* RedDot.mm in Sources */ = {isa = PBXBuildFile; fileRef = 23DF4E9316C457BE00D70A21 /* RedDot.mm */; };
 		23E113B416C1A48E00D26FF6 /* libLeap.dylib in Resources */ = {isa = PBXBuildFile; fileRef = 23FE2E8616C0AA4C0070A25D /* libLeap.dylib */; };
 		23FE2E1416C0A6140070A25D /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 23FE2E1316C0A6140070A25D /* Cocoa.framework */; };
 		23FE2E8716C0AA4C0070A25D /* libLeap.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 23FE2E8616C0AA4C0070A25D /* libLeap.dylib */; };
@@ -192,6 +196,9 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		23BEA79F16C48FC200B7A4EE /* darkreddot.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = darkreddot.jpg; sourceTree = "<group>"; };
+		23BEA7A016C48FC200B7A4EE /* reddot.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = reddot.png; sourceTree = "<group>"; };
+		23BEA7A116C48FC200B7A4EE /* redcrosshair.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = redcrosshair.png; sourceTree = "<group>"; };
 		23DD5DE816BEEEB900315D0A /* LeapPuzz.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LeapPuzz.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		23DD5DEB16BEEEB900315D0A /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		23DD5DED16BEEEB900315D0A /* OpenGL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGL.framework; path = System/Library/Frameworks/OpenGL.framework; sourceTree = SDKROOT; };
@@ -544,6 +551,8 @@
 		23DD600516BEEEBE00315D0A /* blocks.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = blocks.png; path = Resources/blocks.png; sourceTree = "<group>"; };
 		23DD600C16BEEFD800315D0A /* Piece.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Piece.h; sourceTree = "<group>"; };
 		23DD600D16BEEFD800315D0A /* Piece.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = Piece.mm; sourceTree = "<group>"; };
+		23DF4E9216C457BE00D70A21 /* RedDot.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RedDot.h; sourceTree = "<group>"; };
+		23DF4E9316C457BE00D70A21 /* RedDot.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = RedDot.mm; sourceTree = "<group>"; };
 		23FE2E1316C0A6140070A25D /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
 		23FE2E8616C0AA4C0070A25D /* libLeap.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; path = libLeap.dylib; sourceTree = "<group>"; };
 		23FE2E8816C0AA5E0070A25D /* Leap.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Leap.h; sourceTree = "<group>"; };
@@ -616,6 +625,8 @@
 				23DD600016BEEEBE00315D0A /* HelloWorldLayer.mm */,
 				23DD600C16BEEFD800315D0A /* Piece.h */,
 				23DD600D16BEEFD800315D0A /* Piece.mm */,
+				23DF4E9216C457BE00D70A21 /* RedDot.h */,
+				23DF4E9316C457BE00D70A21 /* RedDot.mm */,
 				23DD600216BEEEBE00315D0A /* GLES-Render.h */,
 				23DD600316BEEEBE00315D0A /* GLES-Render.mm */,
 				23DD5DF816BEEEB900315D0A /* Resources */,
@@ -628,6 +639,9 @@
 		23DD5DF816BEEEB900315D0A /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				23BEA79F16C48FC200B7A4EE /* darkreddot.jpg */,
+				23BEA7A016C48FC200B7A4EE /* reddot.png */,
+				23BEA7A116C48FC200B7A4EE /* redcrosshair.png */,
 				23DD5E0016BEEEB900315D0A /* fps_images.png */,
 				23DD5E0216BEEEB900315D0A /* icon.icns */,
 				23DD5E0416BEEEB900315D0A /* Info.plist */,
@@ -1219,6 +1233,9 @@
 				23DD5E0316BEEEB900315D0A /* icon.icns in Resources */,
 				23DD5FDC16BEEEBE00315D0A /* ChangeLog in Resources */,
 				23DD600616BEEEBE00315D0A /* blocks.png in Resources */,
+				23BEA7A216C48FC200B7A4EE /* darkreddot.jpg in Resources */,
+				23BEA7A316C48FC200B7A4EE /* reddot.png in Resources */,
+				23BEA7A416C48FC200B7A4EE /* redcrosshair.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1398,6 +1415,7 @@
 				23DD600116BEEEBE00315D0A /* HelloWorldLayer.mm in Sources */,
 				23DD600416BEEEBE00315D0A /* GLES-Render.mm in Sources */,
 				23DD600E16BEEFD800315D0A /* Piece.mm in Sources */,
+				23DF4E9416C457BE00D70A21 /* RedDot.mm in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
