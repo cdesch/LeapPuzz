@@ -172,6 +172,8 @@
         [self run];
         fingerTracked = FALSE;
         
+        [self addFingerJoint];
+        
     }
     return self;
     
@@ -231,7 +233,7 @@
                 avgPos = [avgPos plus:[finger tipPosition]];
                 
                 NSString* fingerID = [NSString stringWithFormat:@"%d", finger.id];
-                
+                /*
                 //Check if the Finger ID exists in the list already
                 if ([trackableList objectForKey:fingerID]) {
                     
@@ -249,21 +251,13 @@
                     TrackedFinger* redDot = [[TrackedFinger alloc] initWithID:fingerID];
                     [trackableList setObject:redDot forKey:fingerID];
                 }
+                 */
             }
             
             avgPos = [avgPos divide:[fingers count]];
+            NSLog(@"x %0.0f y %0.0f z %0.0f", avgPos.x, avgPos.y, avgPos.z);
+            [self fingerMoved:CGPointMake(avgPos.x, avgPos.y)];
             
-            
-            //[self fingerFound:CGPointMake(avgPos.x, avgPos.y)];
-            //[self fingerMoved:CGPointMake(avgPos.x, avgPos.y)];
-            if(fingerTracked){
-                
-                [self fingerMoved:CGPointMake(avgPos.x, avgPos.y)];
-                
-            }else{
-                
-                [self fingerFound:CGPointMake(avgPos.x, avgPos.y)];
-            }
             
             //NSLog(@"Hand has %ld fingers, average finger tip position %@", [fingers count], avgPos);
             for (LeapFinger* finger in fingers){
@@ -273,7 +267,7 @@
             
         }
         
-        [self checkFingerExists];
+        //[self checkFingerExists];
         
         // Get the hand's sphere radius and palm position
         /*
@@ -390,7 +384,7 @@
     
     CGSize s = [[CCDirector sharedDirector] winSize];
     float screenCenter = 0.0f;
-    float xScale = 1.75f;
+    float xScale = 3.0f;
     float yScale = 1.25f;
     return CGPointMake((s.width/2)+ (( p.x - screenCenter) * xScale), p.y * yScale);
 }
@@ -416,23 +410,40 @@
     }
 }
 
+- (void)addFingerJoint{
+    
+    b2MouseJointDef md;
+    md.bodyA = _groundBody;
+    md.bodyB = _paddleBody;
+    
+    md.target = _paddleBody->GetPosition();
+    md.collideConnected = true;
+    md.maxForce = 1000.0f * _paddleBody->GetMass();
+    
+    _fingerJoint = (b2MouseJoint *)_world->CreateJoint(&md);
+    _paddleBody->SetAwake(true);
+
+}
+
+
 - (void)fingerFound:(CGPoint)point{
     
     
 
     if (_mouseJoint != NULL) return;
     fingerTracked = TRUE;
-    NSLog(@">>> Entering %s <<<", __PRETTY_FUNCTION__);
+
     /*
      UITouch *myTouch = [touches anyObject];
      CGPoint location = [myTouch locationInView:[myTouch view]];
      location = [[CCDirector sharedDirector] convertToGL:location];
      */
     //CGPoint point = [[CCDirector sharedDirector] convertEventToGL:event];
-    CGPoint mouseLocation = [self convertToNodeSpace:point];
-    CGPoint translation = (mouseLocation);
-    CGPoint location = translation;
-    
+    //CGPoint mouseLocation = [self convertToNodeSpace:point];
+    //CGPoint translation = (mouseLocation);
+    //CGPoint location = translation;
+    CGPoint location = [self covertLeapCoordinates:point];
+    NSLog(@"Dragged %0.0f , %0.0f ", location.x, location.y);
     b2Vec2 locationWorld = b2Vec2(location.x/PTM_RATIO, location.y/PTM_RATIO);
     
     if (_paddleFixture->TestPoint(locationWorld)) {
@@ -453,24 +464,26 @@
 - (void)fingerMoved:(CGPoint)point{
    
 
-    if (_mouseJoint == NULL) return;
-     NSLog(@">>> Entering %s <<<", __PRETTY_FUNCTION__);
-    //CGPoint point = [[CCDirector sharedDirector] convertEventToGL:event];
-    CGPoint mouseLocation = [self convertToNodeSpace:point];
-    CGPoint translation = (mouseLocation);
-    CGPoint location = translation;
+    if (_fingerJoint == NULL) return;
+
+
+//    CGPoint mouseLocation = [self convertToNodeSpace:point];
+ //   CGPoint translation = (mouseLocation);
+  //  CGPoint location = translation;
+    CGPoint location = [self covertLeapCoordinates:point];
+    NSLog(@"Dragged %0.0f , %0.0f ", location.x, location.y);
     b2Vec2 locationWorld = b2Vec2(location.x/PTM_RATIO, location.y/PTM_RATIO);
     
-    _mouseJoint->SetTarget(locationWorld);
+    _fingerJoint->SetTarget(locationWorld);
 }
 
 - (void)fingerLost{
     NSLog(@">>> Entering %s <<<", __PRETTY_FUNCTION__);
-    if (_mouseJoint) {
-        _world->DestroyJoint(_mouseJoint);
-        _mouseJoint = NULL;
+    if (_fingerJoint) {
+        _world->DestroyJoint(_fingerJoint);
+        _fingerJoint = NULL;
     }
-    fingerTracked = FALSE;
+
 }
 
 
@@ -478,6 +491,13 @@
 - (BOOL) ccMouseDown:(NSEvent *)event{
     
     if (_mouseJoint != NULL) return NO;
+    
+    if (_fingerJoint) {
+        _world->DestroyJoint(_fingerJoint);
+        _fingerJoint = NULL;
+    }
+    
+    
     /*
     UITouch *myTouch = [touches anyObject];
     CGPoint location = [myTouch locationInView:[myTouch view]];
@@ -501,6 +521,7 @@
         _mouseJoint = (b2MouseJoint *)_world->CreateJoint(&md);
         _paddleBody->SetAwake(true);
     }
+
     
 }
 
@@ -524,6 +545,8 @@
     if (_mouseJoint) {
         _world->DestroyJoint(_mouseJoint);
         _mouseJoint = NULL;
+    }else{
+        [self addFingerJoint];
     }
     
 }

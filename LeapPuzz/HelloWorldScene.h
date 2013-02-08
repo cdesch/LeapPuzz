@@ -19,6 +19,7 @@
     b2Fixture *_ballFixture;
     b2Fixture *_bottomFixture;
     b2MouseJoint *_mouseJoint;
+    b2MouseJoint *_fingerJoint;
     MyContactListener *_contactListener;
     
     LeapController *controller;
