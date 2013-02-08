@@ -128,38 +128,45 @@
         jointDef.Initialize(_paddleBody, _groundBody, _paddleBody->GetWorldCenter(), worldAxis);
         _world->CreateJoint(&jointDef);
         
-        for(int i = 0; i < 4; i++) {
-         
+        for(int i = 0; i < 10; i++) {
             static int padding=20;
             
-            // Create block and add it to the layer
-            CCSprite *block = [CCSprite spriteWithFile:@"Block.png"];
-            int xOffset = padding+block.contentSize.width/2+((block.contentSize.width+padding)*i);
-            block.position = ccp(xOffset, 250);
-            block.tag = 2;
-            [self addChild:block];
+            for (int j = 500; j < 1000; j+=100){
+                // Create block and add it to the layer
+                CCSprite *block = [CCSprite spriteWithFile:@"Block.png"];
+                int xOffset = padding+block.contentSize.width/2+((block.contentSize.width+padding)*i);
+                int yOffset = j; //padding+block.contentSize.height/2+((block.contentSize.height+padding)*i);
+                block.position = ccp(xOffset, yOffset);
+                block.tag = 2;
+                [self addChild:block];
+                
+                // Create block body
+                b2BodyDef blockBodyDef;
+                blockBodyDef.type = b2_dynamicBody;
+                blockBodyDef.position.Set(xOffset/PTM_RATIO, yOffset/PTM_RATIO);
+                blockBodyDef.userData =  (__bridge void *) block;
+                b2Body *blockBody = _world->CreateBody(&blockBodyDef);
+                
+                // Create block shape
+                b2PolygonShape blockShape;
+                blockShape.SetAsBox(block.contentSize.width/PTM_RATIO/2,
+                                    block.contentSize.height/PTM_RATIO/2);
+                
+                // Create shape definition and add to body
+                b2FixtureDef blockShapeDef;
+                blockShapeDef.shape = &blockShape;
+                blockShapeDef.density = 10.0;
+                blockShapeDef.friction = 0.0;
+                blockShapeDef.restitution = 0.1f;
+                blockBody->CreateFixture(&blockShapeDef);
+            }
             
-            // Create block body
-            b2BodyDef blockBodyDef;
-            blockBodyDef.type = b2_dynamicBody;
-            blockBodyDef.position.Set(xOffset/PTM_RATIO, 250/PTM_RATIO);
-            blockBodyDef.userData =  (__bridge void *) block;
-            b2Body *blockBody = _world->CreateBody(&blockBodyDef);
             
-            // Create block shape
-            b2PolygonShape blockShape;
-            blockShape.SetAsBox(block.contentSize.width/PTM_RATIO/2,
-                                block.contentSize.height/PTM_RATIO/2);
-            
-            // Create shape definition and add to body
-            b2FixtureDef blockShapeDef;
-            blockShapeDef.shape = &blockShape;
-            blockShapeDef.density = 10.0;
-            blockShapeDef.friction = 0.0;
-            blockShapeDef.restitution = 0.1f;
-            blockBody->CreateFixture(&blockShapeDef);
+
             
         }
+        
+        
         
         // Create contact listener
         _contactListener = new MyContactListener();
@@ -255,7 +262,7 @@
             }
             
             avgPos = [avgPos divide:[fingers count]];
-            NSLog(@"x %0.0f y %0.0f z %0.0f", avgPos.x, avgPos.y, avgPos.z);
+            //NSLog(@"x %0.0f y %0.0f z %0.0f", avgPos.x, avgPos.y, avgPos.z);
             [self fingerMoved:CGPointMake(avgPos.x, avgPos.y)];
             
             
@@ -384,7 +391,7 @@
     
     CGSize s = [[CCDirector sharedDirector] winSize];
     float screenCenter = 0.0f;
-    float xScale = 3.0f;
+    float xScale = 3.25f;
     float yScale = 1.25f;
     return CGPointMake((s.width/2)+ (( p.x - screenCenter) * xScale), p.y * yScale);
 }
@@ -426,50 +433,14 @@
 }
 
 
-- (void)fingerFound:(CGPoint)point{
-    
-    
-
-    if (_mouseJoint != NULL) return;
-    fingerTracked = TRUE;
-
-    /*
-     UITouch *myTouch = [touches anyObject];
-     CGPoint location = [myTouch locationInView:[myTouch view]];
-     location = [[CCDirector sharedDirector] convertToGL:location];
-     */
-    //CGPoint point = [[CCDirector sharedDirector] convertEventToGL:event];
-    //CGPoint mouseLocation = [self convertToNodeSpace:point];
-    //CGPoint translation = (mouseLocation);
-    //CGPoint location = translation;
-    CGPoint location = [self covertLeapCoordinates:point];
-    NSLog(@"Dragged %0.0f , %0.0f ", location.x, location.y);
-    b2Vec2 locationWorld = b2Vec2(location.x/PTM_RATIO, location.y/PTM_RATIO);
-    
-    if (_paddleFixture->TestPoint(locationWorld)) {
-        b2MouseJointDef md;
-        md.bodyA = _groundBody;
-        md.bodyB = _paddleBody;
-        md.target = locationWorld;
-        md.collideConnected = true;
-        md.maxForce = 1000.0f * _paddleBody->GetMass();
-        
-        _mouseJoint = (b2MouseJoint *)_world->CreateJoint(&md);
-        _paddleBody->SetAwake(true);
-    }
-    
-
-}
 
 - (void)fingerMoved:(CGPoint)point{
    
 
     if (_fingerJoint == NULL) return;
 
+    
 
-//    CGPoint mouseLocation = [self convertToNodeSpace:point];
- //   CGPoint translation = (mouseLocation);
-  //  CGPoint location = translation;
     CGPoint location = [self covertLeapCoordinates:point];
     NSLog(@"Dragged %0.0f , %0.0f ", location.x, location.y);
     b2Vec2 locationWorld = b2Vec2(location.x/PTM_RATIO, location.y/PTM_RATIO);
@@ -478,7 +449,7 @@
 }
 
 - (void)fingerLost{
-    NSLog(@">>> Entering %s <<<", __PRETTY_FUNCTION__);
+  
     if (_fingerJoint) {
         _world->DestroyJoint(_fingerJoint);
         _fingerJoint = NULL;
@@ -493,6 +464,8 @@
     if (_mouseJoint != NULL) return NO;
     
     if (_fingerJoint) {
+        
+        //_fingerJoint->SetMaxForce(0);
         _world->DestroyJoint(_fingerJoint);
         _fingerJoint = NULL;
     }
@@ -521,7 +494,6 @@
         _mouseJoint = (b2MouseJoint *)_world->CreateJoint(&md);
         _paddleBody->SetAwake(true);
     }
-
     
 }
 
@@ -545,8 +517,13 @@
     if (_mouseJoint) {
         _world->DestroyJoint(_mouseJoint);
         _mouseJoint = NULL;
-    }else{
+        
         [self addFingerJoint];
+    }else{
+        
+        //_fingerJoint->SetMaxForce(1000.0f * _paddleBody->GetMass());
+        //_fingerJoint->
+        
     }
     
 }

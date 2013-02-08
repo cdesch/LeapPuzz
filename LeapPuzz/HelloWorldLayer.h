@@ -35,7 +35,7 @@
 }
 @end
 
-
+/*
 @interface PhysicsSprite : CCSprite <CCMouseEventDelegate>
 {	CGPoint target;
 	uint ticker;
@@ -46,3 +46,4 @@
 -(void) setTarget:(CGPoint)p;
 -(void) delTarget;
 @end
+*/

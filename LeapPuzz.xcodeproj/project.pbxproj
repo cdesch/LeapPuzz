@@ -13,6 +13,8 @@
 		2339228116C4B0BB00ECD6A4 /* HelloWorldScene.mm in Sources */ = {isa = PBXBuildFile; fileRef = 2339227E16C4B0BA00ECD6A4 /* HelloWorldScene.mm */; };
 		2339228216C4B0BB00ECD6A4 /* MyContactListener.mm in Sources */ = {isa = PBXBuildFile; fileRef = 2339228016C4B0BB00ECD6A4 /* MyContactListener.mm */; };
 		2391954A16C2228200706CBF /* LeapObjectiveC.mm in Sources */ = {isa = PBXBuildFile; fileRef = 23FE2E8B16C0AA5E0070A25D /* LeapObjectiveC.mm */; };
+		239A5ACB16C57A10003BEAFA /* GestureDetectionScene.mm in Sources */ = {isa = PBXBuildFile; fileRef = 239A5ACA16C57A10003BEAFA /* GestureDetectionScene.mm */; };
+		239A5ACF16C57B14003BEAFA /* PhysicsSprite.mm in Sources */ = {isa = PBXBuildFile; fileRef = 239A5ACE16C57B14003BEAFA /* PhysicsSprite.mm */; };
 		23BEA7A216C48FC200B7A4EE /* darkreddot.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 23BEA79F16C48FC200B7A4EE /* darkreddot.jpg */; };
 		23BEA7A316C48FC200B7A4EE /* reddot.png in Resources */ = {isa = PBXBuildFile; fileRef = 23BEA7A016C48FC200B7A4EE /* reddot.png */; };
 		23BEA7A416C48FC200B7A4EE /* redcrosshair.png in Resources */ = {isa = PBXBuildFile; fileRef = 23BEA7A116C48FC200B7A4EE /* redcrosshair.png */; };
@@ -209,6 +211,10 @@
 		2339227E16C4B0BA00ECD6A4 /* HelloWorldScene.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = HelloWorldScene.mm; sourceTree = "<group>"; };
 		2339227F16C4B0BB00ECD6A4 /* MyContactListener.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyContactListener.h; sourceTree = "<group>"; };
 		2339228016C4B0BB00ECD6A4 /* MyContactListener.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MyContactListener.mm; sourceTree = "<group>"; };
+		239A5AC916C57A10003BEAFA /* GestureDetectionScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GestureDetectionScene.h; sourceTree = "<group>"; };
+		239A5ACA16C57A10003BEAFA /* GestureDetectionScene.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = GestureDetectionScene.mm; sourceTree = "<group>"; };
+		239A5ACD16C57B14003BEAFA /* PhysicsSprite.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PhysicsSprite.h; sourceTree = "<group>"; };
+		239A5ACE16C57B14003BEAFA /* PhysicsSprite.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = PhysicsSprite.mm; sourceTree = "<group>"; };
 		23BEA79F16C48FC200B7A4EE /* darkreddot.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = darkreddot.jpg; sourceTree = "<group>"; };
 		23BEA7A016C48FC200B7A4EE /* reddot.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = reddot.png; sourceTree = "<group>"; };
 		23BEA7A116C48FC200B7A4EE /* redcrosshair.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = redcrosshair.png; sourceTree = "<group>"; };
@@ -604,6 +610,8 @@
 				23DD600D16BEEFD800315D0A /* Piece.mm */,
 				23DF4E9216C457BE00D70A21 /* RedDot.h */,
 				23DF4E9316C457BE00D70A21 /* RedDot.mm */,
+				239A5ACD16C57B14003BEAFA /* PhysicsSprite.h */,
+				239A5ACE16C57B14003BEAFA /* PhysicsSprite.mm */,
 			);
 			name = Puzzle;
 			sourceTree = "<group>";
@@ -619,6 +627,15 @@
 				23F13ECD16C5690800E4D067 /* TrackedFinger.m */,
 			);
 			name = Breakout;
+			sourceTree = "<group>";
+		};
+		239A5ACC16C57A14003BEAFA /* GestureDetectionScene */ = {
+			isa = PBXGroup;
+			children = (
+				239A5AC916C57A10003BEAFA /* GestureDetectionScene.h */,
+				239A5ACA16C57A10003BEAFA /* GestureDetectionScene.mm */,
+			);
+			name = GestureDetectionScene;
 			sourceTree = "<group>";
 		};
 		23DD5DDF16BEEEB900315D0A = {
@@ -662,6 +679,7 @@
 				23FE2E8B16C0AA5E0070A25D /* LeapObjectiveC.mm */,
 				23DD5FFC16BEEEBE00315D0A /* AppDelegate.h */,
 				23DD5FFD16BEEEBE00315D0A /* AppDelegate.mm */,
+				239A5ACC16C57A14003BEAFA /* GestureDetectionScene */,
 				2339228316C4B0C500ECD6A4 /* Puzzle */,
 				2339228416C4B0D200ECD6A4 /* Breakout */,
 				23DD600216BEEEBE00315D0A /* GLES-Render.h */,
@@ -1462,6 +1480,8 @@
 				2339228116C4B0BB00ECD6A4 /* HelloWorldScene.mm in Sources */,
 				2339228216C4B0BB00ECD6A4 /* MyContactListener.mm in Sources */,
 				23F13ECE16C5690900E4D067 /* TrackedFinger.m in Sources */,
+				239A5ACB16C57A10003BEAFA /* GestureDetectionScene.mm in Sources */,
+				239A5ACF16C57B14003BEAFA /* PhysicsSprite.mm in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
