@@ -14,9 +14,10 @@
 
 @interface RedDot : CCSprite 
 {
-    NSString* fingerID;
-    BOOL updated;
+
 }
 
+@property (nonatomic, strong) NSString* fingerID;
+@property (nonatomic, readwrite) BOOL updated;
 
 @end

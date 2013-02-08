@@ -282,26 +282,24 @@ enum {
                 if ([trackableList objectForKey:fingerID]) {
                     
                     //If it does exist update the position on the screen
-                    CCSprite* sprite = [trackableList objectForKey:fingerID];
-                    sprite.position = CGPointMake(finger.tipPosition.x, finger.tipPosition.y);
+                    RedDot* sprite = [trackableList objectForKey:fingerID];
+                    sprite.position = [self covertLeapCoordinates:CGPointMake(finger.tipPosition.x, finger.tipPosition.y)];
+                    sprite.updated = TRUE;
+                    
                     
                 }else{
-                    
                     
                     NSLog(@"x %0.0f y %0.0f z %0.0f", finger.tipPosition.x, finger.tipPosition.y, finger.tipPosition.z);
                    // CGPoint point = [[CCDirector sharedDirector] convertEventToGL:event];
                     //CGPoint mouseLocation = [self convertToNodeSpace:point];
                 
                     //Add it to the dictionary
-                    RedDot* redDot = [self addRedDot: CGPointMake(finger.tipPosition.x, finger.tipPosition.y)];
+                    RedDot* redDot = [self addRedDot:CGPointMake(finger.tipPosition.x, finger.tipPosition.y) finger:fingerID];
                     [trackableList setObject:redDot forKey:fingerID];
-                    NSLog(@"here");
                 }
-                
             }
             
             avgPos = [avgPos divide:[fingers count]];
-            
             
             //NSLog(@"Hand has %ld fingers, average finger tip position %@", [fingers count], avgPos);
             for (LeapFinger* finger in fingers){
@@ -310,6 +308,9 @@ enum {
             }
             
         }
+        
+        //
+        [self checkFingerExists];
         
         // Get the hand's sphere radius and palm position
         /*
@@ -333,8 +334,24 @@ enum {
 
 - (void)moveRedDot{
     
- 
-    
+
+}
+
+//Cycle through all the trackable dots and check if the fingers still exist.
+//If they don't, delete them.
+- (void)checkFingerExists{
+    for (id key in [trackableList allKeys]) {
+        RedDot* sprite = [trackableList objectForKey:key];
+        if (sprite.updated) {
+            sprite.updated = FALSE;
+            return;
+        }else{
+            CCNode *parent = [self getChildByTag:kTagParentNode];
+            [trackableList removeObjectForKey:key];
+            [parent removeChild:sprite cleanup:YES];
+            
+        }
+    }
 }
 
 
@@ -438,7 +455,7 @@ enum {
 	kmGLPopMatrix();
 }
 
-- (RedDot*)addRedDot:(CGPoint)p{
+- (RedDot*)addRedDot:(CGPoint)p finger:(NSString*)fingerID{
     CCNode *parent = [self getChildByTag:kTagParentNode];
     int idx = (CCRANDOM_0_1() > .5 ? 0:1);
 	int idy = (CCRANDOM_0_1() > .5 ? 0:1);
@@ -446,10 +463,20 @@ enum {
 	//RedDot *sprite = [RedDot spriteWithFile:@"redcrosshair.png"];
     RedDot *sprite = [RedDot spriteWithTexture:spriteTexture_ rect:CGRectMake(32 * idx,32 * idy,32,32)];		
 	[parent addChild:sprite];
-
+    sprite.updated = TRUE;
+    sprite.fingerID = fingerID;
     sprite.position = ccp( p.x, p.y);
     
     return sprite;
+}
+
+- (CGPoint)covertLeapCoordinates:(CGPoint)p{
+
+    CGSize s = [[CCDirector sharedDirector] winSize];
+    float screenCenter = 0.0f;
+    float xScale = 1.75f;
+    float yScale = 1.25f;
+    return CGPointMake((s.width/2)+ (( p.x - screenCenter) * xScale), p.y * yScale);
 }
 
 -(void) addNewSpriteAtPosition:(CGPoint)p
@@ -463,8 +490,8 @@ enum {
 	int idy = (CCRANDOM_0_1() > .5 ? 0:1);
 	PhysicsSprite *sprite = [PhysicsSprite spriteWithTexture:spriteTexture_ rect:CGRectMake(32 * idx,32 * idy,32,32)];						
 	[parent addChild:sprite];
-	
-	sprite.position = ccp( p.x, p.y);
+	sprite.position = [self covertLeapCoordinates:p];
+	//sprite.position = ccp( p.x, p.y);
 	
 	// Define the dynamic body.
 	//Set up a 1m squared box in the physics world
