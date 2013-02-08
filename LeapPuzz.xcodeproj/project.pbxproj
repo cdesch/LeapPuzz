@@ -7,6 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2339227A16C4B09B00ECD6A4 /* Block.png in Resources */ = {isa = PBXBuildFile; fileRef = 2339227716C4B09B00ECD6A4 /* Block.png */; };
+		2339227B16C4B09B00ECD6A4 /* Paddle.png in Resources */ = {isa = PBXBuildFile; fileRef = 2339227816C4B09B00ECD6A4 /* Paddle.png */; };
+		2339227C16C4B09B00ECD6A4 /* Ball.png in Resources */ = {isa = PBXBuildFile; fileRef = 2339227916C4B09B00ECD6A4 /* Ball.png */; };
+		2339228116C4B0BB00ECD6A4 /* HelloWorldScene.mm in Sources */ = {isa = PBXBuildFile; fileRef = 2339227E16C4B0BA00ECD6A4 /* HelloWorldScene.mm */; };
+		2339228216C4B0BB00ECD6A4 /* MyContactListener.mm in Sources */ = {isa = PBXBuildFile; fileRef = 2339228016C4B0BB00ECD6A4 /* MyContactListener.mm */; };
 		2391954A16C2228200706CBF /* LeapObjectiveC.mm in Sources */ = {isa = PBXBuildFile; fileRef = 23FE2E8B16C0AA5E0070A25D /* LeapObjectiveC.mm */; };
 		23BEA7A216C48FC200B7A4EE /* darkreddot.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 23BEA79F16C48FC200B7A4EE /* darkreddot.jpg */; };
 		23BEA7A316C48FC200B7A4EE /* reddot.png in Resources */ = {isa = PBXBuildFile; fileRef = 23BEA7A016C48FC200B7A4EE /* reddot.png */; };
@@ -177,6 +182,7 @@
 		23DD600E16BEEFD800315D0A /* Piece.mm in Sources */ = {isa = PBXBuildFile; fileRef = 23DD600D16BEEFD800315D0A /* Piece.mm */; };
 		23DF4E9416C457BE00D70A21 /* RedDot.mm in Sources */ = {isa = PBXBuildFile; fileRef = 23DF4E9316C457BE00D70A21 /* RedDot.mm */; };
 		23E113B416C1A48E00D26FF6 /* libLeap.dylib in Resources */ = {isa = PBXBuildFile; fileRef = 23FE2E8616C0AA4C0070A25D /* libLeap.dylib */; };
+		23F13ECE16C5690900E4D067 /* TrackedFinger.m in Sources */ = {isa = PBXBuildFile; fileRef = 23F13ECD16C5690800E4D067 /* TrackedFinger.m */; };
 		23FE2E1416C0A6140070A25D /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 23FE2E1316C0A6140070A25D /* Cocoa.framework */; };
 		23FE2E8716C0AA4C0070A25D /* libLeap.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 23FE2E8616C0AA4C0070A25D /* libLeap.dylib */; };
 		23FE2E8C16C0AB300070A25D /* libLeap.dylib in CopyFiles */ = {isa = PBXBuildFile; fileRef = 23FE2E8616C0AA4C0070A25D /* libLeap.dylib */; };
@@ -196,6 +202,13 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		2339227716C4B09B00ECD6A4 /* Block.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Block.png; sourceTree = "<group>"; };
+		2339227816C4B09B00ECD6A4 /* Paddle.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Paddle.png; sourceTree = "<group>"; };
+		2339227916C4B09B00ECD6A4 /* Ball.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Ball.png; sourceTree = "<group>"; };
+		2339227D16C4B0BA00ECD6A4 /* HelloWorldScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HelloWorldScene.h; sourceTree = "<group>"; };
+		2339227E16C4B0BA00ECD6A4 /* HelloWorldScene.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = HelloWorldScene.mm; sourceTree = "<group>"; };
+		2339227F16C4B0BB00ECD6A4 /* MyContactListener.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyContactListener.h; sourceTree = "<group>"; };
+		2339228016C4B0BB00ECD6A4 /* MyContactListener.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MyContactListener.mm; sourceTree = "<group>"; };
 		23BEA79F16C48FC200B7A4EE /* darkreddot.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = darkreddot.jpg; sourceTree = "<group>"; };
 		23BEA7A016C48FC200B7A4EE /* reddot.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = reddot.png; sourceTree = "<group>"; };
 		23BEA7A116C48FC200B7A4EE /* redcrosshair.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = redcrosshair.png; sourceTree = "<group>"; };
@@ -553,6 +566,8 @@
 		23DD600D16BEEFD800315D0A /* Piece.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = Piece.mm; sourceTree = "<group>"; };
 		23DF4E9216C457BE00D70A21 /* RedDot.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RedDot.h; sourceTree = "<group>"; };
 		23DF4E9316C457BE00D70A21 /* RedDot.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = RedDot.mm; sourceTree = "<group>"; };
+		23F13ECC16C5690800E4D067 /* TrackedFinger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TrackedFinger.h; sourceTree = "<group>"; };
+		23F13ECD16C5690800E4D067 /* TrackedFinger.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TrackedFinger.m; sourceTree = "<group>"; };
 		23FE2E1316C0A6140070A25D /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
 		23FE2E8616C0AA4C0070A25D /* libLeap.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; path = libLeap.dylib; sourceTree = "<group>"; };
 		23FE2E8816C0AA5E0070A25D /* Leap.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Leap.h; sourceTree = "<group>"; };
@@ -580,6 +595,32 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		2339228316C4B0C500ECD6A4 /* Puzzle */ = {
+			isa = PBXGroup;
+			children = (
+				23DD5FFF16BEEEBE00315D0A /* HelloWorldLayer.h */,
+				23DD600016BEEEBE00315D0A /* HelloWorldLayer.mm */,
+				23DD600C16BEEFD800315D0A /* Piece.h */,
+				23DD600D16BEEFD800315D0A /* Piece.mm */,
+				23DF4E9216C457BE00D70A21 /* RedDot.h */,
+				23DF4E9316C457BE00D70A21 /* RedDot.mm */,
+			);
+			name = Puzzle;
+			sourceTree = "<group>";
+		};
+		2339228416C4B0D200ECD6A4 /* Breakout */ = {
+			isa = PBXGroup;
+			children = (
+				2339227D16C4B0BA00ECD6A4 /* HelloWorldScene.h */,
+				2339227E16C4B0BA00ECD6A4 /* HelloWorldScene.mm */,
+				2339227F16C4B0BB00ECD6A4 /* MyContactListener.h */,
+				2339228016C4B0BB00ECD6A4 /* MyContactListener.mm */,
+				23F13ECC16C5690800E4D067 /* TrackedFinger.h */,
+				23F13ECD16C5690800E4D067 /* TrackedFinger.m */,
+			);
+			name = Breakout;
+			sourceTree = "<group>";
+		};
 		23DD5DDF16BEEEB900315D0A = {
 			isa = PBXGroup;
 			children = (
@@ -621,12 +662,8 @@
 				23FE2E8B16C0AA5E0070A25D /* LeapObjectiveC.mm */,
 				23DD5FFC16BEEEBE00315D0A /* AppDelegate.h */,
 				23DD5FFD16BEEEBE00315D0A /* AppDelegate.mm */,
-				23DD5FFF16BEEEBE00315D0A /* HelloWorldLayer.h */,
-				23DD600016BEEEBE00315D0A /* HelloWorldLayer.mm */,
-				23DD600C16BEEFD800315D0A /* Piece.h */,
-				23DD600D16BEEFD800315D0A /* Piece.mm */,
-				23DF4E9216C457BE00D70A21 /* RedDot.h */,
-				23DF4E9316C457BE00D70A21 /* RedDot.mm */,
+				2339228316C4B0C500ECD6A4 /* Puzzle */,
+				2339228416C4B0D200ECD6A4 /* Breakout */,
 				23DD600216BEEEBE00315D0A /* GLES-Render.h */,
 				23DD600316BEEEBE00315D0A /* GLES-Render.mm */,
 				23DD5DF816BEEEB900315D0A /* Resources */,
@@ -639,6 +676,9 @@
 		23DD5DF816BEEEB900315D0A /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				2339227716C4B09B00ECD6A4 /* Block.png */,
+				2339227816C4B09B00ECD6A4 /* Paddle.png */,
+				2339227916C4B09B00ECD6A4 /* Ball.png */,
 				23BEA79F16C48FC200B7A4EE /* darkreddot.jpg */,
 				23BEA7A016C48FC200B7A4EE /* reddot.png */,
 				23BEA7A116C48FC200B7A4EE /* redcrosshair.png */,
@@ -1236,6 +1276,9 @@
 				23BEA7A216C48FC200B7A4EE /* darkreddot.jpg in Resources */,
 				23BEA7A316C48FC200B7A4EE /* reddot.png in Resources */,
 				23BEA7A416C48FC200B7A4EE /* redcrosshair.png in Resources */,
+				2339227A16C4B09B00ECD6A4 /* Block.png in Resources */,
+				2339227B16C4B09B00ECD6A4 /* Paddle.png in Resources */,
+				2339227C16C4B09B00ECD6A4 /* Ball.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1416,6 +1459,9 @@
 				23DD600416BEEEBE00315D0A /* GLES-Render.mm in Sources */,
 				23DD600E16BEEFD800315D0A /* Piece.mm in Sources */,
 				23DF4E9416C457BE00D70A21 /* RedDot.mm in Sources */,
+				2339228116C4B0BB00ECD6A4 /* HelloWorldScene.mm in Sources */,
+				2339228216C4B0BB00ECD6A4 /* MyContactListener.mm in Sources */,
+				23F13ECE16C5690900E4D067 /* TrackedFinger.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
