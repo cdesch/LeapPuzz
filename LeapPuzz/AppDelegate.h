@@ -8,6 +8,7 @@
 
 #import "cocos2d.h"
 
+
 @interface LeapPuzzAppDelegate : NSObject <NSApplicationDelegate>
 {
 	NSWindow	*window_;
