@@ -185,6 +185,8 @@
 		23DF4E9416C457BE00D70A21 /* RedDot.mm in Sources */ = {isa = PBXBuildFile; fileRef = 23DF4E9316C457BE00D70A21 /* RedDot.mm */; };
 		23E113B416C1A48E00D26FF6 /* libLeap.dylib in Resources */ = {isa = PBXBuildFile; fileRef = 23FE2E8616C0AA4C0070A25D /* libLeap.dylib */; };
 		23F13ECE16C5690900E4D067 /* TrackedFinger.m in Sources */ = {isa = PBXBuildFile; fileRef = 23F13ECD16C5690800E4D067 /* TrackedFinger.m */; };
+		23F580D616CAE148003A733C /* SlashPongScene.mm in Sources */ = {isa = PBXBuildFile; fileRef = 23F580D516CAE148003A733C /* SlashPongScene.mm */; };
+		23F580D916CAE159003A733C /* PongScene.mm in Sources */ = {isa = PBXBuildFile; fileRef = 23F580D816CAE159003A733C /* PongScene.mm */; };
 		23FE2E1416C0A6140070A25D /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 23FE2E1316C0A6140070A25D /* Cocoa.framework */; };
 		23FE2E8716C0AA4C0070A25D /* libLeap.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 23FE2E8616C0AA4C0070A25D /* libLeap.dylib */; };
 		23FE2E8C16C0AB300070A25D /* libLeap.dylib in CopyFiles */ = {isa = PBXBuildFile; fileRef = 23FE2E8616C0AA4C0070A25D /* libLeap.dylib */; };
@@ -574,6 +576,10 @@
 		23DF4E9316C457BE00D70A21 /* RedDot.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = RedDot.mm; sourceTree = "<group>"; };
 		23F13ECC16C5690800E4D067 /* TrackedFinger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TrackedFinger.h; sourceTree = "<group>"; };
 		23F13ECD16C5690800E4D067 /* TrackedFinger.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TrackedFinger.m; sourceTree = "<group>"; };
+		23F580D416CAE148003A733C /* SlashPongScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SlashPongScene.h; sourceTree = "<group>"; };
+		23F580D516CAE148003A733C /* SlashPongScene.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = SlashPongScene.mm; sourceTree = "<group>"; };
+		23F580D716CAE159003A733C /* PongScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PongScene.h; sourceTree = "<group>"; };
+		23F580D816CAE159003A733C /* PongScene.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = PongScene.mm; sourceTree = "<group>"; };
 		23FE2E1316C0A6140070A25D /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
 		23FE2E8616C0AA4C0070A25D /* libLeap.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; path = libLeap.dylib; sourceTree = "<group>"; };
 		23FE2E8816C0AA5E0070A25D /* Leap.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Leap.h; sourceTree = "<group>"; };
@@ -629,6 +635,15 @@
 			name = Breakout;
 			sourceTree = "<group>";
 		};
+		2371C99D16CA9F9200CAA60D /* Pong */ = {
+			isa = PBXGroup;
+			children = (
+				23F580D716CAE159003A733C /* PongScene.h */,
+				23F580D816CAE159003A733C /* PongScene.mm */,
+			);
+			name = Pong;
+			sourceTree = "<group>";
+		};
 		239A5ACC16C57A14003BEAFA /* GestureDetectionScene */ = {
 			isa = PBXGroup;
 			children = (
@@ -679,6 +694,8 @@
 				23FE2E8B16C0AA5E0070A25D /* LeapObjectiveC.mm */,
 				23DD5FFC16BEEEBE00315D0A /* AppDelegate.h */,
 				23DD5FFD16BEEEBE00315D0A /* AppDelegate.mm */,
+				23F580D316CAE124003A733C /* SlashPong */,
+				2371C99D16CA9F9200CAA60D /* Pong */,
 				239A5ACC16C57A14003BEAFA /* GestureDetectionScene */,
 				2339228316C4B0C500ECD6A4 /* Puzzle */,
 				2339228416C4B0D200ECD6A4 /* Breakout */,
@@ -1231,6 +1248,15 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
+		23F580D316CAE124003A733C /* SlashPong */ = {
+			isa = PBXGroup;
+			children = (
+				23F580D416CAE148003A733C /* SlashPongScene.h */,
+				23F580D516CAE148003A733C /* SlashPongScene.mm */,
+			);
+			name = SlashPong;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -1482,6 +1508,8 @@
 				23F13ECE16C5690900E4D067 /* TrackedFinger.m in Sources */,
 				239A5ACB16C57A10003BEAFA /* GestureDetectionScene.mm in Sources */,
 				239A5ACF16C57B14003BEAFA /* PhysicsSprite.mm in Sources */,
+				23F580D616CAE148003A733C /* SlashPongScene.mm in Sources */,
+				23F580D916CAE159003A733C /* PongScene.mm in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
