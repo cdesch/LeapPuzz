@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		231F474B16D28B9F00DCBEE6 /* GestureTrainingScene.m in Sources */ = {isa = PBXBuildFile; fileRef = 231F474A16D28B9F00DCBEE6 /* GestureTrainingScene.m */; };
+		231F474E16D28C3D00DCBEE6 /* GestureTrainingPipeline.mm in Sources */ = {isa = PBXBuildFile; fileRef = 231F474D16D28C3D00DCBEE6 /* GestureTrainingPipeline.mm */; };
+		231F474F16D28D9B00DCBEE6 /* libgesture-recognition-toolkit.dylib in Resources */ = {isa = PBXBuildFile; fileRef = 2370432616CD8DE2001A760F /* libgesture-recognition-toolkit.dylib */; };
 		2339227A16C4B09B00ECD6A4 /* Block.png in Resources */ = {isa = PBXBuildFile; fileRef = 2339227716C4B09B00ECD6A4 /* Block.png */; };
 		2339227B16C4B09B00ECD6A4 /* Paddle.png in Resources */ = {isa = PBXBuildFile; fileRef = 2339227816C4B09B00ECD6A4 /* Paddle.png */; };
 		2339227C16C4B09B00ECD6A4 /* Ball.png in Resources */ = {isa = PBXBuildFile; fileRef = 2339227916C4B09B00ECD6A4 /* Ball.png */; };
@@ -14,6 +17,9 @@
 		2339228216C4B0BB00ECD6A4 /* MyContactListener.mm in Sources */ = {isa = PBXBuildFile; fileRef = 2339228016C4B0BB00ECD6A4 /* MyContactListener.mm */; };
 		2370432716CD8DE2001A760F /* libgesture-recognition-toolkit.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 2370432616CD8DE2001A760F /* libgesture-recognition-toolkit.dylib */; };
 		2391954A16C2228200706CBF /* LeapObjectiveC.mm in Sources */ = {isa = PBXBuildFile; fileRef = 23FE2E8B16C0AA5E0070A25D /* LeapObjectiveC.mm */; };
+		2399C4F816D2BA1F00DDD58B /* Gesture.mm in Sources */ = {isa = PBXBuildFile; fileRef = 2399C4F516D2BA1F00DDD58B /* Gesture.mm */; };
+		2399C4F916D2BA1F00DDD58B /* GestureListener.mm in Sources */ = {isa = PBXBuildFile; fileRef = 2399C4F716D2BA1F00DDD58B /* GestureListener.mm */; };
+		2399C4FD16D2BBF400DDD58B /* FingerPaintingScene.mm in Sources */ = {isa = PBXBuildFile; fileRef = 2399C4FC16D2BBF400DDD58B /* FingerPaintingScene.mm */; };
 		239A5ACB16C57A10003BEAFA /* GestureDetectionScene.mm in Sources */ = {isa = PBXBuildFile; fileRef = 239A5ACA16C57A10003BEAFA /* GestureDetectionScene.mm */; };
 		239A5ACF16C57B14003BEAFA /* PhysicsSprite.mm in Sources */ = {isa = PBXBuildFile; fileRef = 239A5ACE16C57B14003BEAFA /* PhysicsSprite.mm */; };
 		23BEA7A216C48FC200B7A4EE /* darkreddot.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 23BEA79F16C48FC200B7A4EE /* darkreddot.jpg */; };
@@ -207,6 +213,10 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		231F474916D28B9F00DCBEE6 /* GestureTrainingScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GestureTrainingScene.h; sourceTree = "<group>"; };
+		231F474A16D28B9F00DCBEE6 /* GestureTrainingScene.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GestureTrainingScene.m; sourceTree = "<group>"; };
+		231F474C16D28C3D00DCBEE6 /* GestureTrainingPipeline.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GestureTrainingPipeline.h; sourceTree = "<group>"; };
+		231F474D16D28C3D00DCBEE6 /* GestureTrainingPipeline.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = GestureTrainingPipeline.mm; sourceTree = "<group>"; };
 		2339227716C4B09B00ECD6A4 /* Block.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Block.png; sourceTree = "<group>"; };
 		2339227816C4B09B00ECD6A4 /* Paddle.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Paddle.png; sourceTree = "<group>"; };
 		2339227916C4B09B00ECD6A4 /* Ball.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Ball.png; sourceTree = "<group>"; };
@@ -215,6 +225,12 @@
 		2339227F16C4B0BB00ECD6A4 /* MyContactListener.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyContactListener.h; sourceTree = "<group>"; };
 		2339228016C4B0BB00ECD6A4 /* MyContactListener.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MyContactListener.mm; sourceTree = "<group>"; };
 		2370432616CD8DE2001A760F /* libgesture-recognition-toolkit.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libgesture-recognition-toolkit.dylib"; path = "../../../../Library/Developer/Xcode/DerivedData/LeapPuzz-bubswyrqxzhjsbcdntclclmulhrx/Build/Products/Debug/libgesture-recognition-toolkit.dylib"; sourceTree = "<group>"; };
+		2399C4F416D2BA1F00DDD58B /* Gesture.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Gesture.h; sourceTree = "<group>"; };
+		2399C4F516D2BA1F00DDD58B /* Gesture.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = Gesture.mm; sourceTree = "<group>"; };
+		2399C4F616D2BA1F00DDD58B /* GestureListener.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GestureListener.h; sourceTree = "<group>"; };
+		2399C4F716D2BA1F00DDD58B /* GestureListener.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = GestureListener.mm; sourceTree = "<group>"; };
+		2399C4FB16D2BBF400DDD58B /* FingerPaintingScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FingerPaintingScene.h; sourceTree = "<group>"; };
+		2399C4FC16D2BBF400DDD58B /* FingerPaintingScene.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = FingerPaintingScene.mm; sourceTree = "<group>"; };
 		239A5AC916C57A10003BEAFA /* GestureDetectionScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GestureDetectionScene.h; sourceTree = "<group>"; };
 		239A5ACA16C57A10003BEAFA /* GestureDetectionScene.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = GestureDetectionScene.mm; sourceTree = "<group>"; };
 		239A5ACD16C57B14003BEAFA /* PhysicsSprite.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PhysicsSprite.h; sourceTree = "<group>"; };
@@ -610,6 +626,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		231F474816D28B8500DCBEE6 /* GestureTraining */ = {
+			isa = PBXGroup;
+			children = (
+				231F474916D28B9F00DCBEE6 /* GestureTrainingScene.h */,
+				231F474A16D28B9F00DCBEE6 /* GestureTrainingScene.m */,
+			);
+			name = GestureTraining;
+			sourceTree = "<group>";
+		};
 		2339228316C4B0C500ECD6A4 /* Puzzle */ = {
 			isa = PBXGroup;
 			children = (
@@ -645,6 +670,15 @@
 				23F580D816CAE159003A733C /* PongScene.mm */,
 			);
 			name = Pong;
+			sourceTree = "<group>";
+		};
+		2399C4FA16D2BBDB00DDD58B /* FingerPaint */ = {
+			isa = PBXGroup;
+			children = (
+				2399C4FB16D2BBF400DDD58B /* FingerPaintingScene.h */,
+				2399C4FC16D2BBF400DDD58B /* FingerPaintingScene.mm */,
+			);
+			name = FingerPaint;
 			sourceTree = "<group>";
 		};
 		239A5ACC16C57A14003BEAFA /* GestureDetectionScene */ = {
@@ -698,6 +732,14 @@
 				23FE2E8B16C0AA5E0070A25D /* LeapObjectiveC.mm */,
 				23DD5FFC16BEEEBE00315D0A /* AppDelegate.h */,
 				23DD5FFD16BEEEBE00315D0A /* AppDelegate.mm */,
+				231F474C16D28C3D00DCBEE6 /* GestureTrainingPipeline.h */,
+				231F474D16D28C3D00DCBEE6 /* GestureTrainingPipeline.mm */,
+				2399C4F416D2BA1F00DDD58B /* Gesture.h */,
+				2399C4F516D2BA1F00DDD58B /* Gesture.mm */,
+				2399C4F616D2BA1F00DDD58B /* GestureListener.h */,
+				2399C4F716D2BA1F00DDD58B /* GestureListener.mm */,
+				2399C4FA16D2BBDB00DDD58B /* FingerPaint */,
+				231F474816D28B8500DCBEE6 /* GestureTraining */,
 				23F580D316CAE124003A733C /* SlashPong */,
 				2371C99D16CA9F9200CAA60D /* Pong */,
 				239A5ACC16C57A14003BEAFA /* GestureDetectionScene */,
@@ -1314,6 +1356,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				231F474F16D28D9B00DCBEE6 /* libgesture-recognition-toolkit.dylib in Resources */,
 				23E113B416C1A48E00D26FF6 /* libLeap.dylib in Resources */,
 				23DD5DFC16BEEEB900315D0A /* InfoPlist.strings in Resources */,
 				23DD5DFF16BEEEB900315D0A /* MainMenu.xib in Resources */,
@@ -1344,7 +1387,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "# print some debug information\necho TARGET_BUILD_DIR=${TARGET_BUILD_DIR}\necho TARGET_NAME=${TARGET_NAME}\ncd ${TARGET_BUILD_DIR}/${TARGET_NAME}.app/Contents/MacOS\nls -la\n# then remap the loader path\ninstall_name_tool -change @loader_path/libLeap.dylib @executable_path/../Resources/libLeap.dylib ${TARGET_NAME}";
+			shellScript = "# print some debug information\necho TARGET_BUILD_DIR=${TARGET_BUILD_DIR}\necho TARGET_NAME=${TARGET_NAME}\ncd ${TARGET_BUILD_DIR}/${TARGET_NAME}.app/Contents/MacOS\nls -la\n# then remap the loader path\ninstall_name_tool -change @loader_path/libLeap.dylib @executable_path/../Resources/libLeap.dylib ${TARGET_NAME}\n\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -1514,6 +1557,11 @@
 				239A5ACF16C57B14003BEAFA /* PhysicsSprite.mm in Sources */,
 				23F580D616CAE148003A733C /* SlashPongScene.mm in Sources */,
 				23F580D916CAE159003A733C /* PongScene.mm in Sources */,
+				231F474B16D28B9F00DCBEE6 /* GestureTrainingScene.m in Sources */,
+				231F474E16D28C3D00DCBEE6 /* GestureTrainingPipeline.mm in Sources */,
+				2399C4F816D2BA1F00DDD58B /* Gesture.mm in Sources */,
+				2399C4F916D2BA1F00DDD58B /* GestureListener.mm in Sources */,
+				2399C4FD16D2BBF400DDD58B /* FingerPaintingScene.mm in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1590,12 +1638,16 @@
 				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = LeapPuzz/Prefix.pch;
-				HEADER_SEARCH_PATHS = "\"LeapPuzz/libs/kazmath/include\"";
+				HEADER_SEARCH_PATHS = (
+					"\"LeapPuzz/libs/kazmath/include\"",
+					"\"$(SRCROOT)/gesture-recognition-toolkit/GRT\"",
+				);
 				INFOPLIST_FILE = LeapPuzz/Resources/Info.plist;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)\"",
 					"\"$(SRCROOT)/../../../../Library/Developer/Xcode/DerivedData/LeapPuzz-bubswyrqxzhjsbcdntclclmulhrx/Build/Products/Debug\"",
+					"\"$(SRCROOT)/gesture-recognition-toolkit/GRT\"",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 10.7;
 				OTHER_LDFLAGS = (
@@ -1621,12 +1673,16 @@
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = LeapPuzz/Prefix.pch;
-				HEADER_SEARCH_PATHS = "\"LeapPuzz/libs/kazmath/include\"";
+				HEADER_SEARCH_PATHS = (
+					"\"LeapPuzz/libs/kazmath/include\"",
+					"\"$(SRCROOT)/gesture-recognition-toolkit/GRT\"",
+				);
 				INFOPLIST_FILE = LeapPuzz/Resources/Info.plist;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)\"",
 					"\"$(SRCROOT)/../../../../Library/Developer/Xcode/DerivedData/LeapPuzz-bubswyrqxzhjsbcdntclclmulhrx/Build/Products/Debug\"",
+					"\"$(SRCROOT)/gesture-recognition-toolkit/GRT\"",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 10.7;
 				OTHER_LDFLAGS = (

@@ -203,6 +203,7 @@ enum {
 //Cycle through all the trackable dots and check if the fingers still exist.
 //If they don't, delete them.
 - (void)checkFingerExists{
+    
     for (id key in [trackableList allKeys]) {
         RedDot* sprite = [trackableList objectForKey:key];
         if (sprite.updated) {
