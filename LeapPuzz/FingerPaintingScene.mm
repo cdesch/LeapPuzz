@@ -247,16 +247,13 @@ enum {
 	
 }
 
--(void)createMotionStreak:(NSInteger)touchHash withSprite:(CCSprite*)sprite
+- (void)createMotionStreak:(NSInteger)touchHash withSprite:(CCSprite*)sprite
 {
-
     CCMotionStreak* streak = [CCMotionStreak streakWithFade:1.7f minSeg:10 width:32 color:ccc3(0, 255, 255) texture:sprite.texture];
     [self addChild:streak z:5 tag:touchHash];
-    
-
 }
 
--(void)removeMotionStreak:(NSInteger)touchHash
+- (void)removeMotionStreak:(NSInteger)touchHash
 {
     [self removeChildByTag:touchHash cleanup:YES];
 }
@@ -270,7 +267,7 @@ enum {
     return (CCMotionStreak*)node;
 }
 
--(void) addMotionStreakPoint:(CGPoint)point on:(NSInteger)touchHash withSprite:(CCSprite*)sprite
+- (void)addMotionStreakPoint:(CGPoint)point on:(NSInteger)touchHash withSprite:(CCSprite*)sprite
 {
     CCMotionStreak* streak = [self getMotionStreak:touchHash withSprite:sprite];
     streak.position = point;

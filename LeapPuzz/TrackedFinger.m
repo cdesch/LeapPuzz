@@ -9,10 +9,12 @@
 #import "TrackedFinger.h"
 
 @implementation TrackedFinger
-- (id)initWithID:(NSString*)finger {
+
+- (id)initWithID:(NSString*)finger withPosition:(CGPoint)p{
     if (self = [super init]) {
         self.fingerID = finger;
         self.updated = TRUE;
+        self.position = p;
     }
     return self;
 }

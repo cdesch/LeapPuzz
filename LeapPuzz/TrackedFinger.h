@@ -12,5 +12,7 @@
 
 @property (nonatomic, strong) NSString* fingerID;
 @property (nonatomic, readwrite) BOOL updated;
-- (id)initWithID:(NSString*)finger;
+@property (nonatomic, readwrite) CGPoint position;
+
+- (id)initWithID:(NSString*)finger withPosition:(CGPoint)p;
 @end

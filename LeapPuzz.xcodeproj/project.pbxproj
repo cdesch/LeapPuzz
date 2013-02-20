@@ -20,8 +20,13 @@
 		2399C4F816D2BA1F00DDD58B /* Gesture.mm in Sources */ = {isa = PBXBuildFile; fileRef = 2399C4F516D2BA1F00DDD58B /* Gesture.mm */; };
 		2399C4F916D2BA1F00DDD58B /* GestureListener.mm in Sources */ = {isa = PBXBuildFile; fileRef = 2399C4F716D2BA1F00DDD58B /* GestureListener.mm */; };
 		2399C4FD16D2BBF400DDD58B /* FingerPaintingScene.mm in Sources */ = {isa = PBXBuildFile; fileRef = 2399C4FC16D2BBF400DDD58B /* FingerPaintingScene.mm */; };
+		2399C50016D2CB2000DDD58B /* LineDrawer.mm in Sources */ = {isa = PBXBuildFile; fileRef = 2399C4FF16D2CB2000DDD58B /* LineDrawer.mm */; };
 		239A5ACB16C57A10003BEAFA /* GestureDetectionScene.mm in Sources */ = {isa = PBXBuildFile; fileRef = 239A5ACA16C57A10003BEAFA /* GestureDetectionScene.mm */; };
 		239A5ACF16C57B14003BEAFA /* PhysicsSprite.mm in Sources */ = {isa = PBXBuildFile; fileRef = 239A5ACE16C57B14003BEAFA /* PhysicsSprite.mm */; };
+		23B0439916D3C51B00A07683 /* GeometryDrawScene.mm in Sources */ = {isa = PBXBuildFile; fileRef = 23B0439816D3C51B00A07683 /* GeometryDrawScene.mm */; };
+		23B0439B16D3C71D00A07683 /* largeBrush.png in Resources */ = {isa = PBXBuildFile; fileRef = 23B0439A16D3C71D00A07683 /* largeBrush.png */; };
+		23B0439E16D3D14D00A07683 /* SimplePoint.m in Sources */ = {isa = PBXBuildFile; fileRef = 23B0439D16D3D14D00A07683 /* SimplePoint.m */; };
+		23B043A116D3D25D00A07683 /* SimplePointObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 23B043A016D3D25D00A07683 /* SimplePointObject.m */; };
 		23BEA7A216C48FC200B7A4EE /* darkreddot.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 23BEA79F16C48FC200B7A4EE /* darkreddot.jpg */; };
 		23BEA7A316C48FC200B7A4EE /* reddot.png in Resources */ = {isa = PBXBuildFile; fileRef = 23BEA7A016C48FC200B7A4EE /* reddot.png */; };
 		23BEA7A416C48FC200B7A4EE /* redcrosshair.png in Resources */ = {isa = PBXBuildFile; fileRef = 23BEA7A116C48FC200B7A4EE /* redcrosshair.png */; };
@@ -191,6 +196,7 @@
 		23DD600E16BEEFD800315D0A /* Piece.mm in Sources */ = {isa = PBXBuildFile; fileRef = 23DD600D16BEEFD800315D0A /* Piece.mm */; };
 		23DF4E9416C457BE00D70A21 /* RedDot.mm in Sources */ = {isa = PBXBuildFile; fileRef = 23DF4E9316C457BE00D70A21 /* RedDot.mm */; };
 		23E113B416C1A48E00D26FF6 /* libLeap.dylib in Resources */ = {isa = PBXBuildFile; fileRef = 23FE2E8616C0AA4C0070A25D /* libLeap.dylib */; };
+		23E2CA5216D5369100E5AA37 /* DrawScene.mm in Sources */ = {isa = PBXBuildFile; fileRef = 23E2CA5116D5369100E5AA37 /* DrawScene.mm */; };
 		23F13ECE16C5690900E4D067 /* TrackedFinger.m in Sources */ = {isa = PBXBuildFile; fileRef = 23F13ECD16C5690800E4D067 /* TrackedFinger.m */; };
 		23F580D616CAE148003A733C /* SlashPongScene.mm in Sources */ = {isa = PBXBuildFile; fileRef = 23F580D516CAE148003A733C /* SlashPongScene.mm */; };
 		23F580D916CAE159003A733C /* PongScene.mm in Sources */ = {isa = PBXBuildFile; fileRef = 23F580D816CAE159003A733C /* PongScene.mm */; };
@@ -231,10 +237,19 @@
 		2399C4F716D2BA1F00DDD58B /* GestureListener.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = GestureListener.mm; sourceTree = "<group>"; };
 		2399C4FB16D2BBF400DDD58B /* FingerPaintingScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FingerPaintingScene.h; sourceTree = "<group>"; };
 		2399C4FC16D2BBF400DDD58B /* FingerPaintingScene.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = FingerPaintingScene.mm; sourceTree = "<group>"; };
+		2399C4FE16D2CB2000DDD58B /* LineDrawer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LineDrawer.h; sourceTree = "<group>"; };
+		2399C4FF16D2CB2000DDD58B /* LineDrawer.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = LineDrawer.mm; sourceTree = "<group>"; };
 		239A5AC916C57A10003BEAFA /* GestureDetectionScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GestureDetectionScene.h; sourceTree = "<group>"; };
 		239A5ACA16C57A10003BEAFA /* GestureDetectionScene.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = GestureDetectionScene.mm; sourceTree = "<group>"; };
 		239A5ACD16C57B14003BEAFA /* PhysicsSprite.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PhysicsSprite.h; sourceTree = "<group>"; };
 		239A5ACE16C57B14003BEAFA /* PhysicsSprite.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = PhysicsSprite.mm; sourceTree = "<group>"; };
+		23B0439716D3C51B00A07683 /* GeometryDrawScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GeometryDrawScene.h; sourceTree = "<group>"; };
+		23B0439816D3C51B00A07683 /* GeometryDrawScene.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = GeometryDrawScene.mm; sourceTree = "<group>"; };
+		23B0439A16D3C71D00A07683 /* largeBrush.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = largeBrush.png; sourceTree = "<group>"; };
+		23B0439C16D3D14D00A07683 /* SimplePoint.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SimplePoint.h; sourceTree = "<group>"; };
+		23B0439D16D3D14D00A07683 /* SimplePoint.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SimplePoint.m; sourceTree = "<group>"; };
+		23B0439F16D3D25D00A07683 /* SimplePointObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SimplePointObject.h; sourceTree = "<group>"; };
+		23B043A016D3D25D00A07683 /* SimplePointObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SimplePointObject.m; sourceTree = "<group>"; };
 		23BEA79F16C48FC200B7A4EE /* darkreddot.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = darkreddot.jpg; sourceTree = "<group>"; };
 		23BEA7A016C48FC200B7A4EE /* reddot.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = reddot.png; sourceTree = "<group>"; };
 		23BEA7A116C48FC200B7A4EE /* redcrosshair.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = redcrosshair.png; sourceTree = "<group>"; };
@@ -592,6 +607,8 @@
 		23DD600D16BEEFD800315D0A /* Piece.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = Piece.mm; sourceTree = "<group>"; };
 		23DF4E9216C457BE00D70A21 /* RedDot.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RedDot.h; sourceTree = "<group>"; };
 		23DF4E9316C457BE00D70A21 /* RedDot.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = RedDot.mm; sourceTree = "<group>"; };
+		23E2CA5016D5369000E5AA37 /* DrawScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DrawScene.h; sourceTree = "<group>"; };
+		23E2CA5116D5369100E5AA37 /* DrawScene.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = DrawScene.mm; sourceTree = "<group>"; };
 		23F13ECC16C5690800E4D067 /* TrackedFinger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TrackedFinger.h; sourceTree = "<group>"; };
 		23F13ECD16C5690800E4D067 /* TrackedFinger.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TrackedFinger.m; sourceTree = "<group>"; };
 		23F580D416CAE148003A733C /* SlashPongScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SlashPongScene.h; sourceTree = "<group>"; };
@@ -675,8 +692,18 @@
 		2399C4FA16D2BBDB00DDD58B /* FingerPaint */ = {
 			isa = PBXGroup;
 			children = (
+				2399C4FE16D2CB2000DDD58B /* LineDrawer.h */,
+				2399C4FF16D2CB2000DDD58B /* LineDrawer.mm */,
 				2399C4FB16D2BBF400DDD58B /* FingerPaintingScene.h */,
 				2399C4FC16D2BBF400DDD58B /* FingerPaintingScene.mm */,
+				23B0439716D3C51B00A07683 /* GeometryDrawScene.h */,
+				23B0439816D3C51B00A07683 /* GeometryDrawScene.mm */,
+				23E2CA5016D5369000E5AA37 /* DrawScene.h */,
+				23E2CA5116D5369100E5AA37 /* DrawScene.mm */,
+				23B0439C16D3D14D00A07683 /* SimplePoint.h */,
+				23B0439D16D3D14D00A07683 /* SimplePoint.m */,
+				23B0439F16D3D25D00A07683 /* SimplePointObject.h */,
+				23B043A016D3D25D00A07683 /* SimplePointObject.m */,
 			);
 			name = FingerPaint;
 			sourceTree = "<group>";
@@ -757,6 +784,7 @@
 		23DD5DF816BEEEB900315D0A /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				23B0439A16D3C71D00A07683 /* largeBrush.png */,
 				2339227716C4B09B00ECD6A4 /* Block.png */,
 				2339227816C4B09B00ECD6A4 /* Paddle.png */,
 				2339227916C4B09B00ECD6A4 /* Ball.png */,
@@ -1370,6 +1398,7 @@
 				2339227A16C4B09B00ECD6A4 /* Block.png in Resources */,
 				2339227B16C4B09B00ECD6A4 /* Paddle.png in Resources */,
 				2339227C16C4B09B00ECD6A4 /* Ball.png in Resources */,
+				23B0439B16D3C71D00A07683 /* largeBrush.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1562,6 +1591,11 @@
 				2399C4F816D2BA1F00DDD58B /* Gesture.mm in Sources */,
 				2399C4F916D2BA1F00DDD58B /* GestureListener.mm in Sources */,
 				2399C4FD16D2BBF400DDD58B /* FingerPaintingScene.mm in Sources */,
+				2399C50016D2CB2000DDD58B /* LineDrawer.mm in Sources */,
+				23B0439916D3C51B00A07683 /* GeometryDrawScene.mm in Sources */,
+				23B0439E16D3D14D00A07683 /* SimplePoint.m in Sources */,
+				23B043A116D3D25D00A07683 /* SimplePointObject.m in Sources */,
+				23E2CA5216D5369100E5AA37 /* DrawScene.mm in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
