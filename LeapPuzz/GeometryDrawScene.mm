@@ -8,7 +8,7 @@
 
 #import "GeometryDrawScene.h"
 #import "SimplePointObject.h"
-
+#import "TrackedFinger.h"
 #define PTM_RATIO 32
 
 enum {
@@ -52,7 +52,7 @@ enum {
 		plataformPoints = [[NSMutableArray alloc] init];
 		
 		
-		CCLabelTTF *label = [CCLabelTTF labelWithString:@"LeapPuzz" fontName:@"Marker Felt" fontSize:32];
+		CCLabelTTF *label = [CCLabelTTF labelWithString:@"GeoDraw" fontName:@"Marker Felt" fontSize:32];
 		[self addChild:label z:0];
 		[label setColor:ccc3(0,0,255)];
 		label.position = ccp( s.width/2, s.height-50);
@@ -65,11 +65,14 @@ enum {
         target = [CCRenderTexture renderTextureWithWidth:s.width height: s.height pixelFormat:kCCTexture2DPixelFormat_RGBA8888];
         target.position = ccp(s.width / 2, s.height / 2);
         [self addChild:target];
-    
         
     
         brush = [CCSprite spriteWithFile:@"largeBrush.png"];
 
+        trackableList = [[NSMutableDictionary alloc] init];
+        trackableBrushList = [[NSMutableDictionary alloc] init];
+        
+        //[self run];
         
         
 	}
@@ -408,8 +411,6 @@ enum {
 
         if(distance > 2)
         {
-
-
             [self addRectangleBetweenPointsToBody:currentPlatformBody withStart:previousLocation withEnd:location];
             SimplePointObject* pointObject = [[SimplePointObject alloc] initWithPosition:location];
             [plataformPoints addObject:pointObject];
@@ -435,8 +436,6 @@ enum {
     myBodyDef.angle = 0;
     
     b2Body* newBody = world->CreateBody(&myBodyDef);
-    
-    
     
     for (int i=0; i < [plataformPoints count] - 1; i++){
         
@@ -479,5 +478,367 @@ enum {
     
     return YES;
 }
+#pragma mark - 
+
+//Cycle through all the trackable dots and check if the fingers still exist.
+//If they don't, delete them.
+- (void)checkFingerExists{
+    
+    for (id key in [trackableList allKeys]) {
+        RedDot* sprite = [trackableList objectForKey:key];
+        if (sprite.updated) {
+            sprite.updated = FALSE;
+            //return;
+        }else{
+            CCNode *parent = [self getChildByTag:kTagParentNode];
+            [trackableList removeObjectForKey:key];
+            [parent removeChild:sprite cleanup:YES];
+            //Get rid of the motion streak
+            [self removeMotionStreak:[sprite.fingerID intValue]];
+            
+        }
+        
+    }
+    for (id key in [trackableBrushList allKeys]) {
+        TrackedFinger* sprite = [trackableList objectForKey:key];
+        if (sprite.updated) {
+            sprite.updated = FALSE;
+            //return;
+        }else{
+            [self endFingerDraw:sprite];
+            [trackableList removeObjectForKey:key];
+            
+        }
+        
+    }
+
+}
+
+- (void)run
+{
+    controller = [[LeapController alloc] init];
+    [controller addDelegate:self];
+    NSLog(@"running");
+}
+
+#pragma mark - SampleDelegate Callbacks
+
+- (void)onInit:(LeapController *)aController
+{
+    NSLog(@"Initialized");
+}
+
+- (void)onConnect:(LeapController *)aController
+{
+    NSLog(@"Connected");
+}
+
+- (void)onDisconnect:(LeapController *)aController
+{
+    NSLog(@"Disconnected");
+}
+
+- (void)onExit:(LeapController *)aController
+{
+    NSLog(@"Exited");
+}
+
+- (void)onFrame:(LeapController *)aController
+{
+    // Get the most recent frame and report some basic information
+    LeapFrame *frame = [aController frame:0];
+    /*
+     NSLog(@"Frame id: %lld, timestamp: %lld, hands: %ld, fingers: %ld, tools: %ld",
+     [frame id], [frame timestamp], [[frame hands] count],
+     [[frame fingers] count], [[frame tools] count]);
+     
+     */
+    if ([[frame hands] count] != 0) {
+        // Get the first hand
+        LeapHand *hand = [[frame hands] objectAtIndex:0];
+        
+        
+        // Check if the hand has any fingers
+        NSArray *fingers = [hand fingers];
+        
+        if ([fingers count] != 0) {
+            
+            // Calculate the hand's average finger tip position
+            LeapVector *avgPos = [[LeapVector alloc] init];
+            for (int i = 0; i < [fingers count]; i++) {
+                LeapFinger *finger = [fingers objectAtIndex:i];
+                avgPos = [avgPos plus:[finger tipPosition]];
+                
+                if (avgPos.z > 0){
+                    NSString* fingerID = [NSString stringWithFormat:@"%d", finger.id];
+                    
+                    //Check if the Finger ID exists in the list already
+                    if ([trackableList objectForKey:fingerID]) {
+                        
+                        //If it does exist update the position on the screen
+                        RedDot* sprite = [trackableList objectForKey:fingerID];
+                        sprite.position = [self covertLeapCoordinates:CGPointMake(finger.tipPosition.x, finger.tipPosition.y)];
+                        sprite.updated = TRUE;
+                        
+                        CCMotionStreak* streak = [self getMotionStreak:[sprite.fingerID intValue] withSprite:sprite];
+                        streak.position = sprite.position;
+                        
+                        
+                    }else{
+                        
+                        NSLog(@"x %0.0f y %0.0f z %0.0f", finger.tipPosition.x, finger.tipPosition.y, finger.tipPosition.z);
+                        
+                        //Add it to the dictionary
+                        RedDot* redDot = [self addRedDot:CGPointMake(finger.tipPosition.x, finger.tipPosition.y) finger:fingerID];
+                        [trackableList setObject:redDot forKey:fingerID];
+                    }
+                }else{
+                    //Draw it
+                    NSString* fingerID = [NSString stringWithFormat:@"%d", finger.id];
+                    
+                    //Check if the Finger ID exists in the list already
+                    if ([trackableList objectForKey:fingerID]) {
+                        
+                        //Update
+                        //If it does exist update the position on the screen
+                        TrackedFinger* sprite = [trackableBrushList objectForKey:fingerID];
+                        sprite.position = [self covertLeapCoordinates:CGPointMake(finger.tipPosition.x, finger.tipPosition.y)];
+                        sprite.updated = TRUE;
+                        
+                        [self updateFingerDraw:sprite];
+                               
+                    }else{
+                        //Create//
+                        
+                        NSLog(@"x %0.0f y %0.0f z %0.0f", finger.tipPosition.x, finger.tipPosition.y, finger.tipPosition.z);
+                        //Add it to the dictionary
+                        TrackedFinger* redDot = [[TrackedFinger alloc] initWithID:fingerID withPosition:CGPointMake(finger.tipPosition.x, finger.tipPosition.y)];
+                        //[self addRedDot:CGPointMake(finger.tipPosition.x, finger.tipPosition.y) finger:fingerID];
+                        [trackableBrushList setObject:redDot forKey:fingerID];
+                        
+                        [self beginFingerDraw:redDot];
+                    }
+                }
+            }
+            
+            avgPos = [avgPos divide:[fingers count]];
+            
+            //NSLog(@"Hand has %ld fingers, average finger tip position %@", [fingers count], avgPos);
+            for (LeapFinger* finger in fingers){
+                
+                //NSLog(@"Finger ID %d %ld", finger.id, (unsigned long)[finger hash]);
+            }
+            
+        }
+        
+        [self checkFingerExists];
+        
+        //const LeapVector *normal = [hand palmNormal];
+        //const LeapVector *direction = [hand direction];
+        
+    }
+}
+
+- (RedDot*)addRedDot:(CGPoint)p finger:(NSString*)fingerID{
+    
+    CCNode *parent = [self getChildByTag:kTagParentNode];
+    int idx = (CCRANDOM_0_1() > .5 ? 0:1);
+	int idy = (CCRANDOM_0_1() > .5 ? 0:1);
+    
+	//RedDot *sprite = [RedDot spriteWithFile:@"redcrosshair.png"];
+    RedDot *sprite = [RedDot spriteWithTexture:spriteTexture_ rect:CGRectMake(32 * idx,32 * idy,32,32)];
+	[parent addChild:sprite];
+    sprite.updated = TRUE;
+    sprite.fingerID = fingerID;
+    sprite.position = ccp( p.x, p.y);
+    
+    [self createMotionStreak:[sprite.fingerID intValue] withSprite:sprite];
+    
+    return sprite;
+}
+
+- (CGPoint)covertLeapCoordinates:(CGPoint)p{
+    
+    CGSize s = [[CCDirector sharedDirector] winSize];
+    float screenCenter = 0.0f;
+    float xScale = 1.75f;
+    float yScale = 1.25f;
+    return CGPointMake((s.width/2)+ (( p.x - screenCenter) * xScale), p.y * yScale);
+}
+//Track fingers at all times,
+
+//if the Z is postive, then put a red dot,
+
+//if z i negative, draw the line
+
+- (void)beginFingerDraw:(id)sender{
+    
+}
+
+
+- (void)updateFingerDraw:(id)sender{
+    
+}
+
+- (void)endFingerDraw:(id)sender{
+    
+}
+
+//The further negative, the thicker the line. 
+- (void)beginDraw:(CGPoint)point{
+
+    
+    
+    //CGSize s = [[CCDirector sharedDirector] winSize];
+    
+    //CGPoint point = [[CCDirector sharedDirector] convertEventToGL:event];
+    CGPoint location = point;
+    
+    //b2Vec2 locationWorld = b2Vec2(location.x/PTM_RATIO, location.y/PTM_RATIO);
+    
+    [plataformPoints removeAllObjects];
+    
+    
+    SimplePointObject* pointObject = [[SimplePointObject alloc] initWithPosition:location];
+    [plataformPoints addObject:pointObject];
+    
+    
+    
+    previousLocation = location;
+    
+    b2BodyDef myBodyDef;
+    myBodyDef.type = b2_staticBody;
+    myBodyDef.position.Set(location.x/PTM_RATIO,location.y/PTM_RATIO);
+    currentPlatformBody = world->CreateBody(&myBodyDef);
+    
+}
+
+- (void)updateDraw:(CGPoint)point{
+    
+    
+    
+    //CGPoint point = [[CCDirector sharedDirector] convertEventToGL:event];
+    CGPoint location = point;
+    
+    //b2Vec2 locationWorld = b2Vec2(location.x/PTM_RATIO, location.y/PTM_RATIO);
+    
+
+    CGPoint start = location;
+    CGPoint end = previousLocation;
+    
+    [target begin];
+    
+    
+    float distance = ccpDistance(start, end);
+    
+    for (int i = 0; i < distance; i++)
+    {
+        float difx = end.x - start.x;
+        float dify = end.y - start.y;
+        float delta = (float)i / distance;
+        brush.position = ccp(start.x + (difx * delta), start.y + (dify * delta));
+        
+		//brush->setOpacity(0.1);
+        
+        [brush visit];
+    }
+    [target end];
+    
+    
+    distance = sqrt( pow(location.x - previousLocation.x, 2) + pow(location.y - previousLocation.y, 2));
+    
+    if(distance > 2)
+    {
+        [self addRectangleBetweenPointsToBody:currentPlatformBody withStart:previousLocation withEnd:location];
+        SimplePointObject* pointObject = [[SimplePointObject alloc] initWithPosition:location];
+        [plataformPoints addObject:pointObject];
+        
+        previousLocation = location;
+        
+    }else{
+        //NSLog(@"Do Not add");
+    }
+}
+
+- (void)endDraw:(CGPoint)point{
+    
+    
+    b2BodyDef myBodyDef;
+    myBodyDef.type = b2_dynamicBody; //this will be a dynamic body
+    
+    myBodyDef.position.Set(currentPlatformBody->GetPosition().x, currentPlatformBody->GetPosition().y); //set the starting position
+    myBodyDef.angle = 0;
+    
+    b2Body* newBody = world->CreateBody(&myBodyDef);
+    
+    for (int i=0; i < [plataformPoints count] - 1; i++){
+        
+        SimplePointObject* startPoint = [plataformPoints objectAtIndex:i];
+        CGPoint start = startPoint.point;
+        
+        SimplePointObject* endPoint = [plataformPoints objectAtIndex:i+1];
+        CGPoint end = endPoint.point;
+        
+        [self addRectangleBetweenPointsToDynamicBody:newBody withStart:start withEnd:end];
+        
+    }
+    
+    
+    world->DestroyBody(currentPlatformBody);
+    
+    
+    CGSize s = [[CCDirector sharedDirector] winSize];
+    CGRect bodyRectangle = [self getBodyRectangle:newBody];
+    
+    CGImage *pImage = [target newCGImage];
+    CCTexture2D *tex = [[CCTextureCache sharedTextureCache] addCGImage:pImage forKey:nil];
+    CCSprite* sprite = [CCSprite spriteWithTexture:tex rect:bodyRectangle];
+    
+    float anchorX = newBody->GetPosition().x * PTM_RATIO - bodyRectangle.origin.x;
+    float anchorY = bodyRectangle.size.height - (s.height - bodyRectangle.origin.y - newBody->GetPosition().y * PTM_RATIO);
+    
+    [sprite setAnchorPoint:ccp(anchorX / bodyRectangle.size.width,  anchorY / bodyRectangle.size.height)];
+    
+    //myBodyDef.userData =  (__bridge void *)sprite;
+    newBody->SetUserData((__bridge void *)sprite);
+    
+    
+    [self addChild:sprite];
+    [self removeChild:target cleanup:YES];
+    
+    target = [CCRenderTexture renderTextureWithWidth:s.width height:s.height pixelFormat:kCCTexture2DPixelFormat_RGBA8888];
+    target.position = ccp(s.width / 2, s.height / 2);
+    [self addChild:target z:5];
+    
+
+}
+
+- (void)createMotionStreak:(NSInteger)touchHash withSprite:(CCSprite*)sprite
+{
+    CCMotionStreak* streak = [CCMotionStreak streakWithFade:1.7f minSeg:10 width:32 color:ccc3(0, 255, 255) texture:sprite.texture];
+    [self addChild:streak z:5 tag:touchHash];
+}
+
+- (void)removeMotionStreak:(NSInteger)touchHash
+{
+    [self removeChildByTag:touchHash cleanup:YES];
+}
+
+- (CCMotionStreak*)getMotionStreak:(NSInteger)touchHash withSprite:(CCSprite*)sprite
+{
+    CCNode* node = [self getChildByTag:touchHash];
+    if(![node isKindOfClass:[CCMotionStreak class]]) {
+        [self createMotionStreak:touchHash withSprite:sprite];
+    }
+    return (CCMotionStreak*)node;
+}
+
+- (void)addMotionStreakPoint:(CGPoint)point on:(NSInteger)touchHash withSprite:(CCSprite*)sprite
+{
+    CCMotionStreak* streak = [self getMotionStreak:touchHash withSprite:sprite];
+    streak.position = point;
+    //[streak.ribbon addPointAt:point width:32];
+}
+
 
 @end

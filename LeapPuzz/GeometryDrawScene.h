@@ -13,7 +13,7 @@
 #import "LeapObjectiveC.h"
 #import "RedDot.h"
 
-@interface GeometryDrawScene : CCLayer{
+@interface GeometryDrawScene : CCLayer <LeapDelegate>{
     
     LeapController *controller;
     
@@ -36,7 +36,7 @@
 	//std::vector<cocos2d::CCPoint> plataformPoints;
     NSMutableArray* plataformPoints;
     
-    
+    NSMutableDictionary* trackableBrushList;
     NSMutableDictionary* trackableList;
 }
 

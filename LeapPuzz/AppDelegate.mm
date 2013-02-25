@@ -21,9 +21,9 @@
     //[self runBreakOut];
     //[self runPuzzle];
     //[self runPong];
-    //[self runFingerPaint];
+    [self runFingerPaint];
     //[self runLineDrawer];
-    [self runGeometryDrawer];
+    //[self runGeometryDrawer];
 }
 
 - (void)runBreakOut{
