@@ -15,6 +15,7 @@
 
 
 @interface FingerPaintingScene : CCLayer <LeapDelegate> {
+    
     LeapController *controller;
     
 	CCTexture2D *spriteTexture_;	// weak ref
@@ -25,6 +26,8 @@
     b2MouseJoint *_mouseJoint;
     b2World* _world;
     b2Body *_groundBody;
+    
+    CIColor* brushColor;
     
     
     NSMutableDictionary* trackableList;

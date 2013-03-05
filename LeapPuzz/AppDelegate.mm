@@ -13,6 +13,8 @@
 #import "FingerPaintingScene.h"
 #import "LineDrawer.h"
 #import "GeometryDrawScene.h"
+#import "ColorWheelLayer.h"
+
 @implementation LeapPuzzAppDelegate
 @synthesize window=window_, glView=glView_;
 
@@ -128,7 +130,8 @@
 	[window_ center];
     
 	CCScene *scene = [CCScene node];
-	[scene addChild:[FingerPaintingScene node]];
+	//[scene addChild:[FingerPaintingScene node]];
+    [scene addChild:[ColorWheelLayer node]];
 	
 	[director runWithScene:scene];
     

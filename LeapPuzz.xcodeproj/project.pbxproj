@@ -23,6 +23,9 @@
 		2399C50016D2CB2000DDD58B /* LineDrawer.mm in Sources */ = {isa = PBXBuildFile; fileRef = 2399C4FF16D2CB2000DDD58B /* LineDrawer.mm */; };
 		239A5ACB16C57A10003BEAFA /* GestureDetectionScene.mm in Sources */ = {isa = PBXBuildFile; fileRef = 239A5ACA16C57A10003BEAFA /* GestureDetectionScene.mm */; };
 		239A5ACF16C57B14003BEAFA /* PhysicsSprite.mm in Sources */ = {isa = PBXBuildFile; fileRef = 239A5ACE16C57B14003BEAFA /* PhysicsSprite.mm */; };
+		23A2D56616E62677000470AA /* ColorWheelLayer.mm in Sources */ = {isa = PBXBuildFile; fileRef = 23A2D56516E62677000470AA /* ColorWheelLayer.mm */; };
+		23A2D56A16E63DE5000470AA /* ColorWheel.png in Resources */ = {isa = PBXBuildFile; fileRef = 23A2D56916E63DE5000470AA /* ColorWheel.png */; };
+		23AA005C16DFDCE500A76399 /* PinchGestureScene.m in Sources */ = {isa = PBXBuildFile; fileRef = 23AA005B16DFDCE500A76399 /* PinchGestureScene.m */; };
 		23B0439916D3C51B00A07683 /* GeometryDrawScene.mm in Sources */ = {isa = PBXBuildFile; fileRef = 23B0439816D3C51B00A07683 /* GeometryDrawScene.mm */; };
 		23B0439B16D3C71D00A07683 /* largeBrush.png in Resources */ = {isa = PBXBuildFile; fileRef = 23B0439A16D3C71D00A07683 /* largeBrush.png */; };
 		23B0439E16D3D14D00A07683 /* SimplePoint.m in Sources */ = {isa = PBXBuildFile; fileRef = 23B0439D16D3D14D00A07683 /* SimplePoint.m */; };
@@ -32,6 +35,8 @@
 		23BEA7A416C48FC200B7A4EE /* redcrosshair.png in Resources */ = {isa = PBXBuildFile; fileRef = 23BEA7A116C48FC200B7A4EE /* redcrosshair.png */; };
 		23C7B01616DBE42000C141E5 /* libLeap.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 23C7B01516DBE42000C141E5 /* libLeap.dylib */; };
 		23C7B01716DBE44A00C141E5 /* libLeap.dylib in Resources */ = {isa = PBXBuildFile; fileRef = 23C7B01516DBE42000C141E5 /* libLeap.dylib */; };
+		23CA00A616E65B030052F465 /* ColorSpinner.mm in Sources */ = {isa = PBXBuildFile; fileRef = 23CA00A516E65B030052F465 /* ColorSpinner.mm */; };
+		23CA00A816E66F8C0052F465 /* wooden-bg.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 23CA00A716E66F8C0052F465 /* wooden-bg.jpg */; };
 		23DD5DEC16BEEEB900315D0A /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 23DD5DEB16BEEEB900315D0A /* QuartzCore.framework */; };
 		23DD5DEE16BEEEB900315D0A /* OpenGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 23DD5DED16BEEEB900315D0A /* OpenGL.framework */; };
 		23DD5DF016BEEEB900315D0A /* OpenAL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 23DD5DEF16BEEEB900315D0A /* OpenAL.framework */; };
@@ -229,6 +234,11 @@
 		239A5ACA16C57A10003BEAFA /* GestureDetectionScene.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = GestureDetectionScene.mm; sourceTree = "<group>"; };
 		239A5ACD16C57B14003BEAFA /* PhysicsSprite.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PhysicsSprite.h; sourceTree = "<group>"; };
 		239A5ACE16C57B14003BEAFA /* PhysicsSprite.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = PhysicsSprite.mm; sourceTree = "<group>"; };
+		23A2D56416E62677000470AA /* ColorWheelLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ColorWheelLayer.h; sourceTree = "<group>"; };
+		23A2D56516E62677000470AA /* ColorWheelLayer.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = ColorWheelLayer.mm; sourceTree = "<group>"; };
+		23A2D56916E63DE5000470AA /* ColorWheel.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ColorWheel.png; sourceTree = "<group>"; };
+		23AA005A16DFDCE500A76399 /* PinchGestureScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PinchGestureScene.h; sourceTree = "<group>"; };
+		23AA005B16DFDCE500A76399 /* PinchGestureScene.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PinchGestureScene.m; sourceTree = "<group>"; };
 		23B0439716D3C51B00A07683 /* GeometryDrawScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GeometryDrawScene.h; sourceTree = "<group>"; };
 		23B0439816D3C51B00A07683 /* GeometryDrawScene.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = GeometryDrawScene.mm; sourceTree = "<group>"; };
 		23B0439A16D3C71D00A07683 /* largeBrush.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = largeBrush.png; sourceTree = "<group>"; };
@@ -240,6 +250,9 @@
 		23BEA7A016C48FC200B7A4EE /* reddot.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = reddot.png; sourceTree = "<group>"; };
 		23BEA7A116C48FC200B7A4EE /* redcrosshair.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = redcrosshair.png; sourceTree = "<group>"; };
 		23C7B01516DBE42000C141E5 /* libLeap.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; path = libLeap.dylib; sourceTree = "<group>"; };
+		23CA00A416E65B030052F465 /* ColorSpinner.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ColorSpinner.h; sourceTree = "<group>"; };
+		23CA00A516E65B030052F465 /* ColorSpinner.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = ColorSpinner.mm; sourceTree = "<group>"; };
+		23CA00A716E66F8C0052F465 /* wooden-bg.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "wooden-bg.jpg"; sourceTree = "<group>"; };
 		23DD5DE816BEEEB900315D0A /* LeapPuzz.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LeapPuzz.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		23DD5DEB16BEEEB900315D0A /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		23DD5DED16BEEEB900315D0A /* OpenGL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGL.framework; path = System/Library/Frameworks/OpenGL.framework; sourceTree = SDKROOT; };
@@ -690,6 +703,10 @@
 				23B0439D16D3D14D00A07683 /* SimplePoint.m */,
 				23B0439F16D3D25D00A07683 /* SimplePointObject.h */,
 				23B043A016D3D25D00A07683 /* SimplePointObject.m */,
+				23A2D56416E62677000470AA /* ColorWheelLayer.h */,
+				23A2D56516E62677000470AA /* ColorWheelLayer.mm */,
+				23CA00A416E65B030052F465 /* ColorSpinner.h */,
+				23CA00A516E65B030052F465 /* ColorSpinner.mm */,
 			);
 			name = FingerPaint;
 			sourceTree = "<group>";
@@ -751,6 +768,8 @@
 				2399C4F516D2BA1F00DDD58B /* Gesture.mm */,
 				2399C4F616D2BA1F00DDD58B /* GestureListener.h */,
 				2399C4F716D2BA1F00DDD58B /* GestureListener.mm */,
+				23AA005A16DFDCE500A76399 /* PinchGestureScene.h */,
+				23AA005B16DFDCE500A76399 /* PinchGestureScene.m */,
 				2399C4FA16D2BBDB00DDD58B /* FingerPaint */,
 				231F474816D28B8500DCBEE6 /* GestureTraining */,
 				23F580D316CAE124003A733C /* SlashPong */,
@@ -770,6 +789,8 @@
 		23DD5DF816BEEEB900315D0A /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				23CA00A716E66F8C0052F465 /* wooden-bg.jpg */,
+				23A2D56916E63DE5000470AA /* ColorWheel.png */,
 				23B0439A16D3C71D00A07683 /* largeBrush.png */,
 				2339227716C4B09B00ECD6A4 /* Block.png */,
 				2339227816C4B09B00ECD6A4 /* Paddle.png */,
@@ -1384,6 +1405,8 @@
 				2339227B16C4B09B00ECD6A4 /* Paddle.png in Resources */,
 				2339227C16C4B09B00ECD6A4 /* Ball.png in Resources */,
 				23B0439B16D3C71D00A07683 /* largeBrush.png in Resources */,
+				23A2D56A16E63DE5000470AA /* ColorWheel.png in Resources */,
+				23CA00A816E66F8C0052F465 /* wooden-bg.jpg in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1581,6 +1604,9 @@
 				23B0439E16D3D14D00A07683 /* SimplePoint.m in Sources */,
 				23B043A116D3D25D00A07683 /* SimplePointObject.m in Sources */,
 				23E2CA5216D5369100E5AA37 /* DrawScene.mm in Sources */,
+				23AA005C16DFDCE500A76399 /* PinchGestureScene.m in Sources */,
+				23A2D56616E62677000470AA /* ColorWheelLayer.mm in Sources */,
+				23CA00A616E65B030052F465 /* ColorSpinner.mm in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

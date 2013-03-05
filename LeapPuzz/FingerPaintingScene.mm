@@ -68,6 +68,9 @@ enum {
 {
     controller = [[LeapController alloc] init];
     [controller addDelegate:self];
+    
+    
+    
     NSLog(@"running");
 }
 
@@ -80,8 +83,21 @@ enum {
 
 - (void)onConnect:(LeapController *)aController
 {
-    NSLog(@"Connected");
+   
+     NSLog(@"Connected");
+    
 }
+
+/*
+- (void)onConnect:(NSNotification *)notification{
+     NSLog(@"Connected");
+    
+    LeapController *aController = (LeapController *)[notification object];
+    [aController enableGesture:LEAP_GESTURE_TYPE_CIRCLE enable:YES];
+    [aController enableGesture:LEAP_GESTURE_TYPE_KEY_TAP enable:YES];
+    [aController enableGesture:LEAP_GESTURE_TYPE_SCREEN_TAP enable:YES];
+    [aController enableGesture:LEAP_GESTURE_TYPE_SWIPE enable:YES];
+}*/
 
 - (void)onDisconnect:(LeapController *)aController
 {
@@ -273,6 +289,22 @@ enum {
     streak.position = point;
     //[streak.ribbon addPointAt:point width:32];
 }
+
+#pragma mark - Gestures
+
+- (void)activateColorWheel{
+    
+}
+
+- (void)deactivateColorWheel{
+    
+}
+
+
+
+
+
+
 /*
 -(CGPoint)locationFromTouch:(UITouch*)touch
 {
