@@ -1,4 +1,12 @@
 //
+//  RecordDataScene.m
+//  LeapPuzz
+//
+//  Created by cj on 3/5/13.
+//
+//
+
+//
 //  FingerPaintingScene.m
 //  LeapPuzz
 //
@@ -6,7 +14,7 @@
 //
 //
 
-#import "FingerPaintingScene.h"
+#import "RecordDataScene.h"
 #import "SimplePoint.h"
 
 #define PTM_RATIO 32
@@ -17,16 +25,16 @@ enum {
 
 
 
-@implementation FingerPaintingScene
+@implementation RecordDataScene
 
 -(id) init
 {
-	if( (self=[super init])) {
+	if((self = [super init])) {
 		
 		// enable events
-
+        
 		self.isMouseEnabled = YES;
-
+        
 		CGSize s = [CCDirector sharedDirector].winSize;
 		
 		
@@ -46,80 +54,24 @@ enum {
 #endif
 		[self addChild:parent z:0 tag:kTagParentNode];
 		
-				
-		CCLabelTTF *label = [CCLabelTTF labelWithString:@"MotionStreak" fontName:@"Marker Felt" fontSize:32];
+        
+		CCLabelTTF *label = [CCLabelTTF labelWithString:@"RecordData" fontName:@"Marker Felt" fontSize:32];
 		[self addChild:label z:0];
 		[label setColor:ccc3(0,0,255)];
 		label.position = ccp( s.width/2, s.height-50);
 		
 		//[self scheduleUpdate];
         
-        
-        updateDraw = [NSTimer scheduledTimerWithTimeInterval:0.1
-                                         target:self
-                                       selector:@selector(updateDrawing:)
-                                       userInfo:nil
-                                        repeats:YES];
-        
         trackableList = [[NSMutableDictionary alloc] init];
         brushesList = [[NSMutableDictionary alloc] init];
         
         [self run];
         
-    
+        
+        //[self redirectNSLogToDocuments];
         
 	}
 	return self;
-}
-
-- (void)updateDrawing:(id)sender{
-    
-    
-    glLineWidth(5.f);
-    ccDrawColor4B(0, 0, 255, 255);
-    
-    glEnable(GL_LINE_SMOOTH);
-    
-    
-    for (id key in [trackableList allKeys]) {
-        RedDot* sprite = [trackableList objectForKey:key];
-        if ([sprite.path count] > 1){
-            for (int i = 0;  i < [sprite.path count] -1; i++){
-                SimplePoint* simplePoint =  [sprite.path objectAtIndex:i];
-                SimplePoint* simplePointNext = [sprite.path objectAtIndex:i+1];
-                
-                NSLog(@"Dragged %0.0f , %0.0f ", simplePoint.x, simplePoint.y);
-                ccDrawLine( ccp(simplePoint.x, simplePoint.y), ccp(simplePointNext.x, simplePoint.y));
-                
-                
-                NSLog(@"Draw");
-            }
-            [sprite.path removeAllObjects];
-        }
-        
-    }
-    
-    
-    if (mouseCursor != nil){
-        if ([mouseCursor.path count] > 1){
-            for (int i = 0;  i < [mouseCursor.path count] -1; i++){
-                SimplePoint* simplePoint =  [mouseCursor.path objectAtIndex:i];
-                SimplePoint* simplePointNext = [mouseCursor.path objectAtIndex:i+1];
-                
-                NSLog(@"Dragged %0.0f , %0.0f ", simplePoint.x, simplePoint.y);
-                ccDrawLine( ccp(simplePoint.x, simplePoint.y), ccp(simplePointNext.x, simplePoint.y));
-                
-                
-                NSLog(@"Draw");
-            }
-            NSRange range = NSMakeRange(0, [mouseCursor.path count] -1);
-            
-            [mouseCursor.path removeObjectsInRange:range];
-
-        }
-
-    }
-        
 }
 
 
@@ -212,7 +164,7 @@ enum {
                         
                     }
                 }
-
+                
             }
             
             avgPos = [avgPos divide:[fingers count]];
@@ -245,7 +197,7 @@ enum {
          [direction yaw] * LEAP_RAD_TO_DEG);
          */
     }
-    /*
+    
     NSArray *gestures = [frame gestures:nil];
     for (int g = 0; g < [gestures count]; g++) {
         LeapGesture *gesture = [gestures objectAtIndex:g];
@@ -260,28 +212,28 @@ enum {
                 }
                 
                 NSLog(@"Circle id: %d, %@, progress: %f, radius %f, angle: %f degrees",
-                      circleGesture.id, [FingerPaintingScene stringForState:gesture.state],
+                      circleGesture.id, [RecordDataScene stringForState:gesture.state],
                       circleGesture.progress, circleGesture.radius, sweptAngle * LEAP_RAD_TO_DEG);
                 break;
             }
             case LEAP_GESTURE_TYPE_SWIPE: {
                 LeapSwipeGesture *swipeGesture = (LeapSwipeGesture *)gesture;
                 NSLog(@"Swipe id: %d, %@, position: %@, direction: %@, speed: %f",
-                      swipeGesture.id, [FingerPaintingScene stringForState:swipeGesture.state],
+                      swipeGesture.id, [RecordDataScene stringForState:swipeGesture.state],
                       swipeGesture.position, swipeGesture.direction, swipeGesture.speed);
                 break;
             }
             case LEAP_GESTURE_TYPE_KEY_TAP: {
                 LeapKeyTapGesture *keyTapGesture = (LeapKeyTapGesture *)gesture;
                 NSLog(@"Key Tap id: %d, %@, position: %@, direction: %@",
-                      keyTapGesture.id, [FingerPaintingScene stringForState:keyTapGesture.state],
+                      keyTapGesture.id, [RecordDataScene stringForState:keyTapGesture.state],
                       keyTapGesture.position, keyTapGesture.direction);
                 break;
             }
             case LEAP_GESTURE_TYPE_SCREEN_TAP: {
                 LeapScreenTapGesture *screenTapGesture = (LeapScreenTapGesture *)gesture;
                 NSLog(@"Screen Tap id: %d, %@, position: %@, direction: %@",
-                      screenTapGesture.id, [FingerPaintingScene stringForState:screenTapGesture.state],
+                      screenTapGesture.id, [RecordDataScene stringForState:screenTapGesture.state],
                       screenTapGesture.position, screenTapGesture.direction);
                 break;
             }
@@ -290,8 +242,7 @@ enum {
                 break;
         }
     }
-     */
-
+    
 }
 
 //Cycle through all the trackable dots and check if the fingers still exist.
@@ -350,7 +301,7 @@ enum {
 {
 	CCMenuItemLabel *reset = [CCMenuItemFont itemWithString:@"Reset" block:^(id sender){
 		CCScene *s = [CCScene node];
-		id child = [FingerPaintingScene node];
+		id child = [RecordDataScene node];
 		[s addChild:child];
 		[[CCDirector sharedDirector] replaceScene: s];
 	}];
@@ -405,7 +356,7 @@ enum {
 - (void)draw {
     // ...
     [super draw];
-
+    
     // draw a simple line
     // The default state is:
     // Line Width: 1
@@ -416,7 +367,7 @@ enum {
     
     glEnable(GL_LINE_SMOOTH);
     
-
+    
     for (id key in [trackableList allKeys]) {
         RedDot* sprite = [trackableList objectForKey:key];
         if ([sprite.path count] > 1){
@@ -435,10 +386,38 @@ enum {
         
     }
     
+    
+    
+    
     // ...
 }
 
 
+
+/*
+ -(CGPoint)locationFromTouch:(UITouch*)touch
+ {
+ CGPoint touchLocation = [touch locationInView: [touch view]];
+ return [[CCDirector sharedDirector] convertToGL:touchLocation];
+ }*/
+
+/*
+ -(void)ccTouchesMoved:(NSSet *)touches withEvent:(UIEvent *)event {
+ NSEnumerator* enumerator = [touches objectEnumerator];
+ UITouch* oneTouch = nil;
+ while (oneTouch = [enumerator nextObject]) {
+ [self addMotionStreakPoint:[self locationFromTouch:oneTouch] on:oneTouch.hash];
+ }
+ }
+ 
+ -(void)ccTouchesEnded:(NSSet *)touches withEvent:(UIEvent *)event {
+ NSEnumerator* enumerator = [touches objectEnumerator];
+ UITouch* oneTouch = nil;
+ while (oneTouch = [enumerator nextObject]) {
+ [self removeMotionStreak:oneTouch.hash];
+ }
+ }
+ */
 
 
 + (NSString *)stringForState:(LeapGestureState)state
@@ -458,84 +437,38 @@ enum {
 }
 
 
-
-- (void)beginFingerDraw:(id)sender{
+//Method writes a string to a text file
+-(void) prepareFile{
     
-    //TrackedFinger* trackedFinger = (TrackedFinger*)[sender object];
-    //[self beginDraw:trackedFinger.position];
+    //get the documents directory:
+     paths = NSSearchPathForDirectoriesInDomains
+    (NSDocumentDirectory, NSUserDomainMask, YES);
+    documentsDirectory = [paths objectAtIndex:0];
     
-}
-
-- (void)updateFingerDraw:(id)sender{
-    //TrackedFinger* trackedFinger = (TrackedFinger*)[sender object];
-    //[self updateDraw:trackedFinger.position];
-    
-}
-
-- (void)endFingerDraw:(id)sender{
-    //TrackedFinger* trackedFinger = (TrackedFinger*)[sender object];
-    //[self endDraw:trackedFinger.position];
-}
-
-//The further negative, the thicker the line.
-- (void)beginDraw:(CGPoint)point{
-    
-    
-  
-}
-
-- (void)updateDraw:(CGPoint)point{
-    
+    //make a file name to write the data to using the documents directory:
+     fileName = [NSString stringWithFormat:@"%@/LeapGesture.log",
+                          documentsDirectory];
     
 }
 
-- (void)endDraw:(CGPoint)point{
+- (void)writeToFile:(NSString*)string{
     
+    //create content - four lines of text
+    NSString* EOL = @"\n";
+    NSString* content = [NSString stringWithFormat:@"%@ %@",string,EOL];
+    //save content to the documents directory
+    [content writeToFile:fileName
+              atomically:NO
+                encoding:NSStringEncodingConversionAllowLossy
+                   error:nil];
+
 }
 
-
-#pragma mark - Mouse Handling
-- (BOOL)ccMouseDown:(NSEvent *)event{
-    
-    if (mouseCursor == nil){
-        
-        
-        CGPoint point = [[CCDirector sharedDirector] convertEventToGL:event];
-        mouseCursor = [self addRedDot:point finger:@"mouse"];
-
-    }
-
-    
-        return YES;
+-(void) redirectNSLogToDocuments {
+    NSArray *allPaths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    NSString *documentsDIR = [allPaths objectAtIndex:0];
+    NSString *pathForLog = [documentsDirectory stringByAppendingPathComponent:@"yourFile.txt"];
+    freopen([pathForLog cStringUsingEncoding:NSASCIIStringEncoding],"a+",stderr);
 }
-
-- (BOOL)ccMouseDragged:(NSEvent *)event {
-    
- 
-    if (mouseCursor != nil){
-        CGPoint point = [[CCDirector sharedDirector] convertEventToGL:event];
-        mouseCursor.position = point;
-        SimplePoint* simplePoint = [[SimplePoint alloc] initWithPosition:point];
-        [mouseCursor.path addObject:simplePoint];
-        
-    }
-    
-    return YES;
-    
-}
-
-- (BOOL)ccMouseUp:(NSEvent *)event{
-    
-    if (mouseCursor != nil){
-        CCNode *parent = [self getChildByTag:kTagParentNode];
-        [parent removeChild:mouseCursor cleanup:nil];
-        mouseCursor =nil;
-    }
-        
-
-
-    return YES;
-}
-
 
 @end

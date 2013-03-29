@@ -1,8 +1,8 @@
 //
-//  GeometryDrawScene.h
+//  RecordDataScene.h
 //  LeapPuzz
 //
-//  Created by cj on 2/19/13.
+//  Created by cj on 3/5/13.
 //
 //
 
@@ -13,7 +13,8 @@
 #import "LeapObjectiveC.h"
 #import "RedDot.h"
 
-@interface GeometryDrawScene : CCLayer <LeapListener>{
+
+@interface RecordDataScene : CCLayer <LeapListener> {
     
     LeapController *controller;
     
@@ -26,18 +27,18 @@
     b2World* _world;
     b2Body *_groundBody;
     
-//
-    CCRenderTexture *target;
-    CCSprite *brush;
+    //get the documents directory:
+    NSArray *paths;
+    NSString *documentsDirectory;
+    NSString *fileName;
     
-    CGPoint previousLocation;
-	b2Body* currentPlatformBody;
+    CIColor* brushColor;
     
-	//std::vector<cocos2d::CCPoint> plataformPoints;
-    NSMutableArray* plataformPoints;
     
-    NSMutableDictionary* trackableBrushList;
     NSMutableDictionary* trackableList;
+    NSMutableDictionary* brushesList;
 }
 
 @end
+
+

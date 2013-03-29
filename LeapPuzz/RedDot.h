@@ -19,5 +19,6 @@
 
 @property (nonatomic, strong) NSString* fingerID;
 @property (nonatomic, readwrite) BOOL updated;
+@property (nonatomic, strong) NSMutableArray* path;
 
 @end

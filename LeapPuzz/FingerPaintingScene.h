@@ -14,7 +14,7 @@
 #import "RedDot.h"
 
 
-@interface FingerPaintingScene : CCLayer <LeapDelegate> {
+@interface FingerPaintingScene : CCLayer <LeapListener> {
     
     LeapController *controller;
     
@@ -31,6 +31,15 @@
     
     
     NSMutableDictionary* trackableList;
+    NSMutableDictionary* brushesList;
+    
+    NSTimer* updateDraw;
+    
+    
+    RedDot* mouseCursor;
+    
+    
+    
 }
 
 

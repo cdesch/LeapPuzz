@@ -8,8 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		231F474B16D28B9F00DCBEE6 /* GestureTrainingScene.m in Sources */ = {isa = PBXBuildFile; fileRef = 231F474A16D28B9F00DCBEE6 /* GestureTrainingScene.m */; };
-		231F474E16D28C3D00DCBEE6 /* GestureTrainingPipeline.mm in Sources */ = {isa = PBXBuildFile; fileRef = 231F474D16D28C3D00DCBEE6 /* GestureTrainingPipeline.mm */; };
 		231F474F16D28D9B00DCBEE6 /* libgesture-recognition-toolkit.dylib in Resources */ = {isa = PBXBuildFile; fileRef = 2370432616CD8DE2001A760F /* libgesture-recognition-toolkit.dylib */; };
+		2329B1D216E68CC1009659BA /* RecordDataScene.mm in Sources */ = {isa = PBXBuildFile; fileRef = 2329B1D116E68CC1009659BA /* RecordDataScene.mm */; };
 		2339227A16C4B09B00ECD6A4 /* Block.png in Resources */ = {isa = PBXBuildFile; fileRef = 2339227716C4B09B00ECD6A4 /* Block.png */; };
 		2339227B16C4B09B00ECD6A4 /* Paddle.png in Resources */ = {isa = PBXBuildFile; fileRef = 2339227816C4B09B00ECD6A4 /* Paddle.png */; };
 		2339227C16C4B09B00ECD6A4 /* Ball.png in Resources */ = {isa = PBXBuildFile; fileRef = 2339227916C4B09B00ECD6A4 /* Ball.png */; };
@@ -212,8 +212,8 @@
 /* Begin PBXFileReference section */
 		231F474916D28B9F00DCBEE6 /* GestureTrainingScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GestureTrainingScene.h; sourceTree = "<group>"; };
 		231F474A16D28B9F00DCBEE6 /* GestureTrainingScene.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GestureTrainingScene.m; sourceTree = "<group>"; };
-		231F474C16D28C3D00DCBEE6 /* GestureTrainingPipeline.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GestureTrainingPipeline.h; sourceTree = "<group>"; };
-		231F474D16D28C3D00DCBEE6 /* GestureTrainingPipeline.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = GestureTrainingPipeline.mm; sourceTree = "<group>"; };
+		2329B1D016E68CC1009659BA /* RecordDataScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RecordDataScene.h; sourceTree = "<group>"; };
+		2329B1D116E68CC1009659BA /* RecordDataScene.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = RecordDataScene.mm; sourceTree = "<group>"; };
 		2339227716C4B09B00ECD6A4 /* Block.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Block.png; sourceTree = "<group>"; };
 		2339227816C4B09B00ECD6A4 /* Paddle.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Paddle.png; sourceTree = "<group>"; };
 		2339227916C4B09B00ECD6A4 /* Ball.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Ball.png; sourceTree = "<group>"; };
@@ -707,6 +707,8 @@
 				23A2D56516E62677000470AA /* ColorWheelLayer.mm */,
 				23CA00A416E65B030052F465 /* ColorSpinner.h */,
 				23CA00A516E65B030052F465 /* ColorSpinner.mm */,
+				2329B1D016E68CC1009659BA /* RecordDataScene.h */,
+				2329B1D116E68CC1009659BA /* RecordDataScene.mm */,
 			);
 			name = FingerPaint;
 			sourceTree = "<group>";
@@ -762,8 +764,6 @@
 				23FE2E8B16C0AA5E0070A25D /* LeapObjectiveC.mm */,
 				23DD5FFC16BEEEBE00315D0A /* AppDelegate.h */,
 				23DD5FFD16BEEEBE00315D0A /* AppDelegate.mm */,
-				231F474C16D28C3D00DCBEE6 /* GestureTrainingPipeline.h */,
-				231F474D16D28C3D00DCBEE6 /* GestureTrainingPipeline.mm */,
 				2399C4F416D2BA1F00DDD58B /* Gesture.h */,
 				2399C4F516D2BA1F00DDD58B /* Gesture.mm */,
 				2399C4F616D2BA1F00DDD58B /* GestureListener.h */,
@@ -1595,7 +1595,6 @@
 				23F580D616CAE148003A733C /* SlashPongScene.mm in Sources */,
 				23F580D916CAE159003A733C /* PongScene.mm in Sources */,
 				231F474B16D28B9F00DCBEE6 /* GestureTrainingScene.m in Sources */,
-				231F474E16D28C3D00DCBEE6 /* GestureTrainingPipeline.mm in Sources */,
 				2399C4F816D2BA1F00DDD58B /* Gesture.mm in Sources */,
 				2399C4F916D2BA1F00DDD58B /* GestureListener.mm in Sources */,
 				2399C4FD16D2BBF400DDD58B /* FingerPaintingScene.mm in Sources */,
@@ -1607,6 +1606,7 @@
 				23AA005C16DFDCE500A76399 /* PinchGestureScene.m in Sources */,
 				23A2D56616E62677000470AA /* ColorWheelLayer.mm in Sources */,
 				23CA00A616E65B030052F465 /* ColorSpinner.mm in Sources */,
+				2329B1D216E68CC1009659BA /* RecordDataScene.mm in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

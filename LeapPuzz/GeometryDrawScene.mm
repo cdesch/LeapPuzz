@@ -72,7 +72,7 @@ enum {
         trackableList = [[NSMutableDictionary alloc] init];
         trackableBrushList = [[NSMutableDictionary alloc] init];
         
-        //[self run];
+        [self run];
         
         
 	}
@@ -513,46 +513,55 @@ enum {
     }
 
 }
-
+#pragma mark - SampleDelegate Callbacks
 - (void)run
 {
     controller = [[LeapController alloc] init];
-    [controller addDelegate:self];
+    [controller addListener:self];
     NSLog(@"running");
 }
 
-#pragma mark - SampleDelegate Callbacks
-
-- (void)onInit:(LeapController *)aController
-{
-    NSLog(@"Initialized");
+- (void)onInit:(NSNotification *)notification{
+    NSLog(@"Leap: Initialized");
 }
 
-- (void)onConnect:(LeapController *)aController
+- (void)onConnect:(NSNotification *)notification;
 {
-    NSLog(@"Connected");
+    NSLog(@"Leap: Connected");
+    LeapController *aController = (LeapController *)[notification object];
+    [aController enableGesture:LEAP_GESTURE_TYPE_CIRCLE enable:YES];
+    [aController enableGesture:LEAP_GESTURE_TYPE_KEY_TAP enable:YES];
+    [aController enableGesture:LEAP_GESTURE_TYPE_SCREEN_TAP enable:YES];
+    [aController enableGesture:LEAP_GESTURE_TYPE_SWIPE enable:YES];
 }
 
-- (void)onDisconnect:(LeapController *)aController
-{
-    NSLog(@"Disconnected");
+- (void)onDisconnect:(NSNotification *)notification{
+    NSLog(@"Leap: Disconnected");
 }
 
-- (void)onExit:(LeapController *)aController
-{
-    NSLog(@"Exited");
+- (void)onExit:(NSNotification *)notification{
+    NSLog(@"Leap: Exited");
 }
 
-- (void)onFrame:(LeapController *)aController
-{
+- (void)onFrame:(NSNotification *)notification{
+    
+    ///NSLog(@"OnFrame");
+    LeapController *aController = (LeapController *)[notification object];
     // Get the most recent frame and report some basic information
     LeapFrame *frame = [aController frame:0];
-    /*
-     NSLog(@"Frame id: %lld, timestamp: %lld, hands: %ld, fingers: %ld, tools: %ld",
-     [frame id], [frame timestamp], [[frame hands] count],
-     [[frame fingers] count], [[frame tools] count]);
-     
-     */
+
+    if ([[frame tools] count] != 0){
+        NSArray *tools = [frame tools];
+        NSLog(@"%0.0ld", (unsigned long)[[frame tools ]count]);
+        for (int i = 0; i < [tools count]; i++){
+            LeapTool* tool = [tools objectAtIndex:i];
+            NSLog(@"Tool: %0.0d",tool.id);
+        }
+        
+        
+    }
+/*
+
     if ([[frame hands] count] != 0) {
         // Get the first hand
         LeapHand *hand = [[frame hands] objectAtIndex:0];
@@ -572,25 +581,19 @@ enum {
                 if (avgPos.z > 0){
                     NSString* fingerID = [NSString stringWithFormat:@"%d", finger.id];
                     
-                    //Check if the Finger ID exists in the list already
+                    //Check if the Finger ID exists remove it from the sceen
                     if ([trackableList objectForKey:fingerID]) {
                         
-                        //If it does exist update the position on the screen
-                        RedDot* sprite = [trackableList objectForKey:fingerID];
-                        sprite.position = [self covertLeapCoordinates:CGPointMake(finger.tipPosition.x, finger.tipPosition.y)];
-                        sprite.updated = TRUE;
+                        //EndDraw
                         
-                        CCMotionStreak* streak = [self getMotionStreak:[sprite.fingerID intValue] withSprite:sprite];
-                        streak.position = sprite.position;
+                        TrackedFinger* sprite = (TrackedFinger*)[trackableList objectForKey:fingerID];
+                        //CCNode *parent = [self getChildByTag:kTagParentNode];
+                        [trackableList removeObjectForKey:fingerID];
+                        //[self removeChild:sprite cleanup:YES];
+                        //Get rid of the motion streak
+                        //[self removeMotionStreak:[sprite.fingerID intValue]];
+                        [self endFingerDraw:sprite];
                         
-                        
-                    }else{
-                        
-                        NSLog(@"x %0.0f y %0.0f z %0.0f", finger.tipPosition.x, finger.tipPosition.y, finger.tipPosition.z);
-                        
-                        //Add it to the dictionary
-                        RedDot* redDot = [self addRedDot:CGPointMake(finger.tipPosition.x, finger.tipPosition.y) finger:fingerID];
-                        [trackableList setObject:redDot forKey:fingerID];
                     }
                 }else{
                     //Draw it
@@ -606,7 +609,7 @@ enum {
                         sprite.updated = TRUE;
                         
                         [self updateFingerDraw:sprite];
-                               
+                        
                     }else{
                         //Create//
                         
@@ -630,15 +633,18 @@ enum {
             }
             
         }
-        
+ 
         [self checkFingerExists];
-        
+ 
         //const LeapVector *normal = [hand palmNormal];
         //const LeapVector *direction = [hand direction];
         
     }
-}
+ 
+ */
 
+    
+}
 - (RedDot*)addRedDot:(CGPoint)p finger:(NSString*)fingerID{
     
     CCNode *parent = [self getChildByTag:kTagParentNode];
@@ -673,15 +679,20 @@ enum {
 
 - (void)beginFingerDraw:(id)sender{
     
+    TrackedFinger* trackedFinger = (TrackedFinger*)[sender object];
+    [self beginDraw:trackedFinger.position];
+    
 }
 
-
 - (void)updateFingerDraw:(id)sender{
-    
+    TrackedFinger* trackedFinger = (TrackedFinger*)[sender object];
+    [self updateDraw:trackedFinger.position];
+
 }
 
 - (void)endFingerDraw:(id)sender{
-    
+    TrackedFinger* trackedFinger = (TrackedFinger*)[sender object];
+    [self endDraw:trackedFinger.position];
 }
 
 //The further negative, the thicker the line. 
@@ -702,8 +713,6 @@ enum {
     SimplePointObject* pointObject = [[SimplePointObject alloc] initWithPosition:location];
     [plataformPoints addObject:pointObject];
     
-    
-    
     previousLocation = location;
     
     b2BodyDef myBodyDef;
@@ -716,13 +725,8 @@ enum {
 - (void)updateDraw:(CGPoint)point{
     
     
-    
-    //CGPoint point = [[CCDirector sharedDirector] convertEventToGL:event];
     CGPoint location = point;
     
-    //b2Vec2 locationWorld = b2Vec2(location.x/PTM_RATIO, location.y/PTM_RATIO);
-    
-
     CGPoint start = location;
     CGPoint end = previousLocation;
     

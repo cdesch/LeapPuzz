@@ -13,7 +13,7 @@
 #import "FingerPaintingScene.h"
 #import "LineDrawer.h"
 #import "GeometryDrawScene.h"
-#import "ColorWheelLayer.h"
+#import "RecordDataScene.h"
 
 @implementation LeapPuzzAppDelegate
 @synthesize window=window_, glView=glView_;
@@ -23,9 +23,11 @@
     //[self runBreakOut];
     //[self runPuzzle];
     //[self runPong];
-    [self runFingerPaint];
+    //[self runFingerPaint];
     //[self runLineDrawer];
-    //[self runGeometryDrawer];
+    [self runGeometryDrawer];
+    
+    //[self runRecordData];
 }
 
 - (void)runBreakOut{
@@ -130,8 +132,8 @@
 	[window_ center];
     
 	CCScene *scene = [CCScene node];
-	//[scene addChild:[FingerPaintingScene node]];
-    [scene addChild:[ColorWheelLayer node]];
+	[scene addChild:[FingerPaintingScene node]];
+
 	
 	[director runWithScene:scene];
     
@@ -188,6 +190,34 @@
     
 	CCScene *scene = [CCScene node];
 	[scene addChild:[GeometryDrawScene node]];
+	
+	[director runWithScene:scene];
+    
+}
+
+- (void)runRecordData{
+    
+    CCDirectorMac *director = (CCDirectorMac*) [CCDirector sharedDirector];
+	
+	// enable FPS and SPF
+	[director setDisplayStats:YES];
+	
+	// connect the OpenGL view with the director
+	[director setView:glView_];
+    
+	// EXPERIMENTAL stuff.
+	// 'Effects' don't work correctly when autoscale is turned on.
+	// Use kCCDirectorResize_NoScale if you don't want auto-scaling.
+	[director setResizeMode:kCCDirectorResize_AutoScale];
+	
+	// Enable "moving" mouse event. Default no.
+	[window_ setAcceptsMouseMovedEvents:NO];
+	
+	// Center main window
+	[window_ center];
+    
+	CCScene *scene = [CCScene node];
+	[scene addChild:[RecordDataScene node]];
 	
 	[director runWithScene:scene];
     
