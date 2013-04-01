@@ -7,7 +7,9 @@
 //
 
 #import <Foundation/Foundation.h>
-
-@interface HUDLayer : NSObject
+#import "cocos2d.h"
+@interface HUDLayer : CCLayer {
+    
+}
 
 @end
