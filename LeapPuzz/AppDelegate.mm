@@ -170,7 +170,7 @@
 - (void)runGeometryDrawer{
     
     CCDirectorMac *director = (CCDirectorMac*) [CCDirector sharedDirector];
-	
+	[glView_ setFrameSize:NSMakeSize(1024,768)]; 
 	// enable FPS and SPF
 	[director setDisplayStats:YES];
 	

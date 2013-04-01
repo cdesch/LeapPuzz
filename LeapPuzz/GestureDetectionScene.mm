@@ -78,6 +78,8 @@ enum {
 {
     controller = [[LeapController alloc] init];
     [controller addDelegate:self];
+    
+
     NSLog(@"running");
 }
 

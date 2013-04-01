@@ -12,6 +12,7 @@
 #import "GLES-Render.h"
 #import "LeapObjectiveC.h"
 #import "RedDot.h"
+#import "LPTool.h"
 
 @interface GeometryDrawScene : CCLayer <LeapListener>{
     
@@ -38,6 +39,11 @@
     
     NSMutableDictionary* trackableBrushList;
     NSMutableDictionary* trackableList;
+    
+    NSString* primaryToolID;
+    LPTool* primaryTool;
+    
+    LeapScreen* leapScreen;
 }
 
 @end

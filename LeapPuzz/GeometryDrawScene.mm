@@ -40,14 +40,14 @@ enum {
 		
 #if 1
 		// Use batch node. Faster
-		CCSpriteBatchNode *parent = [CCSpriteBatchNode batchNodeWithFile:@"blocks.png" capacity:100];
-		spriteTexture_ = [parent texture];
+		//CCSpriteBatchNode *parent = [CCSpriteBatchNode batchNodeWithFile:@"blocks.png" capacity:100];
+		//spriteTexture_ = [parent texture];
 #else
 		// doesn't use batch node. Slower
-		spriteTexture_ = [[CCTextureCache sharedTextureCache] addImage:@"blocks.png"];
-		CCNode *parent = [CCNode node];
+		//spriteTexture_ = [[CCTextureCache sharedTextureCache] addImage:@"blocks.png"];
+		//CCNode *parent = [CCNode node];
 #endif
-		[self addChild:parent z:0 tag:kTagParentNode];
+		//[self addChild:parent z:0 tag:kTagParentNode];
 		
 		plataformPoints = [[NSMutableArray alloc] init];
 		
@@ -100,10 +100,31 @@ enum {
 	
 }
 
+- (LPTool*)addLPTool:(CGPoint)p objectID:(NSString*)objectID{
+
+
+    //CCNode *parent = [self getChildByTag:kTagParentNode];
+
+	LPTool *sprite = [LPTool spriteWithFile:@"Block.png"];
+    //LPTool *sprite = [LPTool spriteWithTexture:spriteTexture_ rect:CGRectMake(32 * idx,32 * idy,32,32)];
+    [self addChild:sprite];
+    //[parent addChild:sprite];
+    sprite.updated = TRUE;
+    sprite.toolID = objectID;
+    sprite.position = ccp( p.x, p.y);
+    
+    
+    
+    return sprite;
+}
+
+
 -(void) initPhysics
 {
 	
 	CGSize s = [[CCDirector sharedDirector] winSize];
+    
+
 	
     //Gravity
 	b2Vec2 gravity;
@@ -518,7 +539,15 @@ enum {
 {
     controller = [[LeapController alloc] init];
     [controller addListener:self];
+    
+    
+    NSArray* screens = controller.calibratedScreens;
+    leapScreen = [screens objectAtIndex:0];
+    //
+    NSLog(@"Screens: %0.0ld", (unsigned long)[screens count]);
     NSLog(@"running");
+    
+
 }
 
 - (void)onInit:(NSNotification *)notification{
@@ -550,16 +579,52 @@ enum {
     // Get the most recent frame and report some basic information
     LeapFrame *frame = [aController frame:0];
 
+
     if ([[frame tools] count] != 0){
         NSArray *tools = [frame tools];
-        NSLog(@"%0.0ld", (unsigned long)[[frame tools ]count]);
-        for (int i = 0; i < [tools count]; i++){
-            LeapTool* tool = [tools objectAtIndex:i];
-            NSLog(@"Tool: %0.0d",tool.id);
+        
+        //Create tool if it does not exist
+        if (primaryTool == nil){
+            
+            for (int i = 0; i < [tools count]; i++){
+                
+                LeapTool* tool = [tools objectAtIndex:i];
+                LeapVector* normalized = [leapScreen intersect:tool normalize:NO clampRatio:1.0];
+                NSLog(@"x  %0.0f y %0.0f", normalized.x, normalized.y);
+                
+                primaryTool = [self addLPTool: CGPointMake(normalized.x, normalized.y) objectID:[NSString stringWithFormat:@"%0.0d",tool.id]];
+                //primaryTool = [self addLPTool: [self covertLeapCoordinates:CGPointMake(tool.tipPosition.x, tool.tipPosition.y)] objectID:[NSString stringWithFormat:@"%0.0d",tool.id]];
+            }
+            
+        }else{
+            //Update since it does exist
+            for (int i = 0; i < [tools count]; i++){
+                LeapTool* tool = [tools objectAtIndex:i];
+                if (tool.id == [primaryTool.toolID intValue]){
+                    
+                    LeapVector* normalized = [leapScreen intersect:tool normalize:NO clampRatio:1.0];
+                    NSLog(@"x  %0.0f y %0.0f", normalized.x, normalized.y);
+
+                    primaryTool.position =  CGPointMake(normalized.x, normalized.y);
+                    //primaryTool.position =  [self covertLeapCoordinates:CGPointMake(tool.tipPosition.x, tool.tipPosition.y)];
+                    
+                }
+                
+            }
+            
         }
         
         
+    }else{
+        
+        CCNode *parent = [self getChildByTag:kTagParentNode];
+        [self removeChild:primaryTool cleanup:YES];
+        //[parent removeChild:primaryTool cleanup:YES];
+        primaryTool = nil;
+        
     }
+    
+    
 /*
 
     if ([[frame hands] count] != 0) {

@@ -33,6 +33,9 @@
 		23BEA7A216C48FC200B7A4EE /* darkreddot.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 23BEA79F16C48FC200B7A4EE /* darkreddot.jpg */; };
 		23BEA7A316C48FC200B7A4EE /* reddot.png in Resources */ = {isa = PBXBuildFile; fileRef = 23BEA7A016C48FC200B7A4EE /* reddot.png */; };
 		23BEA7A416C48FC200B7A4EE /* redcrosshair.png in Resources */ = {isa = PBXBuildFile; fileRef = 23BEA7A116C48FC200B7A4EE /* redcrosshair.png */; };
+		23C1D8061709C562008BE5B9 /* GameScene.mm in Sources */ = {isa = PBXBuildFile; fileRef = 23C1D8051709C562008BE5B9 /* GameScene.mm */; };
+		23C1D8091709C57B008BE5B9 /* HUDLayer.mm in Sources */ = {isa = PBXBuildFile; fileRef = 23C1D8081709C57B008BE5B9 /* HUDLayer.mm */; };
+		23C2C78B1706106F007F3667 /* LPTool.mm in Sources */ = {isa = PBXBuildFile; fileRef = 23C2C78A1706106F007F3667 /* LPTool.mm */; };
 		23C7B01616DBE42000C141E5 /* libLeap.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 23C7B01516DBE42000C141E5 /* libLeap.dylib */; };
 		23C7B01716DBE44A00C141E5 /* libLeap.dylib in Resources */ = {isa = PBXBuildFile; fileRef = 23C7B01516DBE42000C141E5 /* libLeap.dylib */; };
 		23CA00A616E65B030052F465 /* ColorSpinner.mm in Sources */ = {isa = PBXBuildFile; fileRef = 23CA00A516E65B030052F465 /* ColorSpinner.mm */; };
@@ -249,6 +252,12 @@
 		23BEA79F16C48FC200B7A4EE /* darkreddot.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = darkreddot.jpg; sourceTree = "<group>"; };
 		23BEA7A016C48FC200B7A4EE /* reddot.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = reddot.png; sourceTree = "<group>"; };
 		23BEA7A116C48FC200B7A4EE /* redcrosshair.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = redcrosshair.png; sourceTree = "<group>"; };
+		23C1D8041709C562008BE5B9 /* GameScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameScene.h; sourceTree = "<group>"; };
+		23C1D8051709C562008BE5B9 /* GameScene.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = GameScene.mm; sourceTree = "<group>"; };
+		23C1D8071709C57B008BE5B9 /* HUDLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HUDLayer.h; sourceTree = "<group>"; };
+		23C1D8081709C57B008BE5B9 /* HUDLayer.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = HUDLayer.mm; sourceTree = "<group>"; };
+		23C2C7891706106F007F3667 /* LPTool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LPTool.h; sourceTree = "<group>"; };
+		23C2C78A1706106F007F3667 /* LPTool.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = LPTool.mm; sourceTree = "<group>"; };
 		23C7B01516DBE42000C141E5 /* libLeap.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; path = libLeap.dylib; sourceTree = "<group>"; };
 		23CA00A416E65B030052F465 /* ColorSpinner.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ColorSpinner.h; sourceTree = "<group>"; };
 		23CA00A516E65B030052F465 /* ColorSpinner.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = ColorSpinner.mm; sourceTree = "<group>"; };
@@ -691,12 +700,18 @@
 		2399C4FA16D2BBDB00DDD58B /* FingerPaint */ = {
 			isa = PBXGroup;
 			children = (
+				23C1D8041709C562008BE5B9 /* GameScene.h */,
+				23C1D8051709C562008BE5B9 /* GameScene.mm */,
+				23C1D8071709C57B008BE5B9 /* HUDLayer.h */,
+				23C1D8081709C57B008BE5B9 /* HUDLayer.mm */,
 				2399C4FE16D2CB2000DDD58B /* LineDrawer.h */,
 				2399C4FF16D2CB2000DDD58B /* LineDrawer.mm */,
 				2399C4FB16D2BBF400DDD58B /* FingerPaintingScene.h */,
 				2399C4FC16D2BBF400DDD58B /* FingerPaintingScene.mm */,
 				23B0439716D3C51B00A07683 /* GeometryDrawScene.h */,
 				23B0439816D3C51B00A07683 /* GeometryDrawScene.mm */,
+				23C2C7891706106F007F3667 /* LPTool.h */,
+				23C2C78A1706106F007F3667 /* LPTool.mm */,
 				23E2CA5016D5369000E5AA37 /* DrawScene.h */,
 				23E2CA5116D5369100E5AA37 /* DrawScene.mm */,
 				23B0439C16D3D14D00A07683 /* SimplePoint.h */,
@@ -1607,6 +1622,9 @@
 				23A2D56616E62677000470AA /* ColorWheelLayer.mm in Sources */,
 				23CA00A616E65B030052F465 /* ColorSpinner.mm in Sources */,
 				2329B1D216E68CC1009659BA /* RecordDataScene.mm in Sources */,
+				23C2C78B1706106F007F3667 /* LPTool.mm in Sources */,
+				23C1D8061709C562008BE5B9 /* GameScene.mm in Sources */,
+				23C1D8091709C57B008BE5B9 /* HUDLayer.mm in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
