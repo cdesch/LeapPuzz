@@ -603,13 +603,14 @@ enum {
         NSLog(@"No Pointables");
     }*/
     
+    
 
+
+    
 
     if ([[frame tools] count] != 0){
         NSArray *tools = [frame tools];
-        
-        NSLog(@"toolFound");
-        
+               
         LeapTool* tool = [tools objectAtIndex:0];
         //LeapVector* normalized = [leapScreen intersect:tool normalize:YES clampRatio:1.0];
         
@@ -620,7 +621,18 @@ enum {
         LeapVector* normalized = [leapScreen2 intersect:tool normalize:YES clampRatio:2.0];
         double x = normalized.x*  [leapScreen2 widthPixels];
         double y = normalized.y* [leapScreen2 heightPixels];
-        NSLog(@"x %0.0f y %0.0f", x, y);
+        
+        CGPoint pointer = CGPointMake(x, y);
+        //pointer = [[CCDirector sharedDirector] convertToGL:pointer];
+//        pointer = [[CCDirector sharedDirector] convertToUI:pointer];
+       
+        CCDirector* director = [CCDirector sharedDirector];
+
+        NSPoint from = [director.view convertPoint:pointer fromView:nil];
+        NSPoint to = [director.view convertPoint:pointer fromView:nil];
+        NSPoint var = [director.view.window convertScreenToBase:pointer];
+                
+        NSLog(@"x %0.0f y %0.0f Pointer: x %0.0f y %0.0f", x, y, var.x, var.y);
         
         
         //Convert to window coordinates
@@ -628,50 +640,37 @@ enum {
         //Create tool if it does not exist
         if (primaryTool == nil){
             
-               
             if([leapScreen2 isValid]){
-                
                 
             }else{
                 
                 NSLog(@"LeapScreen invalid");
             }
             
-                       
-            primaryTool = [self addLPTool:CGPointMake(x, y) objectID:[NSString stringWithFormat:@"%0.0d",tool.id]];
+            //primaryTool = [self addLPTool:CGPointMake(x, y) objectID:[NSString stringWithFormat:@"%0.0d",tool.id]];
+            primaryTool = [self addLPTool:pointer objectID:[NSString stringWithFormat:@"%0.0d",tool.id]];
             
-
-            
-        }else{
+       }else{
             //Update since it does exist
 
-            
-
-            
-            primaryTool.position =  CGPointMake(x, y);
+            //primaryTool.position =  CGPointMake(x, y);
+           primaryTool.position =  pointer;
 
             if (tool.id == [primaryTool.toolID intValue]){
-                primaryTool.toolID = [NSString stringWithFormat:@"%0.0d",tool.id];
+                //primaryTool.toolID = [NSString stringWithFormat:@"%0.0d",tool.id];
             
             }else{
-                NSLog(@"different tool id");
+                primaryTool.toolID = [NSString stringWithFormat:@"%0.0d",tool.id];
             }
-
-            
         }
-            
-      
-        
-        
+
     }else{
-        
-        NSLog(@"No tool found");
+
         [self removeChild:primaryTool cleanup:YES];
         //[parent removeChild:primaryTool cleanup:YES];
         primaryTool = nil;
         
     }
-
 
 /*
 

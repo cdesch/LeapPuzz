@@ -124,6 +124,9 @@
 	// 'Effects' don't work correctly when autoscale is turned on.
 	// Use kCCDirectorResize_NoScale if you don't want auto-scaling.
 	[director setResizeMode:kCCDirectorResize_AutoScale];
+    
+    
+    
 	
 	// Enable "moving" mouse event. Default no.
 	[window_ setAcceptsMouseMovedEvents:NO];
@@ -148,8 +151,10 @@
 	
 	// connect the OpenGL view with the director
 	[director setView:glView_];
+    NSRect screensFrame = [[NSScreen mainScreen] frame];
+    [glView_ setFrameSize:NSMakeSize(screensFrame.size.width,screensFrame.size.height)];
     
-    [glView_ setFrameSize:NSMakeSize(1024,768)]; 
+
 	// EXPERIMENTAL stuff.
 	// 'Effects' don't work correctly when autoscale is turned on.
 	// Use kCCDirectorResize_NoScale if you don't want auto-scaling.
@@ -170,7 +175,11 @@
 - (void)runGeometryDrawer{
     
     CCDirectorMac *director = (CCDirectorMac*) [CCDirector sharedDirector];
-	[glView_ setFrameSize:NSMakeSize(1024,768)]; 
+    
+    
+    NSRect screensFrame = [[NSScreen mainScreen] frame];
+    NSLog(@"Screen size %0.0f %0.0f", screensFrame.size.width, screensFrame.size.height);
+    [glView_ setFrameSize:NSMakeSize(screensFrame.size.width,screensFrame.size.height)];
 	// enable FPS and SPF
 	[director setDisplayStats:YES];
 	
@@ -181,6 +190,9 @@
 	// 'Effects' don't work correctly when autoscale is turned on.
 	// Use kCCDirectorResize_NoScale if you don't want auto-scaling.
 	[director setResizeMode:kCCDirectorResize_AutoScale];
+    
+    [glView_ setFrameSize:NSMakeSize(window_.frame.size.width,window_.frame.size.height-42)];
+
 	
 	// Enable "moving" mouse event. Default no.
 	[window_ setAcceptsMouseMovedEvents:NO];
