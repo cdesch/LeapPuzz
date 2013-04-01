@@ -578,53 +578,101 @@ enum {
     LeapController *aController = (LeapController *)[notification object];
     // Get the most recent frame and report some basic information
     LeapFrame *frame = [aController frame:0];
+   /*
+    if ([[frame hands] count] != 0) {
+        
+        NSLog(@"hands %0.0lu", (unsigned long)[[frame hands] count]);
+    }
+    
+    NSLog(@"frame");
+    if ([[frame tools] count] != 0){
+            NSLog(@"tools %0.0lu", (unsigned long)[[frame tools] count]);
+    }
+    */
+    /*
+    if ([[frame pointables] count] != 0){
+        
+        NSLog(@"hands %0.0lu tools: %0.0lu", (unsigned long)[[frame hands] count], (unsigned long)[[frame tools] count]);
+        
+        LeapPointable* pointer = [[frame pointables] objectAtIndex:0];
+        
+        
+        
+        
+    }else{
+        NSLog(@"No Pointables");
+    }*/
+    
 
 
     if ([[frame tools] count] != 0){
         NSArray *tools = [frame tools];
         
+        NSLog(@"toolFound");
+        
+        LeapTool* tool = [tools objectAtIndex:0];
+        //LeapVector* normalized = [leapScreen intersect:tool normalize:YES clampRatio:1.0];
+        
+        NSArray* screens = controller.calibratedScreens;
+        
+        
+        LeapScreen* leapScreen2 = [screens objectAtIndex:0];
+        LeapVector* normalized = [leapScreen2 intersect:tool normalize:YES clampRatio:2.0];
+        double x = normalized.x*  [leapScreen2 widthPixels];
+        double y = normalized.y* [leapScreen2 heightPixels];
+        NSLog(@"x %0.0f y %0.0f", x, y);
+        
+        
+        //Convert to window coordinates
+        
         //Create tool if it does not exist
         if (primaryTool == nil){
             
-            for (int i = 0; i < [tools count]; i++){
+               
+            if([leapScreen2 isValid]){
                 
-                LeapTool* tool = [tools objectAtIndex:i];
-                LeapVector* normalized = [leapScreen intersect:tool normalize:NO clampRatio:1.0];
-                NSLog(@"x  %0.0f y %0.0f", normalized.x, normalized.y);
                 
-                primaryTool = [self addLPTool: CGPointMake(normalized.x, normalized.y) objectID:[NSString stringWithFormat:@"%0.0d",tool.id]];
-                //primaryTool = [self addLPTool: [self covertLeapCoordinates:CGPointMake(tool.tipPosition.x, tool.tipPosition.y)] objectID:[NSString stringWithFormat:@"%0.0d",tool.id]];
+            }else{
+                
+                NSLog(@"LeapScreen invalid");
             }
+            
+                       
+            primaryTool = [self addLPTool:CGPointMake(x, y) objectID:[NSString stringWithFormat:@"%0.0d",tool.id]];
+            
+
             
         }else{
             //Update since it does exist
-            for (int i = 0; i < [tools count]; i++){
-                LeapTool* tool = [tools objectAtIndex:i];
-                if (tool.id == [primaryTool.toolID intValue]){
-                    
-                    LeapVector* normalized = [leapScreen intersect:tool normalize:NO clampRatio:1.0];
-                    NSLog(@"x  %0.0f y %0.0f", normalized.x, normalized.y);
 
-                    primaryTool.position =  CGPointMake(normalized.x, normalized.y);
-                    //primaryTool.position =  [self covertLeapCoordinates:CGPointMake(tool.tipPosition.x, tool.tipPosition.y)];
-                    
-                }
-                
+            
+
+            
+            primaryTool.position =  CGPointMake(x, y);
+
+            if (tool.id == [primaryTool.toolID intValue]){
+                primaryTool.toolID = [NSString stringWithFormat:@"%0.0d",tool.id];
+            
+            }else{
+                NSLog(@"different tool id");
             }
+
             
         }
+            
+      
         
         
     }else{
         
-        CCNode *parent = [self getChildByTag:kTagParentNode];
+        NSLog(@"No tool found");
         [self removeChild:primaryTool cleanup:YES];
         //[parent removeChild:primaryTool cleanup:YES];
         primaryTool = nil;
         
     }
-    
-    
+
+
 /*
 
     if ([[frame hands] count] != 0) {
