@@ -46,14 +46,14 @@
 	// It is recommend to disable it
 	//
 	[super draw];
+    
+    for(LPLine* line in plataformPoints ){
+        
+        for 
+        
+    }
 	
-	ccGLEnableVertexAttribs( kCCVertexAttribFlag_Position );
-	
-	kmGLPushMatrix();
-	
-	world->DrawDebugData();
-	
-	kmGLPopMatrix();
+
     
 }
 
@@ -102,9 +102,16 @@
     
     
     CGPoint location = point;
-    
-
     previousLocation = location;
+    
+    if (currentLine ==  nil){
+        
+        currentLine = [[LPLine alloc] init];
+        SimplePoint* pointObject = [[SimplePoint alloc] initWithPosition:point];
+        [currentLine.points addObject:pointObject];
+    }
+    
+    
     
     
 }

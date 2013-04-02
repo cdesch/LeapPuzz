@@ -10,6 +10,8 @@
 #import "cocos2d.h"
 #import "Box2D.h"
 #import "GLES-Render.h"
+#import "LPLine.h"
+#import "SimplePoint.h"
 @interface SimplePaint : CCLayer{
     
     
@@ -35,6 +37,9 @@
     
     NSMutableDictionary* trackableBrushList;
     NSMutableDictionary* trackableList;
+    
+    
+    LPLine* currentLine;
     
     
     

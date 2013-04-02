@@ -45,7 +45,8 @@
         [self run];
         
         inputMode = kDepthMode;
-        
+//        [Director sharedDirector].openGLView.backgroundColor = [UIColor clearColor];
+
         
 	}
 	return self;
