@@ -159,4 +159,35 @@
     [touches removeAllObjects];
 }
 
+-(BOOL) ccKeyUp:(NSEvent*)event{
+    NSLog(@"keydown");
+    return YES;
+}
+-(BOOL) ccKeyDown:(NSEvent*)event{
+    NSLog(@"keydown");
+    return YES;
+}
+
+-(void)keyUp:(NSEvent*)event
+{
+    NSLog(@"Key released: %@", event);
+}
+
+-(void)keyDown:(NSEvent*)event
+{
+    // I added these based on the addition to your question :)
+    switch( [event keyCode] ) {
+    	case 126:	// up arrow
+    	case 125:	// down arrow
+    	case 124:	// right arrow
+    	case 123:	// left arrow
+    		NSLog(@"Arrow key pressed!");
+    		break;
+    	default:
+    		NSLog(@"Key pressed: %@", event);
+    		break;
+    }
+}
+
+
 @end

@@ -16,13 +16,9 @@
 #import "SimplePaint.h"
 #import "SketchRenderTextureScene.h"
 
-typedef enum {
-    kPressKeyMode,
-    kDepthMode,
-    
-} InputMode;
 
-@interface GameManager : CCScene <LeapListener>
+
+@interface GameManager : CCScene <LeapListener, HUDDelegate>
 {
     InputMode inputMode;
     LeapPointable* currentPointable;

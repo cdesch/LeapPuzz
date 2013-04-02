@@ -9,6 +9,8 @@
 #import "HUDLayer.h"
 
 @implementation HUDLayer
+@synthesize delegate;
+
 - (id)init
 {
 	if ((self = [super init]))
@@ -32,6 +34,16 @@
 		
 		// Finally add the menu to the layer
 		//[self addChild:menu];
+#ifdef __IPHONE_OS_VERSION_MAX_ALLOWED
+		self.isTouchEnabled = YES;
+		self.isAccelerometerEnabled = YES;
+#elif defined(__MAC_OS_X_VERSION_MAX_ALLOWED)
+		self.isMouseEnabled = YES;
+        self.isKeyboardEnabled= YES;
+        
+#endif
+        inputMode = kDepthMode;
+        
 	}
 	
 	return self;
@@ -114,5 +126,66 @@
         primaryTool = nil;
     }
 }
+
+
+
+-(BOOL) ccKeyUp:(NSEvent*)event{
+
+    unichar ch = [event keyCode];
+
+    if (inputMode == kPressKeyMode){
+        if ( ch == 49){
+        
+            [self.delegate painting:FALSE];
+        }
+        
+    }
+    
+    NSLog(@"%0.0u",ch);
+
+    if ( ch == 18){
+        NSLog(@"switch Mode");
+        inputMode = kPressKeyMode;
+        [self.delegate changeMode:inputMode];
+    }else if(ch == 19){
+        
+        NSLog(@"switch Mode");
+        inputMode = kDepthMode;
+        [self.delegate changeMode:inputMode];
+    }
+    
+    
+
+    
+    return YES;
+}
+-(BOOL) ccKeyDown:(NSEvent*)event{
+    unichar ch = [event keyCode];
+    
+    if (inputMode == kPressKeyMode){
+        if ( ch == 49){
+            
+            NSLog(@"SpaceBar");
+            [self.delegate painting:TRUE];
+        }
+    }
+
+    return YES;
+}
+
+
+- (void)changeColor:(float)percentage{
+    
+    
+    float red   = (percentage > 50 ? 1-2*(percentage-50)/100.0 : 1.0);
+    float green = (percentage > 50 ? 1.0 : 2*percentage/100.0);
+    float blue  = 0.0;
+    
+    if(primaryTool != nil){
+        
+        [primaryTool runAction:[CCTintTo actionWithDuration:0 red:red  green:green blue:blue]];
+    }
+}
+
 
 @end

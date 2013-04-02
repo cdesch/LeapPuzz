@@ -21,7 +21,9 @@
     
 	// 'layer' is an autorelease object.
 	HUDLayer* hudLayer = [HUDLayer node];
-    DrawingLayer* drawingLayer = [DrawingLayer node];
+    
+    hudLayer.delegate = scene;
+    //DrawingLayer* drawingLayer = [DrawingLayer node];
     //LineDrawer* lineDrawer = [LineDrawer node];
     //GeometryDrawScene* geometryDrawLayer  = [GeometryDrawScene node];
     //SimplePaint* simplePaint = [SimplePaint node];
@@ -29,14 +31,14 @@
     
 	// add layer as a child to scene
 	[scene addChild:hudLayer z:5];
-    [scene addChild:drawingLayer z:0];
+    //[scene addChild:drawingLayer z:0];
     //[scene addChild:lineDrawer z:1];
     //[scene addChild:geometryDrawLayer z:1];
     //[scene addChild:simplePaint z:1];
     [scene addChild:textureScene z:1];
     
     scene.hudLayer = hudLayer;
-    scene.drawingLayer = drawingLayer;
+    //scene.drawingLayer = drawingLayer;
     //scene.geometryDrawLayer = geometryDrawLayer;
     //scene.lineDrawer = lineDrawer;
     //scene.simplePaint = simplePaint;

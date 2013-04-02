@@ -48,6 +48,10 @@
         inputMode = kDepthMode;
 //        [Director sharedDirector].openGLView.backgroundColor = [UIColor clearColor];
         painting = false;
+        
+
+        //self.hudLayer.delegate = self;
+        
 
 
 
@@ -123,11 +127,33 @@
             NSPoint var = [director.view.window convertScreenToBase:pointer];
             
             NSLog(@"x %0.0f y %0.0f Pointer: x %0.0f y %0.0f", x, y, var.x, var.y);
+        
+            
+            if (inputMode == kDepthMode){
+                
+                if (tool.tipPosition.z < 0){
+                    
+                    painting = FALSE;
+                
+                }else{
+                    painting = TRUE;
+                    
+                    
+                
+                }
+                    
+                
+            }
+            
+            
+            //Change pointer color with the depth.
+            
+
             
             //Update the HUD View
-            
+            [self.hudLayer toolMoved:var toolID:[NSString stringWithFormat:@"%0.0d",tool.id]];
             if (var.x >= 0 && var.y >= 0 && painting){
-                [self.hudLayer toolMoved:var toolID:[NSString stringWithFormat:@"%0.0d",tool.id]];
+                
                 //[self movedTool:var tool:tool];
                 //[self movedToolGeo:var tool:tool];
                 //[self movedToolSimple:var tool:tool];
@@ -325,16 +351,18 @@
     
 }
 
-
-
 #pragma mark - Keyboard Events
+- (void)changeMode:(InputMode)mode{
+    NSLog(@"Changemode");
+    inputMode = mode;
+    
+}
 
--(void) ccKeyUp:(NSEvent*)event{
-    NSLog(@"keyup");
+- (void)painting:(BOOL)paintingState{
+    
+    painting = paintingState;
 }
--(void) ccKeyDown:(NSEvent*)event{
-    NSLog(@"keydown");    
-}
+
 
 
 

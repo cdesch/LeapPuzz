@@ -9,7 +9,7 @@
 #import "cocos2d.h"
 #import "SimplePoint.h"
 
-@interface SketchRenderTextureScene : CCScene 
+@interface SketchRenderTextureScene : CCScene <CCKeyboardEventDelegate>
 {
 	CCSprite* brush;
 	NSMutableArray* touches;
