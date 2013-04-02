@@ -27,9 +27,11 @@
 #import "cocos2d.h"
 #import "LeapObjectiveC.h"
 
-@interface LineDrawer : CCLayer <LeapDelegate> {
+@interface LineDrawer : CCLayer  {
     
-    LeapController *controller;
-    NSMutableDictionary* trackableList;
 }
+
+- (void)beginLineDrawing:(CGPoint)point withSize:(CGFloat)size;
+- (void)moveLineDrawing:(CGPoint)point withSize:(CGFloat)size;
+- (void)endLineDrawing:(CGPoint)point withSize:(CGFloat)size;
 @end

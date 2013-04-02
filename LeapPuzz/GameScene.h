@@ -9,16 +9,18 @@
 #import <Foundation/Foundation.h>
 #import "cocos2d.h"
 #import "HUDLayer.h"
+#import "GameManager.h"
 #import "LeapObjectiveC.h"
-@interface GameScene : CCScene <LeapListener> {
+#import "DrawingLayer.h"
+#import "LineDrawer.h"
+#import "GeometryDrawScene.h"
+#import "SimplePaint.h"
+@interface GameScene : CCScene  {
     
 }
 
 
-@property (nonatomic,strong) CCLayer* hudLayer;
-@property (nonatomic,strong) CCLayer* drawingLayer;
-@property (nonatomic,strong) LeapController* controller;
-@property (nonatomic,strong) LeapScreen* leapScreen;
 
++(CCScene *) scene;
 
 @end

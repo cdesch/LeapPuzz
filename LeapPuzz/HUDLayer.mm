@@ -31,7 +31,7 @@
 		[menu setPosition:ccp(size.width / 2, size.height / 2)];
 		
 		// Finally add the menu to the layer
-		[self addChild:menu];
+		//[self addChild:menu];
 	}
 	
 	return self;
@@ -41,6 +41,78 @@
     NSLog(@"working ... testing");
     
     
+}
+
+- (LPTool*)addLPTool:(CGPoint)p objectID:(NSString*)objectID{
+    
+    
+    //CCNode *parent = [self getChildByTag:kTagParentNode];
+    
+	LPTool *sprite = [LPTool spriteWithFile:@"Ball.png"];
+    //LPTool *sprite = [LPTool spriteWithTexture:spriteTexture_ rect:CGRectMake(32 * idx,32 * idy,32,32)];
+    [self addChild:sprite];
+    //[parent addChild:sprite];
+    sprite.updated = TRUE;
+    sprite.toolID = objectID;
+    sprite.position = ccp( p.x, p.y);
+    
+    
+    
+    return sprite;
+}
+
+/* Tool Moved */
+- (void)toolMoved:(CGPoint)point toolID:(NSString*)toolid{
+    
+    if (primaryTool == nil){
+        [self startTrackingTool:point toolID:toolid];
+    }else{
+        [self moveTrackingTool:point toolID:toolid];
+    }
+    
+    
+}
+
+/* Start Tracking Tool */
+
+- (void)startTrackingTool:(CGPoint)point toolID:(NSString*)toolid{
+    if (primaryTool == nil){
+        primaryTool = [self addLPTool:point objectID:toolid];
+    }
+
+    
+}
+/* Move Tracking Tool*/
+- (void)moveTrackingTool:(CGPoint)point toolID:(NSString*)toolid{
+    
+    //Create tool if it does not exist
+    if (primaryTool == nil){
+        
+        primaryTool = [self addLPTool:point objectID:toolid];
+        
+    }else{
+        //Update since it does exist
+        
+        //primaryTool.position =  CGPointMake(x, y);
+        primaryTool.position =  point;
+        
+        if ([toolid isNotEqualTo:primaryTool.toolID]){
+            primaryTool.toolID = toolid;
+            
+        }else{
+
+        }
+    }
+
+}
+
+/* End Trackingn Tool */
+- (void)endTrackingTool{
+    
+    if (primaryTool != nil){
+        [self removeChild:primaryTool cleanup:YES];
+        primaryTool = nil;
+    }
 }
 
 @end

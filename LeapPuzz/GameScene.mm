@@ -10,64 +10,35 @@
 
 @implementation GameScene
 
-@synthesize hudLayer;
-@synthesize drawingLayer;
-@synthesize controller;
-@synthesize leapScreen;
 
-- (id)init
+
++(CCScene *) scene
 {
-	if ((self = [super init]))
-	{
-		// All this scene does upon initialization is init & add the layer class
-		hudLayer = [HUDLayer node];
-		[self addChild:hudLayer];
-        
-        [self run];
-	}
-	
-	return self;
-}
-
-#pragma mark - SampleDelegate Callbacks
-- (void)run
-{
-    controller = [[LeapController alloc] init];
-    [controller addListener:self];
+	// 'scene' is an autorelease object.
+	//CCScene *scene = [CCScene node];
+    GameManager*scene = [GameManager node];
     
     
-    NSArray* screens = controller.calibratedScreens;
-    leapScreen = [screens objectAtIndex:0];
-    //
-    NSLog(@"Screens: %0.0ld", (unsigned long)[screens count]);
-    NSLog(@"running");
+	// 'layer' is an autorelease object.
+	HUDLayer* hudLayer = [HUDLayer node];
+    DrawingLayer* drawingLayer = [DrawingLayer node];
+    //LineDrawer* lineDrawer = [LineDrawer node];
+    //GeometryDrawScene* geometryDrawLayer  = [GeometryDrawScene node];
+    SimplePaint* simplePaint = [SimplePaint node];
     
+	// add layer as a child to scene
+	[scene addChild:hudLayer z:5];
+    [scene addChild:drawingLayer z:0];
+    //[scene addChild:lineDrawer z:1];
+    //[scene addChild:geometryDrawLayer z:1];
+    //[scene simplePaint z:1];
     
-}
-
-- (void)onInit:(NSNotification *)notification{
-    NSLog(@"Leap: Initialized");
-}
-
-- (void)onConnect:(NSNotification *)notification;
-{
-    NSLog(@"Leap: Connected");
-    LeapController *aController = (LeapController *)[notification object];
-    [aController enableGesture:LEAP_GESTURE_TYPE_CIRCLE enable:YES];
-    [aController enableGesture:LEAP_GESTURE_TYPE_KEY_TAP enable:YES];
-    [aController enableGesture:LEAP_GESTURE_TYPE_SCREEN_TAP enable:YES];
-    [aController enableGesture:LEAP_GESTURE_TYPE_SWIPE enable:YES];
-}
-
-- (void)onDisconnect:(NSNotification *)notification{
-    NSLog(@"Leap: Disconnected");
-}
-
-- (void)onExit:(NSNotification *)notification{
-    NSLog(@"Leap: Exited");
-}
-
-- (void)onFrame:(NSNotification *)notification{
+    scene.hudLayer = hudLayer;
+    scene.drawingLayer = drawingLayer;
+    //scene.geometryDrawLayer = geometryDrawLayer;
+    //scene.lineDrawer = lineDrawer;
+    scene.simplePaint = simplePaint;
     
-}
-@end
+	// return the scene
+	return scene;
+}@end

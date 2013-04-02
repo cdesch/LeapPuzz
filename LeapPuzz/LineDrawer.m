@@ -22,17 +22,18 @@
  * THE SOFTWARE.
  *
  */
+
+
+
 #import <CoreGraphics/CoreGraphics.h>
 #import "cocos2d.h"
 #import "LineDrawer.h"
-#import "TrackedFinger.h"
+#import "CCNode+SFGestureRecognizers.h"
 
 typedef struct _LineVertex {
-    
   CGPoint pos;
   float z;
   ccColor4F color;
-    
 } LineVertex;
 
 @interface LinePoint : NSObject
@@ -70,8 +71,6 @@ typedef struct _LineVertex {
   CGPoint prevG;
   CGPoint prevI;
   float overdraw;
-    
-    CGPoint previousPoint;
 
   CCRenderTexture *renderTexture;
   BOOL finishingLine;
@@ -81,7 +80,6 @@ typedef struct _LineVertex {
 {
   self = [super init];
   if (self) {
-      
     points = [NSMutableArray array];
     velocities = [NSMutableArray array];
     circlesPoints = [NSMutableArray array];
@@ -91,18 +89,18 @@ typedef struct _LineVertex {
 
     renderTexture = [[CCRenderTexture alloc] initWithWidth:(int)self.contentSize.width height:(int)self.contentSize.height pixelFormat:kCCTexture2DPixelFormat_RGBA8888];
     renderTexture.anchorPoint = ccp(0, 0);
-      
-    CGSize size = [[CCDirector sharedDirector] winSize];
-      
-    //renderTexture.position = ccp(1024 * 0.5f, 768 * 0.5f);
-      renderTexture.position = ccp(1024 * 0.5f, 768 * 0.5f);
+    renderTexture.position = ccp(1024 * 0.5f, 768 * 0.5f);
     [renderTexture clear:1.0f g:1.0f b:1.0f a:0];
     [self addChild:renderTexture];
 
-    //self.isTouchEnabled = YES;
-      
-    CGSize s = [CCDirector sharedDirector].winSize;
-    NSLog(@"win size x %0.0f y %0.0f", s.width, s.height);
+    self.isTouchEnabled = YES;
+
+    UIPanGestureRecognizer *panGestureRecognizer = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(handlePanGesture:)];
+    panGestureRecognizer.maximumNumberOfTouches = 1;
+    [self addGestureRecognizer:panGestureRecognizer];
+
+    UILongPressGestureRecognizer *longPressGestureRecognizer = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(handleLongPress:)];
+    [self addGestureRecognizer:longPressGestureRecognizer];
   }
   return self;
 }
@@ -122,11 +120,10 @@ typedef struct _LineVertex {
 
 - (void)addPoint:(CGPoint)newPoint withSize:(CGFloat)size
 {
-    
-    LinePoint *point = [[LinePoint alloc] init];
-    point.pos = newPoint;
-    point.width = size;
-    [points addObject:point];
+  LinePoint *point = [[LinePoint alloc] init];
+  point.pos = newPoint;
+  point.width = size;
+  [points addObject:point];
 }
 
 #pragma mark - Drawing
@@ -135,11 +132,8 @@ typedef struct _LineVertex {
 
 - (void)drawLines:(NSArray *)linePoints withColor:(ccColor4F)color
 {
-  //unsigned int numberOfVertices = ([linePoints count] - 1) * 18;
-    unsigned int numberOfVertices = ([linePoints count] - 1) * 18;
-    NSLog(@"num vert %0.0ul", numberOfVertices);
-      
-  LineVertex *vertices = (LineVertex *)calloc(sizeof(LineVertex), numberOfVertices);
+  unsigned int numberOfVertices = ([linePoints count] - 1) * 18;
+  LineVertex *vertices = calloc(sizeof(LineVertex), numberOfVertices);
 
   CGPoint prevPoint = [(LinePoint *)[linePoints objectAtIndex:0] pos];
   float prevValue = [(LinePoint *)[linePoints objectAtIndex:0] width];
@@ -149,7 +143,6 @@ typedef struct _LineVertex {
     LinePoint *pointValue = [linePoints objectAtIndex:i];
     CGPoint curPoint = [pointValue pos];
     curValue = [pointValue width];
-      NSLog(@"curvalue %0.0f", curValue);
 
     //! equal points, skip them
     if (ccpFuzzyEqual(curPoint, prevPoint, 0.0001f)) {
@@ -207,7 +200,6 @@ typedef struct _LineVertex {
     ADD_TRIANGLE(H, D, I, 2.0f);
   }
   [self fillLineTriangles:vertices count:index withColor:color];
-    
 
   if (index > 0) {
     connectingLine = YES;
@@ -219,7 +211,7 @@ typedef struct _LineVertex {
 - (void)fillLineEndPointAt:(CGPoint)center direction:(CGPoint)aLineDir radius:(CGFloat)radius andColor:(ccColor4F)color
 {
   int numberOfSegments = 32;
-  LineVertex *vertices = (LineVertex *)malloc(sizeof(LineVertex) * numberOfSegments * 9);
+  LineVertex *vertices = malloc(sizeof(LineVertex) * numberOfSegments * 9);
   float anglePerSegment = (float)(M_PI / (numberOfSegments - 1));
 
   //! we need to cover M_PI from this, dot product of normalized vectors is equal to cos angle between them... and if you include rightVec dot you get to know the correct direction :)
@@ -352,13 +344,11 @@ typedef struct _LineVertex {
       LinePoint *finalPoint = [[LinePoint alloc] init];
       finalPoint.pos = midPoint2;
       finalPoint.width = (cur.width + prev1.width) * 0.5f;
-        NSLog(@"width %0.0f", finalPoint.width);
       [smoothedPoints addObject:finalPoint];
     }
     //! we need to leave last 2 points for next draw
     [points removeObjectsInRange:NSMakeRange(0, [points count] - 2)];
     return smoothedPoints;
-      
   } else {
     return nil;
   }
@@ -380,78 +370,59 @@ typedef struct _LineVertex {
 
 #pragma mark - GestureRecognizers
 
-- (float)extractSize:(float)vel
+- (float)extractSize:(UIPanGestureRecognizer *)panGestureRecognizer
 {
-    
   //! result of trial & error
+  float vel = ccpLength([panGestureRecognizer velocityInView:panGestureRecognizer.view]);
+  float size = vel / 166.0f;
+  size = clampf(size, 1, 40);
 
-    float size = vel / 166.0f;
-    size = clampf(size, 1, 40);
-
-    if ([velocities count] > 1) {
-      size = size * 0.2f + [[velocities objectAtIndex:[velocities count] - 1] floatValue] * 0.8f;
-    }
-    [velocities addObject:[NSNumber numberWithFloat:size]];
-    
-    return size;
-    
+  if ([velocities count] > 1) {
+    size = size * 0.2f + [[velocities objectAtIndex:[velocities count] - 1] floatValue] * 0.8f;
+  }
+  [velocities addObject:[NSNumber numberWithFloat:size]];
+  return size;
 }
 
+- (void)handlePanGesture:(UIPanGestureRecognizer *)panGestureRecognizer
+{
+  const CGPoint point = [[CCDirector sharedDirector] convertToGL:[panGestureRecognizer locationInView:panGestureRecognizer.view]];
 
-- (void)beginLineDrawing:(CGPoint)point withSize:(CGFloat)size{
+  if (panGestureRecognizer.state == UIGestureRecognizerStateBegan) {
     [points removeAllObjects];
     [velocities removeAllObjects];
-    
-    float s = [self extractSize:size];
-    
-    [self startNewLineFrom:point withSize:s];
-    [self addPoint:point withSize:s];
-    [self addPoint:point withSize:s];
-    previousPoint = point;
 
-}
+    float size = [self extractSize:panGestureRecognizer];
 
-- (void)moveLineDrawing:(CGPoint)point withSize:(CGFloat)size{
-    
+    [self startNewLineFrom:point withSize:size];
+    [self addPoint:point withSize:size];
+    [self addPoint:point withSize:size];
+  }
+
+  if (panGestureRecognizer.state == UIGestureRecognizerStateChanged) {
+    //! skip points that are too close
     float eps = 1.5f;
     if ([points count] > 0) {
-        float length = ccpLength(ccpSub([(LinePoint *)[points lastObject] pos], point));
-        
-        if (length < eps) {
-            return;
-        } else {
-        }
+      float length = ccpLength(ccpSub([(LinePoint *)[points lastObject] pos], point));
+
+      if (length < eps) {
+        return;
+      } else {
+      }
     }
-    float s = [self extractSize:size];
-         NSLog(@" mag %0.0f", s);
-    [self addPoint:point withSize:s];
-    previousPoint = point;
+    float size = [self extractSize:panGestureRecognizer];
+    [self addPoint:point withSize:size];
+  }
+
+  if (panGestureRecognizer.state == UIGestureRecognizerStateEnded) {
+    float size = [self extractSize:panGestureRecognizer];
+    [self endLineAt:point withSize:size];
+  }
 }
 
-- (void)endLineDrawing:(CGPoint)point withSize:(CGFloat)size{
-
-    float s = [self extractSize:size];
-     NSLog(@" mag %0.0f", s);
-    [self endLineAt:previousPoint withSize:s];
-
-}
-
-//Long press
-/*
 - (void)handleLongPress:(UILongPressGestureRecognizer *)longPressGestureRecognizer
 {
   [renderTexture beginWithClear:1.0 g:1.0 b:1.0 a:0];
   [renderTexture end];
-}*/
-
-
-
-//Calculate the magintude of the finger movign
-- (float)calcMagnitude:(LeapFinger*)finger{
-    //Simple Pathag theroem
-    return sqrtf((finger.tipVelocity.x * finger.tipVelocity.x) + (finger.tipVelocity.y * finger.tipVelocity.y));
 }
-
-
-
 @end
