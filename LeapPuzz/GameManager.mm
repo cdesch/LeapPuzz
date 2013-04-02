@@ -12,6 +12,7 @@
 
 @synthesize hudLayer;
 @synthesize drawingLayer;
+@synthesize textureScene;
 @synthesize controller;
 @synthesize leapScreen;
 
@@ -46,6 +47,9 @@
         
         inputMode = kDepthMode;
 //        [Director sharedDirector].openGLView.backgroundColor = [UIColor clearColor];
+        painting = false;
+
+
 
         
 	}
@@ -122,11 +126,12 @@
             
             //Update the HUD View
             
-            if (var.x >= 0 && var.y >= 0){
+            if (var.x >= 0 && var.y >= 0 && painting){
                 [self.hudLayer toolMoved:var toolID:[NSString stringWithFormat:@"%0.0d",tool.id]];
                 //[self movedTool:var tool:tool];
                 //[self movedToolGeo:var tool:tool];
-                [self movedToolSimple:var tool:tool];
+                //[self movedToolSimple:var tool:tool];
+                [self movedToolTexture:var tool:tool];
             }else{
                 NSLog(@"NEgative Points");
             }
@@ -145,7 +150,8 @@
         if ( currentPointable != nil) {
             //[self endLineDrawing:currentPoint tool:currentPointable];
             //[self endLineDrawingGeo:currentPoint tool:currentPointable];
-            [self endLineDrawingSimple:currentPoint tool:currentPointable];
+            //[self endLineDrawingSimple:currentPoint tool:currentPointable];
+            [self endLineDrawingTexture:currentPoint tool:currentPointable];
         }
 
         [self.hudLayer endTrackingTool];
@@ -281,6 +287,54 @@
 }
 
 
+#pragma mark - TextureScene
+
+- (void)movedToolTexture:(CGPoint)point tool:(LeapPointable*)pointable{
+    
+    if (currentPointable != nil){
+        
+        [self moveLineDrawingTexture:point tool:pointable];
+        currentPointable = pointable;
+    }else{
+        [self beginLineDrawingTexture:point tool:pointable];
+        currentPointable = pointable;
+    }
+    
+}
+
+
+- (void)beginLineDrawingTexture:(CGPoint)point tool:(LeapPointable*)pointable{
+    
+    [self.textureScene beginDraw:point];
+    currentPoint = point;
+    
+}
+
+- (void)moveLineDrawingTexture:(CGPoint)point tool:(LeapPointable*)pointable{
+    
+    [self.textureScene updateDraw:point];
+    currentPoint = point;
+    
+}
+
+- (void)endLineDrawingTexture:(CGPoint)point tool:(LeapPointable*)pointable{
+    [self.textureScene endDraw:point];
+    
+    
+    currentPointable = nil;
+    
+}
+
+
+
+#pragma mark - Keyboard Events
+
+-(void) ccKeyUp:(NSEvent*)event{
+    NSLog(@"keyup");
+}
+-(void) ccKeyDown:(NSEvent*)event{
+    NSLog(@"keydown");    
+}
 
 
 

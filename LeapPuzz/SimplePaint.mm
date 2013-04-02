@@ -38,7 +38,7 @@
 	return self;
 }
 
--(void) draw
+-(void)draw
 {
 	//
 	// IMPORTANT:
@@ -49,9 +49,20 @@
     
     for(LPLine* line in plataformPoints ){
         
-        for 
+        for (int i = 0 ; i < [line.points count] - 1; i++ ){
+            
+            SimplePoint* point1 = [line.points objectAtIndex:i];
+            SimplePoint* point2 = [line.points objectAtIndex:i+1];
+            
+            ccDrawColor4B(255, 255, 255, 255); //Color of the line RGBA
+            glLineWidth(5.0f); //Stroke width of the line
+            
+            ccDrawLine(ccp(point1.x, point1.y   ), ccp(point2.x, point2.y));
+
+        }
         
     }
+    NSLog(@"Draw");
 	
 
     
@@ -100,15 +111,17 @@
 //The further negative, the thicker the line.
 - (void)beginDraw:(CGPoint)point{
     
-    
+        NSLog(@"begin Draw");
     CGPoint location = point;
     previousLocation = location;
     
     if (currentLine ==  nil){
         
-        currentLine = [[LPLine alloc] init];
+        LPLine* line = [[LPLine alloc] init];
         SimplePoint* pointObject = [[SimplePoint alloc] initWithPosition:point];
-        [currentLine.points addObject:pointObject];
+        [line.points addObject:pointObject];
+        [plataformPoints addObject:line];
+        currentLine = line;
     }
     
     
@@ -119,49 +132,23 @@
 - (void)updateDraw:(CGPoint)point{
     
     
+    
+    NSLog(@"Update Draw");
+    
     CGPoint start = previousLocation;
     CGPoint end = point;
     
     float distance = ccpDistance(previousLocation, point);
     
-    
+    if (currentLine !=  nil){
+        SimplePoint* pointObject = [[SimplePoint alloc] initWithPosition:point];
+        [currentLine.points addObject:pointObject];
+    }
     
     if (distance > 1)
     {
-        int d = (int)distance;
-        
-        b2Vec2 s(start.x/PTM_RATIO, start.y/PTM_RATIO);
-        b2Vec2 e(end.x/PTM_RATIO, end.y/PTM_RATIO);
-        b2BodyDef bd;
-        bd.type = b2_staticBody;
-        bd.position.Set(0, 0);
-        
-        
-        b2Body* body = _world->CreateBody(&bd);
-        b2PolygonShape shape;
 
-       // shape.SetAsEdge(b2Vec2(s.x, s.y), b2Vec2(e.x, e.y));
-        
-        b2Vec2 rectangle1_vertices[2];
-        rectangle1_vertices[0].Set(s.x, s.y);
-        rectangle1_vertices[1].Set(e.x, e.y);
-        //rectangle1_vertices[2].Set(len/2, width/2);
-        //rectangle1_vertices[3].Set(-len/2, width/2);
-        shape.Set(rectangle1_vertices, 2);
-        
-        
-        body->CreateFixture(&shape, 0.0f);
-        
-        CGPoint diff = ccpSub(start, end);
-        float rads = atan2f( diff.y, diff.x);
-        float degs = -CC_RADIANS_TO_DEGREES(rads);
-        float dist = ccpDistance(end, start);
-        CCSprite *obj = [CCSprite spriteWithFile:@"largeBrush.png"];
-        [obj setAnchorPoint:ccp(0.0f, 0.5f)];
-        [obj setPosition:end];
-        [obj setScaleX:dist/obj.boundingBox.size.width];
-        [obj setRotation: degs];
-        [self addChild:obj];
+
     }
     
     previousLocation = end;
@@ -170,56 +157,12 @@
 - (void)endDraw:(CGPoint)point{
     
     
+    if (currentLine !=  nil){
+        currentLine = nil;
+    }
+
     
 }
 
-
-- (void)test{
-    CGPoint startPt = CGPointMake(10,10);
-    CGPoint endpt = CGPointMake(100,100);
-    
-    //length of the stick body
-    float len = abs(ccpDistance(startPt, endpt))/PTM_RATIO;
-    
-    
-    //to calculate the angle and position of the body.
-    float dx = endpt.x-startPt.x;
-    float dy = endpt.y-startPt.y;
-    
-    
-    //position of the body
-    float xPos = startPt.x+dx/2.0f;
-    float yPos = startPt.y+dy/2.0f;
-    
-    
-    //width of the body.
-    float width = 10.0f/PTM_RATIO;
-    
-    
-    b2BodyDef bodyDef;
-    bodyDef.position.Set(xPos/PTM_RATIO, yPos/PTM_RATIO);
-    bodyDef.angle = atan(dy/dx);
-    CCSprite *sp = [CCSprite spriteWithFile:@"image.png"];
-    sp.scaleX = len/200.0f;	//200 is the length of the sprite in pixels.
-    [self addChild:sp z:1 ];
-    //bodyDef.userData = sp;
-    
-    
-    b2Body* rectangle1 = world->CreateBody(&bodyDef);
-    b2PolygonShape shape;
-    b2Vec2 rectangle1_vertices[4];
-    rectangle1_vertices[0].Set(-len/2, -width/2);
-    rectangle1_vertices[1].Set(len/2, -width/2);
-    rectangle1_vertices[2].Set(len/2, width/2);
-    rectangle1_vertices[3].Set(-len/2, width/2);
-    shape.Set(rectangle1_vertices, 4);
-    
-    
-    b2FixtureDef fd;
-    fd.shape = &shape;
-    fd.friction = 0.300000f;
-    fd.restitution = 0.600000f;	
-    rectangle1->CreateFixture(&fd);
-}
 
 @end

@@ -31,5 +31,9 @@
     return self;
 }
 
+- (CGPoint)point{
+    return CGPointMake(self.x, self.y);
+}
+
 
 @end

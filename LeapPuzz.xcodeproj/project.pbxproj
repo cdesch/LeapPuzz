@@ -29,7 +29,7 @@
 		23A2D56A16E63DE5000470AA /* ColorWheel.png in Resources */ = {isa = PBXBuildFile; fileRef = 23A2D56916E63DE5000470AA /* ColorWheel.png */; };
 		23B0439916D3C51B00A07683 /* GeometryDrawScene.mm in Sources */ = {isa = PBXBuildFile; fileRef = 23B0439816D3C51B00A07683 /* GeometryDrawScene.mm */; };
 		23B0439B16D3C71D00A07683 /* largeBrush.png in Resources */ = {isa = PBXBuildFile; fileRef = 23B0439A16D3C71D00A07683 /* largeBrush.png */; };
-		23B0439E16D3D14D00A07683 /* SimplePoint.m in Sources */ = {isa = PBXBuildFile; fileRef = 23B0439D16D3D14D00A07683 /* SimplePoint.m */; };
+		23B0439E16D3D14D00A07683 /* SimplePoint.mm in Sources */ = {isa = PBXBuildFile; fileRef = 23B0439D16D3D14D00A07683 /* SimplePoint.mm */; };
 		23B043A116D3D25D00A07683 /* SimplePointObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 23B043A016D3D25D00A07683 /* SimplePointObject.m */; };
 		23BEA7A216C48FC200B7A4EE /* darkreddot.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 23BEA79F16C48FC200B7A4EE /* darkreddot.jpg */; };
 		23BEA7A316C48FC200B7A4EE /* reddot.png in Resources */ = {isa = PBXBuildFile; fileRef = 23BEA7A016C48FC200B7A4EE /* reddot.png */; };
@@ -39,6 +39,7 @@
 		23C2C78B1706106F007F3667 /* LPTool.mm in Sources */ = {isa = PBXBuildFile; fileRef = 23C2C78A1706106F007F3667 /* LPTool.mm */; };
 		23C5EBE3170B2EDC0050D4AA /* SimplePaint.mm in Sources */ = {isa = PBXBuildFile; fileRef = 23C5EBE2170B2EDC0050D4AA /* SimplePaint.mm */; };
 		23C5EBE6170B37400050D4AA /* LPLine.m in Sources */ = {isa = PBXBuildFile; fileRef = 23C5EBE5170B373F0050D4AA /* LPLine.m */; };
+		23C5EBEC170B40660050D4AA /* SketchRenderTextureScene.mm in Sources */ = {isa = PBXBuildFile; fileRef = 23C5EBEB170B40650050D4AA /* SketchRenderTextureScene.mm */; };
 		23C7B01616DBE42000C141E5 /* libLeap.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 23C7B01516DBE42000C141E5 /* libLeap.dylib */; };
 		23C7B01716DBE44A00C141E5 /* libLeap.dylib in Resources */ = {isa = PBXBuildFile; fileRef = 23C7B01516DBE42000C141E5 /* libLeap.dylib */; };
 		23CA00A616E65B030052F465 /* ColorSpinner.mm in Sources */ = {isa = PBXBuildFile; fileRef = 23CA00A516E65B030052F465 /* ColorSpinner.mm */; };
@@ -251,7 +252,7 @@
 		23B0439816D3C51B00A07683 /* GeometryDrawScene.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = GeometryDrawScene.mm; sourceTree = "<group>"; };
 		23B0439A16D3C71D00A07683 /* largeBrush.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = largeBrush.png; sourceTree = "<group>"; };
 		23B0439C16D3D14D00A07683 /* SimplePoint.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SimplePoint.h; sourceTree = "<group>"; };
-		23B0439D16D3D14D00A07683 /* SimplePoint.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SimplePoint.m; sourceTree = "<group>"; };
+		23B0439D16D3D14D00A07683 /* SimplePoint.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = SimplePoint.mm; sourceTree = "<group>"; };
 		23B0439F16D3D25D00A07683 /* SimplePointObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SimplePointObject.h; sourceTree = "<group>"; };
 		23B043A016D3D25D00A07683 /* SimplePointObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SimplePointObject.m; sourceTree = "<group>"; };
 		23BEA79F16C48FC200B7A4EE /* darkreddot.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = darkreddot.jpg; sourceTree = "<group>"; };
@@ -267,6 +268,8 @@
 		23C5EBE2170B2EDC0050D4AA /* SimplePaint.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = SimplePaint.mm; sourceTree = "<group>"; };
 		23C5EBE4170B373F0050D4AA /* LPLine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LPLine.h; sourceTree = "<group>"; };
 		23C5EBE5170B373F0050D4AA /* LPLine.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LPLine.m; sourceTree = "<group>"; };
+		23C5EBEA170B40650050D4AA /* SketchRenderTextureScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SketchRenderTextureScene.h; sourceTree = "<group>"; };
+		23C5EBEB170B40650050D4AA /* SketchRenderTextureScene.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = SketchRenderTextureScene.mm; sourceTree = "<group>"; };
 		23C7B01516DBE42000C141E5 /* libLeap.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; path = libLeap.dylib; sourceTree = "<group>"; };
 		23CA00A416E65B030052F465 /* ColorSpinner.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ColorSpinner.h; sourceTree = "<group>"; };
 		23CA00A516E65B030052F465 /* ColorSpinner.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = ColorSpinner.mm; sourceTree = "<group>"; };
@@ -688,6 +691,8 @@
 				23C5EBE2170B2EDC0050D4AA /* SimplePaint.mm */,
 				23C5EBE4170B373F0050D4AA /* LPLine.h */,
 				23C5EBE5170B373F0050D4AA /* LPLine.m */,
+				23C5EBEA170B40650050D4AA /* SketchRenderTextureScene.h */,
+				23C5EBEB170B40650050D4AA /* SketchRenderTextureScene.mm */,
 			);
 			name = Game;
 			sourceTree = "<group>";
@@ -740,7 +745,7 @@
 				23E2CA5016D5369000E5AA37 /* DrawScene.h */,
 				23E2CA5116D5369100E5AA37 /* DrawScene.mm */,
 				23B0439C16D3D14D00A07683 /* SimplePoint.h */,
-				23B0439D16D3D14D00A07683 /* SimplePoint.m */,
+				23B0439D16D3D14D00A07683 /* SimplePoint.mm */,
 				23B0439F16D3D25D00A07683 /* SimplePointObject.h */,
 				23B043A016D3D25D00A07683 /* SimplePointObject.m */,
 				23A2D56416E62677000470AA /* ColorWheelLayer.h */,
@@ -1638,7 +1643,7 @@
 				2399C4FD16D2BBF400DDD58B /* FingerPaintingScene.mm in Sources */,
 				2399C50016D2CB2000DDD58B /* LineDrawer.mm in Sources */,
 				23B0439916D3C51B00A07683 /* GeometryDrawScene.mm in Sources */,
-				23B0439E16D3D14D00A07683 /* SimplePoint.m in Sources */,
+				23B0439E16D3D14D00A07683 /* SimplePoint.mm in Sources */,
 				23B043A116D3D25D00A07683 /* SimplePointObject.m in Sources */,
 				23E2CA5216D5369100E5AA37 /* DrawScene.mm in Sources */,
 				23A2D56616E62677000470AA /* ColorWheelLayer.mm in Sources */,
@@ -1651,6 +1656,7 @@
 				232948E6170B06FE00BC0E33 /* DrawingLayer.mm in Sources */,
 				23C5EBE3170B2EDC0050D4AA /* SimplePaint.mm in Sources */,
 				23C5EBE6170B37400050D4AA /* LPLine.m in Sources */,
+				23C5EBEC170B40660050D4AA /* SketchRenderTextureScene.mm in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -7,7 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
-
+#import "cocos2d.h"
 
 @interface SimplePoint : NSObject {
 
@@ -19,5 +19,5 @@
 - (id)initWithPosition:(CGPoint)p;
 - (id)initWithX:(float)x withY:(float)y;
 
-
+- (CGPoint)point;
 @end

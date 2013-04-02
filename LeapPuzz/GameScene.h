@@ -15,6 +15,7 @@
 #import "LineDrawer.h"
 #import "GeometryDrawScene.h"
 #import "SimplePaint.h"
+#import "SketchRenderTextureScene.h"
 @interface GameScene : CCScene  {
     
 }

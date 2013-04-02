@@ -14,6 +14,7 @@
 #import "LineDrawer.h"
 #import "GeometryDrawScene.h"
 #import "SimplePaint.h"
+#import "SketchRenderTextureScene.h"
 
 typedef enum {
     kPressKeyMode,
@@ -26,6 +27,8 @@ typedef enum {
     InputMode inputMode;
     LeapPointable* currentPointable;
     CGPoint currentPoint;
+    BOOL painting;
+    
 }
 
 @property (nonatomic,strong) HUDLayer* hudLayer;
@@ -33,6 +36,7 @@ typedef enum {
 @property (nonatomic,strong) LineDrawer *lineDrawer;
 @property (nonatomic,strong) GeometryDrawScene *geometryDrawLayer;
 @property (nonatomic,strong) SimplePaint *simplePaint;
+@property (nonatomic,strong) SketchRenderTextureScene* textureScene;
 @property (nonatomic,strong) LeapController* controller;
 @property (nonatomic,strong) LeapScreen* leapScreen;
 
